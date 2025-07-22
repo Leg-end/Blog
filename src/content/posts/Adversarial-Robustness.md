@@ -1,7 +1,7 @@
 ---
 title: Adversarial Robustness
 published: 2023-07-25
-description: "Bug in Neural Networks""
+description: "Bug in Neural Networks"
 tags: ["Attack", "Defense"]
 category: Interpetation
 draft: false

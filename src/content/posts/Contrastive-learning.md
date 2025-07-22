@@ -1,5 +1,5 @@
 ---
-title: Contrastive learning
+title: "Contrastive learning"
 published: 2023-10-13
 description: "Learning from negative samples"
 tags: ["Negative Sampling", "Contrastive"]

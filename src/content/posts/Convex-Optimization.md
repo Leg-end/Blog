@@ -1,5 +1,5 @@
 ---
-title: Convex Optimization
+title: "Convex Optimization"
 published: 2023-09-17
 description: "Search the optimal solution"
 tags: ["Convex", "extented R space"]
