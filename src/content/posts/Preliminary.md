@@ -2,23 +2,23 @@
 title: Preliminary
 published: 2023-06-26
 description: "Something you should know before starting."
-tags: ["Preliminary"]
+tags: ["preliminary"]
 category: Guides
 draft: false
 ---
 
-**Reflection-Ask more, Simbolic description, be more patient, be more fun**
+**Reflection-Ask more, Simbolic description, be more patient, be more fun**  
 1.  What is exactly we trying to solve and the ideal result ? or What is it look like, before solution and after solution ?
 2.  How does the solution do to solve it ? (the general process, not the parsed detail)
 3.  How does the solution come out ? (peel it out the simple core idea)
 4.  How does the idea behind adapt on this problem ? Are there any generalized way ?
 It's indeed hard to remember all the complex detail of the solution, also it's boring to do so, so why not just to figure out the simple idea or theorim behind it and its adaption on real problem, and further, how to generalize it to more universal conditions.
 
-[**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)
+[**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)  
 In general, set is a concept with wider generalization than space, or we can say that space is equivalent to a set equipped with some operations.
 ![image1](resources/faa959d91d354de4855c64a246625969.png)
 
-[**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)
+[**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)  
 What support us to measure an event, a group of samples, with a quantity is the main story of measure theoretic definition of probability which can be extent to infinite sample space.
 ![image2](resources/f582778c76c7430a97a8de3609c77487.png)
 ![image3](resources/edf7dbd1e31348b4b8819324e13ecfaf.png)
@@ -57,15 +57,15 @@ For infinite sample space
 
 ![image24](resources/abcc8698aafe4c0c86bd95f0080939d0.png)
 
-**Gradient&Derivative on Specific Direction**
-**Basic thoughts:**
+**Gradient&Derivative on Specific Direction**  
+**Basic thoughts:**  
 Multivariant
 ![image25](resources/1e74efdd6ce5499fb9f4564398c90ae6.png)
 ![image26](resources/bd774e16d69c48ea82ac9180a2be0ac2.png)
 ![image27](resources/14eb2957afa54e5fa74fb65983fde2d7.png)
 ![image28](resources/47d2ef572b594e48a915872146a3ec13.png)
 ![image29](resources/0a7a88fd83f7487c8f032d6c0a27fb74.png)
-**Confusion between Gradient and Normal of plane**
+**Confusion between Gradient and Normal of plane**  
 ![image30](resources/15ede2a5db2540b79aebca112741e808.png)
 What's different is in multivariant case tangent line turns into tangent plane, and its normal is marked as
 ![image31](resources/75d5fb1e71b64bbb97c174bc7232b968.png)
@@ -78,7 +78,7 @@ This can be verified as an analog to a line in x-y coordinate system
 ![image36](resources/3398939403a847fc9e0a5d5d031603b9.png)
 ![image37](resources/17d5ef2c0bae4aabba1d78349a3cb2a8.png)
 
-[**Calculus of Variations**](https://bjlkeng.io/posts/the-calculus-of-variations/)
+[**Calculus of Variations**](https://bjlkeng.io/posts/the-calculus-of-variations/)  
 ![image38](resources/00fe0bfba1a449b0858f1d5019c8c364.png)
 F is infinite-dimensional function space
 ![image39](resources/77ea20a8571747348dcf74ce969c228f.png)
@@ -89,12 +89,12 @@ To find stationary, a functional must satisfy
 ![image42](resources/c6237fb0bc0d4d9a88d47547424e6b2d.png)
 Which is known as the Euler-Lagrange equations
 
-[**Calculate vector's derivative w.r.t vector**](https://zhuanlan.zhihu.com/p/36448789)
+[**Calculate vector's derivative w.r.t vector**](https://zhuanlan.zhihu.com/p/36448789)  
 ![image43](resources/88f9a887d4d94ef48a83a9ff2080e575.png)
 ![image44](resources/c710e3af702d48bcbd7df12aacd6ce47.png)
 ![image45](resources/524b8658d42e466aa0045b746b70bac0.png)
 
-**The Exponiential Family**
+**The Exponiential Family**  
 ![image46](resources/c3d41644e2014d1d8094f3e292550d2a.png)
 conjugate priors
 ![image47](resources/fd2e0148340c4dccbec505f33c1155b8.png)
@@ -106,7 +106,7 @@ conjugate priors
 ![image51](resources/e593914fbc9a4382b07f52bece646d99.png)
 *The posterior has same form as its conjugate prior*
 
-**Notes of Analysis \[Tenrece Tao\]**
+**Notes of Analysis \[Tenrece Tao\]**  
 
 Lemma 5.3.14
 Prove keypoint: for a non-zero real number, its corresponding Cauchy sequence must exists an element having arbitray distance away from 0
