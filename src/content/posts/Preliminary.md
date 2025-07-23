@@ -8,115 +8,103 @@ draft: false
 ---
 
 **Reflection-Ask more, Simbolic description, be more patient, be more fun**  
-1.  What is exactly we trying to solve and the ideal result ? or What is it look like, before solution and after solution ?
-2.  How does the solution do to solve it ? (the general process, not the parsed detail)
-3.  How does the solution come out ? (peel it out the simple core idea)
-4.  How does the idea behind adapt on this problem ? Are there any generalized way ?
+1. What is exactly we trying to solve and the ideal result ? or What is it look like, before solution and after solution ?
+2. How does the solution do to solve it ? (the general process, not the parsed detail)
+3. How does the solution come out ? (peel it out the simple core idea)
+4. How does the idea behind adapt on this problem ? Are there any generalized way ?
 It's indeed hard to remember all the complex detail of the solution, also it's boring to do so, so why not just to figure out the simple idea or theorim behind it and its adaption on real problem, and further, how to generalize it to more universal conditions.
 
 [**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)  
 In general, set is a concept with wider generalization than space, or we can say that space is equivalent to a set equipped with some operations.
-![image1](resources/faa959d91d354de4855c64a246625969.png)
-
+e.g. vector space is set of vectors with closed addition and multiplication. More specifically, ${R}^{n}$ is a vector space, also a set made of n-dimension vectors, but any randomly picked subset of it may not satisfy a vector space, for the required closed operations are not met.  
 [**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)  
 What support us to measure an event, a group of samples, with a quantity is the main story of measure theoretic definition of probability which can be extent to infinite sample space.
-![image2](resources/f582778c76c7430a97a8de3609c77487.png)
-![image3](resources/edf7dbd1e31348b4b8819324e13ecfaf.png)
-
-![image4](resources/c51ae71ba7ec4f44bc221e09a48a6298.png)
-
-![image5](resources/117073326da84204a82adc2f991c1aa0.png)
-
-And event space defines a closed set that:
-1.  ![image6](resources/d8c667e9bc5f41a5b43046f7dbbfdfe3.png)
-2.  ![image7](resources/00374832ad554818a43b67724e9c5ea6.png)
-3.  ![image8](resources/e7bf176d4343413f83745bd5640eec7d.png)
-![image9](resources/0e1eb4797e3540f58c8e07b08eabfac5.png)
-1.  ![image10](resources/2c4d88920856424883681d47ccc4c1e2.png)
-2.  ![image11](resources/2de38030ebef40b394ba7b7b8ae6d670.png)
-3.  ![image12](resources/4ec3cafd650d446fa62e2fae9b75205c.png)
-![image13](resources/ce6dd0d702ee47568a8648dfbb1e2335.png)
+First, let's consider sample space $\mathrm{\Omega}$ with finite cardinality.
+  So, all the possible events(event space) can be described as power set of sample space: ${2}^{\mathrm{\Omega}}$ which contains any possible trail that can be measured by frequency.
+  Specifically, probability of any event $A$ can be measured by the following way
+    $$P\left(A\right)=\frac{\#\left(\mathrm{A}\right)}{\#\left(\mathit{\Omega}\right)},A\in {2}^{\mathrm{\Omega}},\ \ \#\left(\mathit{\Omega}\right)\ne +\infty ,P\left(\varnothing \right)=0$$
+  And event space defines a closed set that:
+    $$\varnothing \in {2}^{\mathit{\Omega}}$$
+    $$A\in {2}^{\mathit{\Omega}},A^{C}\in {2}^{\mathit{\Omega}}$$
+    $${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},same\ as\ intersection$$
+But such measurement is undefined in sample space with infinite cardinality. For this, we need to define our own event space $\mathcal{F}\subseteq {2}^{\mathrm{\Omega}}$ more precisely while still follow the measurable rules by using a construction called $\sigma $\-algebra(still a closed set):
+  $$\varnothing \in \mathcal{F}$$
+  $$A\in \mathcal{F},A^{C}\in \mathcal{F}$$
+  $${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},n\to +\infty ,same\ as\ intersection$$
+Now all the measurable elements are confined in $\mathcal{F}$ and we can call them measurable sets, combined with sample space, a meaure space $\left(\mathit{\Omega},\mathcal{F}\right)$ can be defined.
 It lists out the measurable events we can take as we do in finite sample space where measurable events are implicitly the power set of sample space.
 Measurable space + measure rules
-![image14](resources/04b9d84c51344305871dba575ffa7541.png)
-1.  ![image15](resources/992c67e9e32d4ee787e243ba6d7c51ec.png)
-2.  ![image16](resources/b168971e46df4030a23d8e61bce65976.png)
-3.  ![image17](resources/31a4fcbc72c34ebca05b89e72a00bb39.png)
-![image18](resources/24031050653544e8bb6fa75ffce5e4fb.png)
-![image19](resources/21a22bb68943471aa7ec6c26cda4e3d4.png)
-1.  It maps measurable space on sample space into that on real space
+Inside the specific measurable space, the probability **measure** rules(function) $P$ can work as usual:
+  $$P:\mathcal{F}\to \left[0,1\right]$$
+  $$P\left(\varnothing \right)=0,P\left(\mathit{\Omega}\right)=1$$
+  $$\forall disjoint\ {A}_{1},\dots {A}_{n}\in \mathcal{F},P\left({U}_{i}{A}_{i}\right)={\sum}_{i}P\left({A}_{i}\right)$$
+Combination of three yields probability space $\left(\mathit{\Omega},\mathcal{F},P\right)$ upon which a random variable(**measurable** function) can build
+  $$X:\mathit{\Omega}\to E\subseteq \mathbb{R}$$
+1. It maps measurable space on sample space into that on real space
 For finite sample space
-
-![image20](resources/b0d13c1b75b947edac21df7df0ae4b7a.png)
-
+  $$\left(\mathit{\Omega},{2}^{\mathrm{\Omega}}\right)\to \left(E,{2}^{E}\right)$$
 For infinite sample space
-
-![image21](resources/75da27a581f14266921abf6d980142d7.png)
-2.  ![image22](resources/313be5f66a744fbfb4bba12e5fe2d03d.png)
-![image23](resources/cd162e026da24227b77076b8618d7258.png)
-
-![image24](resources/abcc8698aafe4c0c86bd95f0080939d0.png)
+  $$\left(\mathit{\Omega},\mathcal{F}\right)\to \left(E,S\right),S\ is\ Borel\ set$$
+2. It's a bijective mapping on $\mathcal{F}$
+$$\forall s\in S,\left\{X\in s\right\}\in \mathcal{F},\left\{\mathit{\omega}\in \mathit{\Omega}|X\left(\mathit{\omega}\right)\in s\right\}\in \mathcal{F}$$
+$$\sigma \left(X\right)=\left\{\left\{X\in s\right\}|s\in S\right\}$$
 
 **Gradient&Derivative on Specific Direction**  
 **Basic thoughts:**  
 Multivariant
-![image25](resources/1e74efdd6ce5499fb9f4564398c90ae6.png)
-![image26](resources/bd774e16d69c48ea82ac9180a2be0ac2.png)
-![image27](resources/14eb2957afa54e5fa74fb65983fde2d7.png)
-![image28](resources/47d2ef572b594e48a915872146a3ec13.png)
-![image29](resources/0a7a88fd83f7487c8f032d6c0a27fb74.png)
+$$\bm{x}=\left({x}_{1},{x}_{2},\dots \right),f\left(\bm{x}\right)$$
+We can get a slice figure of $f\left(x\right)$ by cutting it along a specifc direction **u** = ${\left[{u}_{1},\ {u}_{2},\ \dots \right]}^{T},\left|\left|\bm{u}\right|\right|=1$
+Now we return to univariant case where the x-axis becomes s, and y-axis is function's value
+$$start\ from\ {P}_{0}={\bm{x}}_{0},\ end\ at\ P=\bm{x},\left\{\begin{array}{c}\bm{P}{\bm{P}}_{0}=s\bm{u}\\ \left|\bm{P}{\bm{P}}_{0}\right|=s\end{array}\right.,u=\frac{\bm{x}-{\bm{x}}_{0}}{\left|\left|\bm{x}-{\bm{x}}_{0}\right|\right|}$$
+Inner Product between Gradient and Direction, by chain rule
+$${\left.\frac{df}{ds}\right|}_{\bm{u},{p}_{0}}=\underset{s\to 0}{\mathrm{lim}}\frac{f\left(\bm{x}\right)-f\left({\bm{x}}_{0}\right)}{s}={\left.\frac{df}{d\bm{x}}\right|}_{{P}_{0}}{\left.\frac{d\bm{x}}{ds}\right|}_{\bm{u}}=\ {\left({\left.{\mathbf{\nabla}}_{\bm{x}}\bm{f}\right|}_{{P}_{0}}\right)}^{T}\bm{u}$$  
 **Confusion between Gradient and Normal of plane**  
-![image30](resources/15ede2a5db2540b79aebca112741e808.png)
+We can make an analogy from derivative along $\mathbf{u}$ to tangent line in univariant function,
 What's different is in multivariant case tangent line turns into tangent plane, and its normal is marked as
-![image31](resources/75d5fb1e71b64bbb97c174bc7232b968.png)
-![image32](resources/1eeede2647444b759c1b0a13e516ed74.png)
-![image33](resources/d30b75fac47643b1817fb8061e7afd11.png)
+$$\bm{n}={\left[\frac{\mathit{\partial}f}{\mathit{\partial}{x}_{1}},\frac{\mathit{\partial}f}{\mathit{\partial}{x}_{2}},\dots ,-1\right]}^{T},\ i.e.\ {\left[{\mathbf{\nabla}}_{\bm{x}}\bm{f},-\frac{\mathit{\partial}f}{\mathit{\partial}f}\right]}^{T}$$
+$$z=f\left(\bm{x}\right)\Rightarrow f\left(x\right)-z=0\Rightarrow \left[\bm{x}-{\bm{x}}_{0},z-{z}_{0}\right]\bm{n}=0$$
+ $\left(\bm{x},z\right)$ is on the plane, note that $z\ne f\left(\bm{x}\right)$
 This can be verified as an analog to a line in x-y coordinate system
-![image34](resources/8de82f2017524728abe15918ca8fc521.png)
-![image35](resources/28445725edac4a60aaa3cece7ba40362.png)
+$$\frac{z-{z}_{0}}{s}={\bm{u}}^{\bm{T}}{\mathbf{\nabla}}_{\bm{x}}\bm{f}$$
+So the gradient has same dimensionality as its define field, it's the vector with components from partial derivative of each dimension at point ${x}_{0}$(each partial derivative indicates the changing rate along corresponding dimension, so gradient indicates the global steepest direction of changing)*, *and the directed derivative is exactly projection(inner product) on specific direction
 [Why gradient indicates the direction of increasing](https://math.stackexchange.com/questions/223252/why-is-gradient-the-direction-of-steepest-ascent) ?
-![image36](resources/3398939403a847fc9e0a5d5d031603b9.png)
-![image37](resources/17d5ef2c0bae4aabba1d78349a3cb2a8.png)
-
+Similar to slope $\mathrm{k}={f}^{\prime}\left(x\right)$ in univariant case, when k > 0, we are heading the increase direction, vice versa. This is equivalent to make ${\mathrm{D}}_{\bm{u}}f>0$ where we increase function
+${\mathrm{D}}_{\bm{u}}f={\mathbf{\nabla}}_{\bm{x}}{\bm{f}}^{\bm{T}}\bm{u}>0$, so when our choosen direction close to gradient, we are increasing function, that indicates gradient as the direction of ascent  
 [**Calculus of Variations**](https://bjlkeng.io/posts/the-calculus-of-variations/)  
-![image38](resources/00fe0bfba1a449b0858f1d5019c8c364.png)
+$$J\left[u\left(x\right)\right]=\underset{a}{\overset{b}{\int}}L\left(x,u\left(x\right),\ {u}^{\prime}\left(x\right)\right)dx:F\to R,\ u\left(a\right)=\mathit{\alpha},\ u\left(b\right)=\mathit{\beta}$$
 F is infinite-dimensional function space
-![image39](resources/77ea20a8571747348dcf74ce969c228f.png)
-![image40](resources/de9941d46db84dac83a053ab49f6d2fa.png)
-![image41](resources/03d3d331e24a425aacc4f6d05eea8671.png)
-
+$$J\left[u\left(x\right)+\mathit{\epsilon}v\left(x\right)\right]=\underset{a}{\overset{b}{\int}}L\left(x,u\left(x\right)+\mathit{\epsilon}v\left(x\right),\ {u}^{\prime}\left(x\right)+\mathit{\epsilon}{v}^{\prime}\left(x\right)\right)dx,v\left(a\right)=v\left(b\right)=0$$
+$$\frac{dJ}{d\mathit{\epsilon}}=\underset{\mathit{\epsilon}\to 0}{\mathrm{lim}}\frac{J\left[u\left(x\right)+\mathit{\epsilon}v\left(x\right)\right]-J\left[u\left(x\right)\right]}{\mathit{\epsilon}}$$
+$$=\underset{\mathit{\epsilon}\to 0}{\mathrm{lim}}\underset{a}{\overset{b}{\int}}\left[\frac{\mathit{\partial}L}{\mathit{\partial}\left(u\left(x\right)+\mathit{\epsilon}v\left(x\right)\right)}v\left(x\right)+\frac{\mathit{\partial}L}{\mathit{\partial}\left(u\prime \left(x\right)+\mathit{\epsilon}{v}^{\prime}\left(x\right)\right)}{v}^{\prime}\left(x\right)\right]dx$$
+$$=\underset{a}{\overset{b}{\int}}\left[\frac{\mathit{\partial}L}{\mathit{\partial}u\left(x\right)}v\left(x\right)+\frac{\mathit{\partial}L}{\mathit{\partial}{u}^{\prime}\left(x\right)}{v}^{\prime}\left(x\right)\right]dx=\underset{a}{\overset{b}{\int}}\mathbf{\nabla}{\bm{L}\left(x,u\left(x\right),{u}^{\prime}\left(x\right)\right)}^{\bm{T}}\left[\begin{array}{c}v\left(x\right)\\ {v}^{\prime}\left(x\right)\end{array}\right]dx=\mathbf{\nabla}\bm{J}{\left[\bm{u}\right]}^{\bm{T}}\bm{v}$$
+$$=\underset{a}{\overset{b}{\int}}\frac{\mathit{\partial}L}{\mathit{\partial}u\left(x\right)}v\left(x\right)dx+\underset{a}{\overset{b}{\int}}\frac{\mathit{\partial}L}{\mathit{\partial}{u}^{\prime}\left(x\right)}dv\left(x\right)$$
+$$=\underset{a}{\overset{b}{\int}}\left[\frac{\mathit{\partial}L}{\mathit{\partial}u\left(x\right)}-\frac{d}{dx}\left(\frac{\mathit{\partial}L}{\mathit{\partial}{u}^{\prime}\left(x\right)}\right)\right]v\left(x\right)dx$$
 To find stationary, a functional must satisfy
-![image42](resources/c6237fb0bc0d4d9a88d47547424e6b2d.png)
-Which is known as the Euler-Lagrange equations
-
+$$\frac{\mathit{\partial}L}{\mathit{\partial}u\left(x\right)}-\frac{d}{dx}\left(\frac{\mathit{\partial}L}{\mathit{\partial}{u}^{\prime}\left(x\right)}\right)=0$$
+Which is known as the Euler-Lagrange equations  
 [**Calculate vector's derivative w.r.t vector**](https://zhuanlan.zhihu.com/p/36448789)  
-![image43](resources/88f9a887d4d94ef48a83a9ff2080e575.png)
-![image44](resources/c710e3af702d48bcbd7df12aacd6ce47.png)
-![image45](resources/524b8658d42e466aa0045b746b70bac0.png)
+$$\bm{A}\bm{x}=\bm{y},\bm{A}\in {R}^{m\times n},\bm{x}\in {R}^{n\times 1},\bm{y}\in {R}^{m\times 1}$$
+The shape of derivative is same as $\bm{x}$
+$$\frac{\mathit{\partial}\bm{y}}{\mathit{\partial}\bm{x}}=\left[\begin{array}{c}\frac{\mathit{\partial}\bm{y}}{\mathit{\partial}{x}_{1}}\\ \vdots \\ \frac{\mathit{\partial}\bm{y}}{\mathit{\partial}{x}_{n}}\end{array}\right],\frac{\mathit{\partial}\bm{y}}{\mathit{\partial}{x}_{i}}=\left[\begin{array}{ccc}\frac{\mathit{\partial}{y}_{1}}{\mathit{\partial}{x}_{i}}& \dots & \frac{\mathit{\partial}{y}_{m}}{\mathit{\partial}{x}_{i}}\end{array}\right]$$
+$$\Rightarrow \frac{\mathit{\partial}\bm{y}}{\mathit{\partial}\bm{x}}=\left[\begin{array}{ccc}\frac{\mathit{\partial}{y}_{1}}{\mathit{\partial}{x}_{1}}& \dots & \frac{\mathit{\partial}{y}_{m}}{\mathit{\partial}{x}_{1}}\\ \vdots & \ddots & \vdots \\ \frac{\mathit{\partial}{y}_{1}}{\mathit{\partial}{x}_{n}}& \dots & \frac{\mathit{\partial}{y}_{m}}{\mathit{\partial}{x}_{n}}\end{array}\right]={A}^{T}\Rightarrow \left\{\begin{array}{c}\frac{\mathit{\partial}\bm{A}\bm{x}}{\mathit{\partial}\bm{x}}={A}^{T}\\ \frac{\mathit{\partial}A\bm{x}}{\mathit{\partial}{\bm{x}}^{\bm{T}}}=\bm{A}\end{array}\right.$$
 
 **The Exponiential Family**  
-![image46](resources/c3d41644e2014d1d8094f3e292550d2a.png)
+$$p\left(\bm{x}|\bm{\eta}\right)=h\left(\bm{x}\right)g\left(\bm{\eta}\right)\mathrm{exp}\left\{\bm{\eta}^{\bm{T}}\bm{u}\left(\bm{x}\right)\right\},\ \ g\left(\bm{\eta}\right)\int h\left(\bm{x}\right)\mathrm{exp}\left\{\bm{\eta}^{\bm{T}}\bm{u}\left(\bm{x}\right)\right\}d\bm{x}=1$$
 conjugate priors
-![image47](resources/fd2e0148340c4dccbec505f33c1155b8.png)
-![image48](resources/8a32138e41cd49f195bfa706e73fd3e8.png)
-
-![image49](resources/ac37bf456aad42779340ab822ce67469.png)
-
-![image50](resources/5d97ced5eb214faea6d765742c386f2e.png)
-![image51](resources/e593914fbc9a4382b07f52bece646d99.png)
-*The posterior has same form as its conjugate prior*
-
-**Notes of Analysis \[Tenrece Tao\]**  
-
+$$p\left(\bm{\eta}|X,v\right)=f\left(X,v\right)g{\left(\bm{\eta}\right)}^{v}\mathrm{exp}\left\{v{\bm{\eta}}^{\bm{T}}X\right\}$$
+  $\left(X,v\right)$:normalization coefficient  
+  $v$: indicates number of states of $u\left(\bm{x}\right)$, or cardinality of $u\left(\bm{x}\right)$'s sample space  
+   $X:$ indicates possible existence counts for each state of $\bm{u}\left(\bm{x}\right)$  
+$$p\left(\bm{\eta}|\bm{x},X,v\right)\propto p\left(\bm{x}|\bm{\eta}\right)p\left(\bm{\eta}|X,v\right)=h\left(\bm{x}\right)f\left(X,v\right)g{\left(\bm{\eta}\right)}^{v+1}\mathrm{exp}\left\{\bm{\eta}^{\bm{T}}\left(\bm{u}\left(\bm{x}\right)+vX\right)\right\}$$
+  *The posterior has same form as its conjugate prior*  
+    
+**Notes of Analysis [Tenrece Tao]**  
 Lemma 5.3.14
 Prove keypoint: for a non-zero real number, its corresponding Cauchy sequence must exists an element having arbitray distance away from 0
-
 Proposition 5.4.14
 Prove idea: Usage of Archimedes property (Deduction 5.4.13) and Proposition 5.4.12(bounding real number by ratio number)
-
 Theorem 5.5.9
 Prove idea: prove that E has at most one supreme and at least one supreme
 By definition of supreme, we find supreme by keeping looking smaller upper bound until the smallest one, that will generate a sequence of upper bound, which can be proved as a Cauchy sequence, then its limit number is supreme.
 Archimedes property (Deduction 5.4.13) can be used to construct the desired upper bound sequence
 The uniqueness is based on Proposition 4.4.1
-
