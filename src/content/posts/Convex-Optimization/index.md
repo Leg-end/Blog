@@ -8,16 +8,16 @@ draft: false
 ---
 
 **The key to understand Convex Optimization**  
-There are many definition decorated with obscure and abstract description that is extremely hard to understand. Nor can it be understanded in geometric way, which will rack our brain to imagine the extension cases in high dimension, or pure mathematical symbols, which benefits nothing for the learning purpose.
-1\. Wiring the practical issues
-As the name of it is telling, we should connect the abstract definition with practical optimization problem. All its definitions and methods have its deep root in better optimization. So we can analyze the acts of objects related to optimization, e.g. target functions, gradient, under such definitions or methods
-2\. Extent from real number system
+There are many definition decorated with obscure and abstract description that is extremely hard to understand. Nor can it be understanded in geometric way, which will rack our brain to imagine the extension cases in high dimension, or pure mathematical symbols, which benefits nothing for the learning purpose.  
+1\. Wiring the practical issues  
+As the name of it is telling, we should connect the abstract definition with practical optimization problem. All its definitions and methods have its deep root in better optimization. So we can analyze the acts of objects related to optimization, e.g. target functions, gradient, under such definitions or methods  
+2\. Extent from real number system  
 In fact, lots definitions have its special form in real number system, and for that, they share lots similarity of their counterpart in the real number system.
 e.g. matrix can have its analog to real number
-Positive matrix similar to positive number
-3\. Catch the property which can be abstracted from geometrical explanation
-Geometric explanation can anchor a graphical understand for these definition, but we need to extract some properties related to optimization and can live independent without these planes or lines. Those properties are intuitive and simple enough in geometrical form and can be extent to more abstract forms
-4\. Motivation behind these definitions
+Positive matrix similar to positive number  
+3\. Catch the property which can be abstracted from geometrical explanation  
+Geometric explanation can anchor a graphical understand for these definition, but we need to extract some properties related to optimization and can live independent without these planes or lines. Those properties are intuitive and simple enough in geometrical form and can be extent to more abstract forms  
+4\. Motivation behind these definitions  
 To describe some rules in language of math, we can just simply create a function that satisfies those axioms of it, but it can be obscure and too abstract, like, we are only define it for the definition itself.
 e.g. summation of all elements in a matrix, that won't do much help in practice
 So in the perspective of utility, we need to attach the definition with meaningful stuff, like, geometrical meaning or behavior of operator
