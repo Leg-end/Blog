@@ -63,7 +63,7 @@ But in scenario of "Sampling Method", we focus on the reverse problem, that is h
 In more specific case, we are doing a series of trial
 
 $$
-{X}_{1},{X}_{2},\dots ,{X}_{n}~{p}_{X}\left(x\right).i.i.d
+{X}_{1},{X}_{2},\dots ,{X}_{n}\sim {p}_{X}\left(x\right).i.i.d
 $$
 
 We want to know the probability of event based on n trials
@@ -87,8 +87,8 @@ Note that accurate solution for moment is also hard to reach, so some approximat
 (iv) further, the probability of event could be directly estimated by central limit theorem
 So in the core is how to generate random samples. Actually, we already have lots algorithms that can generate random samples from uniform distribution, so now we only need to care about how to get arbitrary random variable from uniform one.
 Actually, lots sampling methods can date back from the thoughts of Implicit Probabilistic\[1,2\], "which are defined most naturally in terms of a (simple) sampling procedure"
-1. Sample $\mathbf{z}~\mathrm{q}\left(\bm{z}\right)$
-2. Return $\bm{x}~{T}_{\mathit{\theta}}\left(\bm{z}\right),\ \ {T}_{\mathit{\theta}}:{R}^{m}\to {R}^{d}$
+1. Sample $\mathbf{z}\sim \mathrm{q}\left(\bm{z}\right)$
+2. Return $\bm{x}\sim {T}_{\mathit{\theta}}\left(\bm{z}\right),\ \ {T}_{\mathit{\theta}}:{R}^{m}\to {R}^{d}$
 
 $$
 {\mathrm{q}}_{\mathit{\theta}}\left(\bm{x}\right)=\frac{\mathit{\partial}}{\mathit{\partial}{x}_{1}}\frac{\mathit{\partial}}{\mathit{\partial}{x}_{2}}\dots \frac{\mathit{\partial}}{\mathit{\partial}{x}_{d}}\underset{\left\{{T}_{\mathit{\theta}}\left(\bm{z}\right)\le \bm{x}\right\}}{\int}q\left(\bm{z}\right)d\bm{z}
@@ -101,7 +101,7 @@ Obviously, IPM doesn’t have a tractable likelihood function, so it can only le
 Target distribution of Y can be transformed uniform one by a specific function
 
 $$
-z~\mathrm{U}\left(0,1\right),y=f\left(z\right)
+z\sim \mathrm{U}\left(0,1\right),y=f\left(z\right)
 $$
 
 $$
@@ -116,7 +116,7 @@ We can get random variable Y transformed from Z with a function which is the inv
 Also, we see that any random variable has its CDF value a uniform distribution
 
 $$
-\mathrm{Z}={\mathrm{F}}_{Y}\left(Y\right)~U\left(0,1\right)
+\mathrm{Z}={\mathrm{F}}_{Y}\left(Y\right)\sim U\left(0,1\right)
 $$
 
 Note that for multivariant case
@@ -129,13 +129,13 @@ The sampling process on Y is then
 Continuous Case:
 
 $$
-y~{f}_{Y}\left(y\right)\equiv z~U\left(0,1\right),y={F}_{Y}^{-1}\left(z\right)
+y\sim {f}_{Y}\left(y\right)\equiv z\sim U\left(0,1\right),y={F}_{Y}^{-1}\left(z\right)
 $$
 
 Discrete Case:
 
 $$
-y~{p}_{Y}\left(y\right)\equiv z~U\left(0,1\right),if\ {F}_{Y}\left({y}_{i}\right)<z\le {F}_{Y}\left({y}_{i+1}\right),\ then\ y={y}_{i+1}
+y\sim {p}_{Y}\left(y\right)\equiv z\sim U\left(0,1\right),if\ {F}_{Y}\left({y}_{i}\right)<z\le {F}_{Y}\left({y}_{i+1}\right),\ then\ y={y}_{i+1}
 $$
 
 $$
@@ -151,11 +151,11 @@ e.g. Box-Muller method for generating samples from Gaussian Distribution
 In order to cut the sample size, we need to shrink the rectangular as tight as with target distribution. i.e.
 We use length exactly covering the define field of target distribution and width equal to maximum of ${f}_{Y}\left(y\right)$
 Or, from the above picture, in other words, we are trying to make ${f}_{V}\left(y\right)$ similar to ${f}_{Y}\left(y\right)$
-(i) $u~U\left(0,\mathrm{max}{f}_{Y}\left(y\right)\right),v~U\left(\mathcal{Y}\right),\mathcal{Y}\ is\ define\ field\ of\ y$
+(i) $u\sim U\left(0,\mathrm{max}{f}_{Y}\left(y\right)\right),v\sim U\left(\mathcal{Y}\right),\mathcal{Y}\ is\ define\ field\ of\ y$
 (ii)$\ if\ u<{f}_{Y}\left(v\right),\ y=v,\ else\ return\ \left(i\right)$
 ![](image_2.c7c7a18a.png)
 Now we extend it to the case where more distributions on $\mathrm{V}$ can be used than just uniform. That yields **Reject Sampling**, i.e. we are using region formed by proposal distribution ${f}_{V}\left(v\right)$ to cover region of ${f}_{Y}\left(y\right)$
-(i) $u~U\left(0,{kf}_{V}\left(v\right)\right),v~{f}_{V}\left(v\right),\ \ k=\underset{y}{\mathrm{sup}}\frac{{f}_{Y}\left(y\right)}{{f}_{V}\left(y\right)}<+\infty $
+(i) $u\sim U\left(0,{kf}_{V}\left(v\right)\right),v\sim {f}_{V}\left(v\right),\ \ k=\underset{y}{\mathrm{sup}}\frac{{f}_{Y}\left(y\right)}{{f}_{V}\left(y\right)}<+\infty $
 (ii) $if\ u<{f}_{Y}\left(v\right),y=v,\ else\ return\ \left(i\right)$
 Proof:
 
@@ -201,33 +201,33 @@ $$
 By law of weak large number
 
 $$
-=\frac{1}{N}{\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{p\left({x}_{i}\right)}{q\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{\stackrel{~}{p}\left({x}_{i}\right)}{\stackrel{~}{q}\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right){r}_{i}
+=\frac{1}{N}{\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{p\left({x}_{i}\right)}{q\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{\stackrel{\sim }{p}\left({x}_{i}\right)}{\stackrel{\sim }{q}\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right){r}_{i}
 $$
 
 $$
-\frac{{Z}_{p}}{{Z}_{q}}=\frac{1}{{Z}_{q}}\int \frac{\stackrel{~}{p}\left(x\right)}{\stackrel{~}{q}\left(x\right)}{Z}_{q}q\left(x\right)dx=\frac{1}{N}{\sum}_{i=1}^{N}\frac{\stackrel{~}{p}\left({x}_{i}\right)}{\stackrel{~}{q}\left({x}_{i}\right)}=\frac{1}{N}{\sum}_{i=1}^{N}{r}_{i}
+\frac{{Z}_{p}}{{Z}_{q}}=\frac{1}{{Z}_{q}}\int \frac{\stackrel{\sim }{p}\left(x\right)}{\stackrel{\sim }{q}\left(x\right)}{Z}_{q}q\left(x\right)dx=\frac{1}{N}{\sum}_{i=1}^{N}\frac{\stackrel{\sim }{p}\left({x}_{i}\right)}{\stackrel{\sim }{q}\left({x}_{i}\right)}=\frac{1}{N}{\sum}_{i=1}^{N}{r}_{i}
 $$
 
 $$
-\Rightarrow E\left[f\left(x\right)\right]={\sum}_{i=1}^{N}f\left({x}_{i}\right){w}_{i},\ \ {w}_{i}=\frac{{r}_{i}}{{\sum}_{j=1}^{N}{r}_{j}},\ \ \forall x,\stackrel{~}{p}\left(x\right)\ne 0,\stackrel{~}{q}\left(x\right)\ne 0
+\Rightarrow E\left[f\left(x\right)\right]={\sum}_{i=1}^{N}f\left({x}_{i}\right){w}_{i},\ \ {w}_{i}=\frac{{r}_{i}}{{\sum}_{j=1}^{N}{r}_{j}},\ \ \forall x,\stackrel{\sim }{p}\left(x\right)\ne 0,\stackrel{\sim }{q}\left(x\right)\ne 0
 $$
 
 The major drawback is that it may produce results that are arbitrarily error and with no diagnostic indication.
 e.g. when $\mathrm{p}\left(x\right)$ has its mass concentrated over realtively small region, then most of ${r}_{i}$ will be 0, $\mathrm{Var}\left(r\right)$ and $\mathrm{Var}\left(rf\left(x\right)\right)$ may be small, but the estimation may severly wrong.  
 **Sampling-importance-resampling**  
 Turning Importance Sampling method available for drawing samples
-(i) ${x}_{1},\dots ,{x}_{N}~q\left(x\right)$
+(i) ${x}_{1},\dots ,{x}_{N}\sim q\left(x\right)$
 (ii) calculate ${w}_{1},\dots ,{w}_{N}$
-(iii) resampling ${x}_{1},\dots ,{x}_{N}~\left({w}_{1},\dots ,{w}_{N}\right)$
+(iii) resampling ${x}_{1},\dots ,{x}_{N}\sim \left({w}_{1},\dots ,{w}_{N}\right)$
   Note ${w}_{i}$ is approximation of $\mathrm{p}\left({x}_{i}\right)$, so this is equivalent to draw points from $\mathrm{p}\left(x\right)$
 Proof:
 
 $$
-\mathrm{P}\left(x\le a\right)={\sum}_{i:{x}_{i}\le a}{w}_{i}=\frac{{\sum}_{i:{x}_{i}\le a}\frac{\stackrel{~}{p}\left({x}_{i}\right)}{\stackrel{~}{q}\left({x}_{i}\right)}}{{\sum}_{j=1}^{N}\frac{\stackrel{~}{p}\left({x}_{i}\right)}{\stackrel{~}{q}\left({x}_{i}\right)}},N\to +\infty 
+\mathrm{P}\left(x\le a\right)={\sum}_{i:{x}_{i}\le a}{w}_{i}=\frac{{\sum}_{i:{x}_{i}\le a}\frac{\stackrel{\sim }{p}\left({x}_{i}\right)}{\stackrel{\sim }{q}\left({x}_{i}\right)}}{{\sum}_{j=1}^{N}\frac{\stackrel{\sim }{p}\left({x}_{i}\right)}{\stackrel{\sim }{q}\left({x}_{i}\right)}},N\to +\infty 
 $$
 
 $$
-\Rightarrow \frac{\underset{x\le a}{\int}\frac{\stackrel{~}{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}{\int \frac{\stackrel{~}{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}=\underset{x\le a}{\int}p\left(x\right)dx
+\Rightarrow \frac{\underset{x\le a}{\int}\frac{\stackrel{\sim }{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}{\int \frac{\stackrel{\sim }{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}=\underset{x\le a}{\int}p\left(x\right)dx
 $$
 
 Sampling Method + EM = IP, inspiration of Data Augmentation Algorithm (todo)  
@@ -255,7 +255,7 @@ Allow sampling from large classes of distribution and scale well in high dimensi
 (i) initialize
   Pick an initial state ${x}_{0}$ with t = 0
 (ii) Iterate
-  generate random candidate ${x}^{\prime}~q\left(x|{x}_{t}\right)$
+  generate random candidate ${x}^{\prime}\sim q\left(x|{x}_{t}\right)$
   e.g. Gaussian centers at ${x}_{t}$
   calculate acceptance probability
 
@@ -266,7 +266,7 @@ $$
   Accept or reject according to uniform sampling
 
 $$
-\mathrm{u}~\mathrm{U}\left(0,1\right)\Rightarrow \left\{\begin{array}{c}{x}_{t+1}=x\prime ,\ A\left({x}^{\prime},\ {x}_{t}\right)>u\\ {x}_{t+1}={x}_{t},A\left({x}^{\prime},\ {x}_{t}\right)\le u\end{array}\right.
+\mathrm{u}\sim \mathrm{U}\left(0,1\right)\Rightarrow \left\{\begin{array}{c}{x}_{t+1}=x\prime ,\ A\left({x}^{\prime},\ {x}_{t}\right)>u\\ {x}_{t+1}={x}_{t},A\left({x}^{\prime},\ {x}_{t}\right)\le u\end{array}\right.
 $$
 
 Note that when proposal distribution is symmetric, it reduces to **Metropolis Algorithm**
@@ -309,10 +309,10 @@ Special case of Metropolis-Hastings with fold line trajectory sampling path for 
 (i) initialize  
   Pick an initial state ${\bm{x}}^{\left(0\right)}=\left({x}_{1}^{\left(0\right)},\dots ,{x}_{M}^{\left(0\right)}\right)$ with t = 0  
 (ii) iterate  
-  Sample ${x}_{1}^{\left(t+1\right)}~p\left({x}_{1}|{x}_{2}^{\left(t\right)},\dots ,{x}_{M}^{\left(t\right)}\right)$
-  Sample ${x}_{2}^{\left(t+1\right)}~p\left({x}_{2}|{x}_{1}^{\left(t+1\right)},{x}_{3}^{\left(t\right)}\dots ,{x}_{M}^{\left(t\right)}\right)$
+  Sample ${x}_{1}^{\left(t+1\right)}\sim p\left({x}_{1}|{x}_{2}^{\left(t\right)},\dots ,{x}_{M}^{\left(t\right)}\right)$
+  Sample ${x}_{2}^{\left(t+1\right)}\sim p\left({x}_{2}|{x}_{1}^{\left(t+1\right)},{x}_{3}^{\left(t\right)}\dots ,{x}_{M}^{\left(t\right)}\right)$
   …
-  Sample ${x}_{M}^{\left(t+1\right)}~p\left({x}_{M}|{x}_{1}^{\left(t+1\right)},{x}_{2}^{\left(t+1\right)},\dots ,{x}_{M-1}^{\left(t+1\right)}\right)$  
+  Sample ${x}_{M}^{\left(t+1\right)}\sim p\left({x}_{M}|{x}_{1}^{\left(t+1\right)},{x}_{2}^{\left(t+1\right)},\dots ,{x}_{M-1}^{\left(t+1\right)}\right)$  
 
 [**Hamiltonian Monte Carlo**](https://bjlkeng.io/posts/hamiltonian-monte-carlo/)  
 "The main idea behind HMC is that we're going to use Hamiltonian dynamics to simulate moving around our target distribution's density. The analogy used in \[1\] is imagine a puck moving along a frictionless 2D surface [^2^](https://bjlkeng.io/posts/hamiltonian-monte-carlo/#id4). It slides up and down hills, losing or gaining velocity (i.e. kinetic energy) based on the gradient of the hill (i.e. potential energy)"
@@ -350,7 +350,7 @@ $$
  $\downarrow $ extent to different coordinates(especially phase space) and multi-dimension
 
 $$
-{x}_{i}\u2254{x}_{i}\left({q}_{1},\dots ,{q}_{N};t\right)
+{x}_{i}:={x}_{i}\left({q}_{1},\dots ,{q}_{N};t\right)
 $$
 
   phase space:= {(position(state), momentum(direction & magnitude))}
@@ -437,14 +437,14 @@ $$
 $$
 
 By simulating the dynamics of the system, the transition of microstate (via the Hamilton's Equations and random interaction with the heat bath), we would essentially simulating exactly $P\left(\bm{q},\bm{p}\right)$, which leads us directly to simulating $P\left(\bm{q}\right)$
-So the whole process is essentially the same structure as MH but using Hamiltonian dynamics to find new proposal sample.
+So the whole process is essentially the same structure as MH but using Hamiltonian dynamics to find new proposal sample.  
 Step 1: Simulation of random interaction with heat bath
 
 $$
-\bm{p}~P\left(\bm{p}\right)\u2254\mathcal{N}\left(0,\bm{d}\bm{i}\bm{a}\bm{g}\left(\bm{m}\right)\right)
+\bm{p}\sim P\left(\bm{p}\right):=\mathcal{N}\left(0,\bm{d}\bm{i}\bm{a}\bm{g}\left(\bm{m}\right)\right)
 $$
 
-Step 2: Sampling L steps with step size $\u03f5$ from state $\left(\bm{q},\bm{p}\right)$. This simulates the particle moving without interactions with the heat bath, which is a deterministic process (such property contributes acceleration of sampling)
+Step 2: Sampling L steps with step size $\epsilon$ from state $\left(\bm{q},\bm{p}\right)$. This simulates the particle moving without interactions with the heat bath, which is a deterministic process (such property contributes acceleration of sampling)
 
 $$
 P\left({\bm{q}}^{\ast},{\bm{p}}^{\ast}|\bm{q},\bm{p}\right)=1
@@ -465,7 +465,7 @@ A\left({\bm{q}}^{\ast},{\bm{p}}^{\ast}\right)=\mathrm{min}\left[1,\frac{f\left({
 $$
 
 $$
-\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\mathrm{min}\left[1,\frac{f\left({\bm{q}}^{\ast},{\bm{p}}^{\ast}\right)}{f\left(\bm{q},\bm{p}\right)}\right],using\ \bm{p}~\mathcal{N}\left(0,\bm{d}\bm{i}\bm{a}\bm{g}\left(\bm{m}\right)\right)
+\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\mathrm{min}\left[1,\frac{f\left({\bm{q}}^{\ast},{\bm{p}}^{\ast}\right)}{f\left(\bm{q},\bm{p}\right)}\right],using\ \bm{p}\sim \mathcal{N}\left(0,\bm{d}\bm{i}\bm{a}\bm{g}\left(\bm{m}\right)\right)
 $$
 
 $$
@@ -489,7 +489,7 @@ Limitation
 Recall that Hamiltonian equations are built upon derivatives
 2. A evaluable function proportional to target distribution is needed, and derivatives can be computed in any non-zero region of the distribution
 3. Hyperparameters need careful tuning, including
-(a) step size $\u03f5$, number of steps L
+(a) step size $\epsilon$, number of steps L
 These can be tuned according to index of autocorrection between sampling points
 (b) momentum, variance for Gaussian distribution
 Too low momentum may ignore tails of target distribution
@@ -544,7 +544,7 @@ $$
 $$
 
 $$
-\ \ \ \ \ \ \ \ =\frac{{\mathit{\epsilon}}^{2}}{2}\left(\nabla \mathrm{log}p\left({\bm{\theta}}_{\bm{t}}\right)+{\sum}_{i=1}^{N}\nabla \mathrm{log}p\left({x}_{i}|{\bm{\theta}}_{\bm{t}}\right)\right)+\mathit{\epsilon},\ \ \mathit{\epsilon}~\mathcal{N}\left(0,{\mathit{\epsilon}}^{2}\right)
+\ \ \ \ \ \ \ \ =\frac{{\mathit{\epsilon}}^{2}}{2}\left(\nabla \mathrm{log}p\left({\bm{\theta}}_{\bm{t}}\right)+{\sum}_{i=1}^{N}\nabla \mathrm{log}p\left({x}_{i}|{\bm{\theta}}_{\bm{t}}\right)\right)+\mathit{\epsilon},\ \ \mathit{\epsilon}\sim \mathcal{N}\left(0,{\mathit{\epsilon}}^{2}\right)
 $$
 
 SGLD: SGD + LMC
@@ -552,7 +552,7 @@ Stochastic Gradient Langevin Dynamics
 This is simply the LMC applied on mini-batch data
 
 $$
-\Delta\theta_{t}=\frac{{\mathit{\epsilon}}_{t}^{2}}{2}\left(\nabla \mathrm{log}p\left({\bm{\theta}}_{\bm{t}}\right)+\frac{N}{n}{\sum}_{i=1}^{n}\nabla \mathrm{log}p\left({x}_{i}|{\bm{\theta}}_{\bm{t}}\right)\right)+{\mathit{\eta}}_{t},\ \ {\mathit{\eta}}_{t}~\mathcal{N}\left(0,{\mathit{\epsilon}}_{t}^{2}\right)
+\Delta\theta_{t}=\frac{{\mathit{\epsilon}}_{t}^{2}}{2}\left(\nabla \mathrm{log}p\left({\bm{\theta}}_{\bm{t}}\right)+\frac{N}{n}{\sum}_{i=1}^{n}\nabla \mathrm{log}p\left({x}_{i}|{\bm{\theta}}_{\bm{t}}\right)\right)+{\mathit{\eta}}_{t},\ \ {\mathit{\eta}}_{t}\sim \mathcal{N}\left(0,{\mathit{\epsilon}}_{t}^{2}\right)
 $$
 
    $\mathrm{n}$ is batch size
