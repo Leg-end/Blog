@@ -7,13 +7,15 @@ category: Top-Design
 draft: false
 ---
 
-**Start Over: Redefinition of Number System**  
+## Start Over: Redefinition of Number System
+
 It's important to axiomatically define Number System, instead of constructing them.
 i.e. we don’t create their physical image or any essence they should connect to the real world, like, what are they made of? are they attachment to physical conception ?
 We extract them from the natural world and generalize them to an abstract form by only describing properties and operations related.
 As the old quote goes: one is the child of the divine law, after one come two, after two come three, after three come all things. So we can define any complex derivative from its simple origin
 The process of redefinition of number system is to slowly fill every spot on the number axis
- $\mathbf{N}\mathbf{a}\mathbf{t}\mathbf{u}\mathbf{r}\mathbf{a}\mathbf{l}\ \mathbf{N}\mathbf{u}\mathbf{m}\mathbf{b}\mathbf{e}\mathbf{r}$** Set**
+
+## Natural Number Set
 
 $$
 \mathbb{N}=\left\{0,1,2,3,4,\dots \right\}
@@ -70,7 +72,7 @@ $$
 
   e.g. $p\left(n\right):n\ is\ not\ half\ natural\ number$
 
-**Addition of Natural Number**  
+### Addition of Natural Number  
 Base on axioms 1 to 5, we now can recursively define sequence
 
 $$
@@ -160,7 +162,8 @@ $$
 {n}_{0},n,{n}^{\prime}\in \mathbb{N},\forall n\ge {n}_{0},{n}_{0}\le {n}^{\prime}<n,\ \left|{a}_{{n}^{\prime}}-A\right|<\mathit{\epsilon}\Rightarrow {a}_{n}\to A
 $$
 
-**Multiplication of Natural Number**  
+### Multiplication of Natural Number
+
 Follow the same thoughts as did in defining addition, we can define multiplication
 
 $$
@@ -226,7 +229,7 @@ $$
 $$
 
 
-**Set**  
+## Set  
 We now can generalize the **natural number set** into more abstract one
 
 $$
@@ -521,7 +524,7 @@ $$
 x\in {\cup}_{I\in \mathit{\alpha}}{A}_{\mathit{\alpha}}\iff \exists \mathit{\alpha}\in I,x\in {A}_{\mathit{\alpha}},\ \ A=\left\{{A}_{\mathit{\alpha}}:\mathit{\alpha}\in I\right\}
 $$
 
-**Integer Set**  
+## Integer Set  
 Integer is a generalization of Natural Number, as subtraction result between two natural numbers
 
 $$
@@ -590,8 +593,10 @@ $$
 $$
 
   Integer fill symmetric part for Natural Number on the left side of 0 by subtraction
-Now any property of natural number is compatible with integer, so any natural number is a integer, we complete the construction of integer(added with subtraction)  
-**Proportional Number Set**  
+Now any property of natural number is compatible with integer, so any natural number is a integer, we complete the construction of integer(added with subtraction)
+
+## Proportional Number Set
+
 Proportional Number is a generalization of Integer, as division result between two Integers
 
 $$
@@ -780,7 +785,8 @@ $$
 $$
 
 
-**Real Number Set**  
+## Real Number Set
+  
 **An instance of complete measure space, the idea behind generalization from Proportional Number to Real Number will be useful when defining a Hilbert Space**  
 Real Number is a generalization of Proportional Number, as a limit of a **Cauchy sequence **on Proportional Number
 Sequence
