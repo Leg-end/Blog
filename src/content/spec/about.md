@@ -1,5 +1,6 @@
 # About
-On approaching [CS336](https://stanford-cs336.github.io/spring2025/)  
+On approaching [CS336](https://stanford-cs336.github.io/spring2025/)
+
 ::github{repo="Leg-end/assignment1-basics"}
 
 Researching Few-shot learning of Multi-modal Model (e.g. CLIP) across diverse domains
