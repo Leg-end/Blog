@@ -23,11 +23,11 @@ First, let's consider sample space $\mathrm{\Omega}$ with finite cardinality.
   So, all the possible events(event space) can be described as power set of sample space: ${2}^{\mathrm{\Omega}}$ which contains any possible trail that can be measured by frequency.
   Specifically, probability of any event $A$ can be measured by the following way
 
-$$P\left(A\right)=\frac{\#\left(\mathrm{A}\right)}{\#\left(\mathit{\Omega}\right)},A\in {2}^{\mathrm{\Omega}},\ \ \#\left(\mathit{\Omega}\right)\ne +\infty ,P\left(\varnothing \right)=0$$
+$$ \begin{align*} P\left(A\right)=\frac{\#\left(\mathrm{A}\right)}{\#\left(\mathit{\Omega}\right)},A\in {2}^{\mathrm{\Omega}},\ \ \#\left(\mathit{\Omega}\right)\ne +\infty ,P\left(\varnothing \right)=0 \end{align*} $$
 
   And event space defines a closed set that:
  
-$$\varnothing \in {2}^{\mathit{\Omega}}$$
+$$ \begin{equation*} \varnothing \in {2}^{\mathit{\Omega}} \end{equation*} $$
 
 $$A\in {2}^{\mathit{\Omega}},A^{C}\in {2}^{\mathit{\Omega}}$$
 
