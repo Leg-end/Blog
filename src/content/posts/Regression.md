@@ -12,170 +12,413 @@ draft: false
 *Regression problem always require fitting on points, but in reality, fitting the exact point is unfeasible, since the turbulance of noise or random error when sampling.*
 *So it's natural to switch to fitting a softer target, an area around the sample points. May yield a better and feasible solution.*
 *You may already seen similar thoughts in SVM, which named slack variables. Or a threshold controling convergence on simple method of linear regression, or a probabilistic parameter called precison, i.e. inversion of variance.*
-Note : the relationship between x and y may only involve numerical, the cause-and-result may not always true
-
+Note : the relationship between x and y may only involve numerical, the cause-and-result may not always true  
 ***Definition***  
-![image1](resources/5a49419c0f134686a4d8cdf70a7f6c40.png)  
-Estimate (Hypothesis Space)  
-![image2](resources/81e67f695c1c4e5e9fab25c6b0be694f.png)  
+Data $D:\left\{\left({\bm{x}}^{\left(\bm{i}\right)},{t}^{\left(i\right)}\right)\right\}.i.i.d\ from\ p\left(\bm{x},t\right)$
+Estimate (Hypothesis Space) $\mathrm{y}\left(\bm{x}\right)$
 Assumption
-![image3](resources/f3635806003942829776f34d0fb96b20.png)
-![image4](resources/ec8f6a1c894249498e69204b3fc40334.png)
-![image5](resources/8d1508f0f7514d6194be9c678c72b3cf.png)  
-base on maxilikelihood assumption  
-![image6](resources/e6dc747d0971497a88ffd41a076e8ed0.png)
-![image7](resources/15ab0975674742d2b8a43fcb6f967b6c.png)
-![image8](resources/d2a368513cdd457293e38c8a3837d431.png)
-![image9](resources/77404e7c666c4f059cef5937cb38fbf8.png)
+since in inference, given $x\Rightarrow p\left(\bm{x}\right)=1\Rightarrow we\ only\ care\ p\left(t|\bm{x}\right)$
+so we need to find $p\left(t|\bm{x}\right)$ from data, assume
+
+$$
+\mathrm{p}\left(t|\bm{x}\right)=\left\{\begin{array}{c}\mathcal{B}\left(t|\mathit{\mu}\left(x\right),\mathit{\mu}\left(x\right)\left(1-\mathit{\mu}\left(x\right)\right)\right),logistic\ regression\\ \mathcal{N}\left(t|\mathit{\mu}\left(x\right),{\mathit{\sigma}}^{2}\left(x\right)\right),linear\ regression\end{array}\right.
+$$
+
+base on maxilikelihood assumption
+
+$$
+\mathrm{max}\left(\mathrm{p}\left(t|\bm{x}\right)\right)=\mathrm{p}\left(\mathit{\mu}\left(x\right)|\bm{x}\right)\Rightarrow \mathrm{define}\ \mathrm{ideal}\ y\left(\bm{x}\right)\equiv \mathit{\mu}\left(\bm{x}\right)=E\left[t|\bm{x}\right]
+$$
+
+Error(Loss) function: $L\left(t,\ y\left(\bm{x}\right)\right)$
+Target:$\underset{y\left(\bm{x}\right)}{\mathrm{argmin}}{E}_{\left(\bm{x},t\right)~D}\left[L\right]$
+
+$$
+{E}_{\left(\bm{x},t\right)~D}\left[L\right]=\int \int L\left(t,\ y\left(\bm{x}\right)\right)p\left(\bm{x},t\right)d\bm{x}dt
+$$
 
 *Question: The idea behind the target form?*
-*In classification, loss is a evaluation of decision, i.e a cost of specific behave*  
-![image10](resources/65a1468577a342428fa504e5b584d933.png)  
-*The cost when x belong to class k, while was distributed to class j*  
-![image11](resources/f46b0608fdbf471e92e7ea85c87a037e.png)
+*In classification, loss is a evaluation of decision, i.e a cost of specific behave*
 
-![image12](resources/908583c54600427e865d35f0c3257b25.png)  
-*why L2 loss? It's a assumption of Gaussian Distribution*  
-![image13](resources/53f40b79a30842aa8e67958a2a68ddab.png)
-![image14](resources/4e82a05b90c1468aa8fcf3a424920a8b.png)
-![image15](resources/422ecfeb9fa64c859377b6dff3bacd1a.png)
-![image16](resources/5b3e99b1a7fe4a32a0c240f074c8e1ad.png)
-![image17](resources/6f174b6ffe8443c2ab8c9013162ab203.png)
-![image18](resources/86cec136042e4e85873f81648a4002d2.png)
+$$
+E\left[L\right]={\sum}_{k}{\sum}_{j}\underset{{R}_{j}}{\int}{L}_{kj}p\left(x,{C}_{k}\right)dx,{L}_{kk}=0,\ {R}_{j}=\left\{x|x\ belong\ to\ {C}_{j}\right\}
+$$
 
-*we can see the component of error*  
-![image19](resources/3818459c850a43d393c0404e99157655.png)
-![image20](resources/7183817dd7d441c8a9ffe8b8faa4b78e.png)
-![image21](resources/fdce707568294ed48c8f8b6e30ebacce.png)  
-*bias: the distance between predicted model and desired model*  
-|  | *model complexity* | *data storage* |
-|----|----|----|
-| *bias* | ![image22](resources/4237f506ee474bcc8e99b7eb17ebdaab.png) | ![image23](resources/01f3c81c7d7141c9929a858204b3f738.png) |
-| *variance* | ![image24](resources/4bad7766971d4634aa286f5a8b2c1e96.png) | ![image25](resources/9e0e1c70bd694c2e894f470ef4e20d85.png) |
-| *bias -variance* | ![image24](resources/4bad7766971d4634aa286f5a8b2c1e96.png) | ![image25](resources/9e0e1c70bd694c2e894f470ef4e20d85.png) |
-*(1)control by number of basis functions*
+*The cost when x belong to class k, while was distributed to class j*
 
-![image26](resources/143d3755caf342b5b2d64d847a87a465.png)
-![image27](resources/fa08241083b64dbd8f3617203299e236.png)
-![image28](resources/f7b11a955dcc4d809e020906a1b70ac1.png)  
+$$
+\Rightarrow \forall x\mathit{\epsilon}{R}_{j},\mathrm{min}{\sum}_{k}{L}_{kj}p\left(x,{C}_{k}\right)\propto \mathrm{min}{\sum}_{k}{L}_{kj}p\left({C}_{k}|x\right)
+$$
+
+*under L2 loss, choose *$y\left(x\right)$* so as to minimize *$E\left[L\right]$
+*why L2 loss? It's a assumption of Gaussian Distribution*
+
+$$
+E\left[L\right]=\int \int {\left(y\left(\bm{x}\right)-t\right)}^{2}p\left(\bm{x},t\right)d\bm{x}dt
+$$
+
+$$
+\Rightarrow \frac{\mathit{\partial}E\left[L\right]}{\mathit{\partial}y\left(x\right)}=0
+$$
+
+$$
+\Rightarrow 2\int \int \left(y\left(\bm{x}\right)-t\right)p\left(\bm{x},t\right)d\bm{x}dt=0
+$$
+
+$$
+\Rightarrow \int \left(y\left(\bm{x}\right)-t\right)p\left(\bm{x},t\right)dt=0
+$$
+
+$$
+\Rightarrow y\left(\bm{x}\right)=\frac{\int tp\left(\bm{x},t\right)dt}{p\left(\bm{x}\right)}
+$$
+
+$$
+\Rightarrow y\left(\bm{x}\right)\equiv \int tp\left(t|\bm{x}\right)dt=E\left[t|\bm{x}\right]
+$$
+
+*optimal *$y\left(\bm{x}\right)$* is the conditional average, since points at mean have maximal probability, so best function is conditional expectation, which is conditional mean.*
+*Note: Optimal *$y\left(x\right)$ *is defined as conditional expection, which called regression function*
+*we can see the component of error*
+
+$$
+E\left[L\right]=\int \int {\left(y\left(\bm{x}\right)-E\left[t|\bm{x}\right]+E\left[t|\bm{x}\right]-t\right)}^{2}p\left(\bm{x},t\right)d\bm{x}dt
+$$
+
+$$
+=\int {\left(y\left(\bm{x}\right)-E\left[t|\bm{x}\right]\right)}^{2}p\left(\bm{x}\right)d\bm{x}+\int {\left(E\left[t|\bm{x}\right]-t\right)}^{2}p\left(\bm{x}\right)d\bm{x}
+$$
+
+*consider for a large number of data sets *$S=\left\{D\right\}$
+
+$$
+\int {\left(y\left(\bm{x};D\right)-{E}_{D}\left[t|\bm{x}\right]\right)}^{2}p\left(\bm{x}\right)d\bm{x}
+$$
+
+$$
+=\int {\left(y\left(\bm{x};D\right)-{E}_{D}\left[y\left(\bm{x};D\right)\right]+{E}_{D}\left[y\left(\bm{x};D\right)\right]-{E}_{D}\left[t|\bm{x}\right]\right)}^{2}p\left(\bm{x}\right)d\bm{x}
+$$
+
+$$
+=\int {\left({E}_{D}\left[y\left(\bm{x};D\right)\right]-{E}_{D}\left[t|\bm{x}\right]\right)}^{2}p\left(\bm{x}\right)d\bm{x}+\int {{E}_{D}[\left(y\left(\bm{x};D\right)-{E}_{D}\left[y\left(\bm{x};D\right)\right]\right)}^{2}]p\left(\bm{x}\right)d\bm{x}
+$$
+
+$$
+={\left(bias\right)}^{2}+variance
+$$
+
+$$
+\Rightarrow {E}_{\left(\bm{x},t\right)~D}\left[L\right]={\left(bias\right)}^{2}+variance+noise,\ bias\ {\propto}^{-1}\ variance
+$$
+
+*bias: the distance between predicted model and desired model*
+||*model complexity*|*data storage*|
+|-|------------------|--------------|
+|*bias*|$\propto^{-1}$|$\propto$|
+|*variance*|$\propto$|$\propto^{-1}$|
+|*bias -variance*|$\propto$|$\propto^{-1}$|
+
+*(1)control by number of basis functions*  
+*(2)control by regularization multiplier*$\mathit{\lambda}$  
+*lower *$\mathit{\lambda}$* tend to free weights so that model has richer representation capacity(low bias), but in the same time, numerous turbulance causes higher variance*
+*higher *$\mathit{\lambda}$* tend to bound weights so that model has rigid representation capacity(high bias), but in the same time, numerous steady brings lower variance*  
 ***But a perfect model, always contains large number of basis function with matched regularization***  
 
+
 ***Linear function(Linear Hypothesis Space)***  
-![image29](resources/dcc3aa157e8847038da966e341f5074a.png)  
-Assumption:genration of data  
-![image30](resources/310648f41d51450d9d15ed61f46b01f8.png)
-![image31](resources/f06f3db00be74a43a0da856b6eb43685.png)
-![image32](resources/e224087e4bff49ae9a06fa839baff879.png)  
-*a threshold controling convergence.*  
-![image33](resources/7646d77e5b5547cf90fae45eadfb8951.png)
-![image34](resources/467f41f9ebeb4b2fb1db72bb78a6ea6f.png)
+
+$$
+y\left(\bm{x},\bm{w}\right)={w}_{0}{\mathit{\phi}}_{0}\left(\bm{x}\right)+{w}_{1}{\mathit{\phi}}_{1}\left(\bm{x}\right)+\dots +{w}_{M-1}{\mathit{\phi}}_{M-1}\left(\bm{x}\right)={\bm{w}}^{\bm{T}}\bm{\phi}\left(\bm{x}\right),\ {w}_{0}=b,{\mathit{\phi}}_{0}\left(\bm{x}\right)=1
+$$
+
+Assumption:genration of data
+
+$$
+y\left(\bm{x},\bm{w}\right)=t+\mathit{\epsilon},\mathit{\epsilon}~N\left(0,{\mathit{\beta}}^{-1}\right)
+$$
+
+Premise a conditional Gaussian distribution along the desired function ${y}^{\ast}\left(\bm{x},\bm{w}\right)$* with decaying confidence on the both sides of the function, so each sample will be treated as mean, which has maximal probability. (maximum likelihood estimation)*
+
+$$
+\Rightarrow p\left(t|\bm{x},\bm{w},\mathit{\beta}\right)=N\left(y\left(\bm{x},\bm{w}\right),{\mathit{\beta}}^{-1}\right)
+$$
+
+*That's why, we call *$\mathit{\beta}$* precision, a slack variable (like SVM) to avoid overfitting, or say,*
+*a threshold controling convergence.*
+
+$$
+Target:\underset{\bm{w}}{\mathrm{argmin}}{E}_{\left(\bm{x},t\right)~D}\left[L\right]
+$$
+
+$$
+optimal\ y\left(\bm{x}\right)=\int tp\left(t|\bm{x}\right)dt=E\left[t|\bm{x}\right]=y\left(\bm{x},\bm{w}\right)
+$$
 
 *under log-maxlikelihood*
-![image35](resources/babf06409ad84bf78e6c0f2b6866ac82.png)
-![image36](resources/461714652be34852839d55b2671f8b2b.png)
-![image37](resources/257682dbf1344cf58f9df54603a9645e.png)  
-*(1) batch techniques : least square method*  
-![image38](resources/a6a678eaeccd4513a71afa89e4d1f6ed.png)
-![image39](resources/0927b2faf61246b786843779dfe935ec.png)
-![image40](resources/35013e6543a840b098202bddcad612de.png)
-![image41](resources/2a0e5e8129904950a4cba78c3362f1b6.png)
-![image42](resources/816885b3f28242ffbe8926f73b5b77af.png)
-![image43](resources/03d0219cc6c5474ead17977472412f0d.png)
-*a [regularization](onenote:#Regularization&section-id={206D0DBC-E353-4C40-ABB7-20922DEC5824}&page-id={74105814-BC3B-473C-908D-0AEB72711C85}&object-id={5DB304C5-ED6B-07BD-3264-4A7AC3D63882}&12&base-path=https://d.docs.live.net/276cf4f2e18c3166/文档/寿枫%20的笔记本/机器学习.one) term was added*  
+
+$$
+\underset{\bm{w}}{\mathrm{argmin}}{E}_{\left(\bm{x},t\right)~D}\left[L\right]=\underset{\bm{w}}{\mathrm{argmax}}{\sum}_{i=1}^{N}\mathrm{ln}p\left({t}^{\left(i\right)}|{\bm{x}}^{\left(\bm{i}\right)},\bm{w},\mathit{\beta}\right)
+$$
+
+$$
+=\frac{N}{2}\mathrm{ln}\mathit{\beta}-\frac{N}{2}\mathrm{ln}\left(2\pi \right)-\frac{\mathit{\beta}}{2}{\sum}_{i=1}^{N}{\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},\bm{w}\right)\right)}^{2}
+$$
+
+$$
+\propto \underset{\bm{w}}{\mathrm{argmin}}\frac{1}{2}{\sum}_{i=1}^{N}{\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},\bm{w}\right)\right)}^{2}
+$$
+
+*maximizing likelihood with regard to *$\bm{w}$ *is equivalent to minimizing L2 loss*
+
+$$
+{\nabla}_{\bm{w}}E={\sum}_{i=1}^{N}\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},\bm{w}\right)\right){\bm{\phi}}^{\bm{T}}\left({\bm{x}}^{\left(\bm{i}\right)}\right)
+$$
+
+*(1) batch techniques : least square method*
+
+$$
+{\nabla}_{\bm{w}}E=0\Rightarrow {\mathbf{\Phi}}^{\bm{T}}\bm{t}={\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}\bm{w}\Rightarrow {\bm{w}}_{ML}={\left({\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}\right)}^{-1}{\mathbf{\Phi}}^{\bm{T}}\bm{t}
+$$
+
+$$
+\mathbf{\Phi}=\left[\begin{array}{ccc}{\mathit{\phi}}_{0}\left({\bm{x}}^{\left(1\right)}\right)& \cdots & {\mathit{\phi}}_{M-1}\left({\bm{x}}^{\left(1\right)}\right)\\ \vdots & \ddots & \vdots \\ {\mathit{\phi}}_{0}\left({\bm{x}}^{\left(\bm{N}\right)}\right)& \cdots & {\mathit{\phi}}_{M-1}\left({\bm{x}}^{\left(\bm{N}\right)}\right)\end{array}\right]
+$$
+
+*By finding t's projection on space = *$span\left\{{\mathit{\phi}}_{k}\left(\bm{x}\right)\right\}$
+
+$$
+{\mathit{\beta}}_{ML}=\frac{1}{N}{\sum}_{i=1}^{N}{\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},{\bm{w}}_{\bm{M}\bm{L}}\right)\right)}^{2}
+$$
+
+Note: when $\nexists \ {\left({\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}\right)}^{-1},\ \bm{I}\ was\ introduced,\ so\ that\ \exists {\left({\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}+\bm{I}\right)}^{-1}$
+
+$$
+{\bm{w}}_{ML}={\left({\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}+\bm{I}\right)}^{-1}{\mathbf{\Phi}}^{\bm{T}}\bm{t}
+$$
+
+$$
+corresponding\ to\ \ \frac{1}{2}{\sum}_{i=1}^{N}{\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},\bm{w}\right)\right)}^{2}+\frac{\mathit{\lambda}}{2}{\bm{w}}^{\bm{T}}\bm{w},\mathit{\lambda}=\frac{\mathit{\alpha}}{\mathit{\beta}}
+$$
+
+*a *[*regularization*](onenote:#Regularization&section-id={206D0DBC-E353-4C40-ABB7-20922DEC5824}&page-id={74105814-BC3B-473C-908D-0AEB72711C85}&object-id={5DB304C5-ED6B-07BD-3264-4A7AC3D63882}&12&base-path=https://d.docs.live.net/276cf4f2e18c3166/文档/寿枫%20的笔记本/机器学习.one)* term was added*
 *Note: In words co-occurence matrix, a assumption that each word at least appear once*
 *was introduced, in case of dividing by zero*
+*(2) sequential learning : gradient descent for each data point*
 
-*(2) sequential learning : gradient descent for each data point*  
-![image44](resources/fd9d9ff6286a4d7ca60e68721c1ad291.png)
-![image45](resources/b3eea00fe59e44b3b0b0b5efe7d32221.png)
-![image46](resources/ad6cbefc408a4143b6dd31c454191211.png)
-![image47](resources/a88e35dd2a0445f0a519ee218697aa3a.png)  
-*convert to a sequential way*  
-![image48](resources/aa4a45c61d534540840364f25433cde3.png)
+$$
+{\bm{w}}^{\left(\bm{\tau}+1\right)}={\bm{w}}^{\left(\bm{\tau}\right)}-\mathit{\eta}{\nabla}_{{\bm{w}}^{\left(\bm{\tau}\right)}}{E}_{i}
+$$
+
+$$
+={\bm{w}}^{\left(\bm{\tau}\right)}+\mathit{\eta}\left({t}^{\left(i\right)}-y\left({\bm{x}}^{\left(\bm{i}\right)},{\bm{w}}^{\left(\bm{\tau}\right)}\right)\right)\bm{\phi}\left({\bm{x}}^{\left(\bm{i}\right)}\right)
+$$
+
+*Support that promise sequential learning converge to *${\nabla}_{\bm{w}}E=0$
+
+$$
+\bm{X}=\left({\bm{x}}_{1},\dots ,{\bm{x}}_{\bm{N}}\right),p\left(\bm{X}\right)=\mathcal{N}\left(\bm{X}|\bm{\mu},\mathbf{\Sigma}\right)
+$$
+
+maximum likelihood estimation of ${\bm{\mu}}_{\bm{M}\bm{L}}$ *base on N observations*
+
+$$
+\frac{\mathit{\partial}}{\mathit{\partial}\bm{\mu}}\mathrm{ln}p\left(\bm{X}\right)=0\Rightarrow {\bm{\mu}}_{\bm{M}\bm{L}}^{\left(\bm{N}\right)}=\frac{1}{N}{\sum}_{n=1}^{N}{\bm{x}}_{\bm{n}}
+$$
+
+*convert to a sequential way*
+
+$$
+{\bm{\mu}}_{\bm{M}\bm{L}}^{\left(\bm{N}\right)}=\frac{1}{N}{\bm{x}}_{\bm{N}}+\frac{N-1}{N}{\bm{\mu}}_{\bm{M}\bm{L}}^{\left(\bm{N}-1\right)}
+$$
+
+$$
+\ \ \ \ \ \ \ \ \ \ ={\bm{\mu}}_{\bm{M}\bm{L}}^{\left(\bm{N}-1\right)}+\frac{1}{N}\left({\bm{x}}_{\bm{N}}-{\bm{\mu}}_{\bm{M}\bm{L}}^{\left(\bm{N}-1\right)}\right)
+$$
 
 *Stochastic approximation*
 *Robbins-Monro Algorithm (todo): a generalization of sequential way aforementioned*
-*a sequential estimation to find root point for unknown function*  
-![image49](resources/0a8f19860ec041d6981f671373dc80d8.png)
-![image50](resources/78e405b053694871843d94099b4162a8.png)  
-*provide a support for convergence with probability one*
+*a sequential estimation to find root point for unknown function*
 
+$$
+{\mathit{\theta}}^{\left(N\right)}={\mathit{\theta}}^{\left(N-1\right)}+{a}_{N-1}z\left({\mathit{\theta}}^{\left(N-1\right)}\right)
+$$
+
+$$
+subject\ to\ \left\{\begin{array}{c}E\left[{\left(z-f\right)}^{2}|\mathit{\theta}\right]<\infty \\ \underset{N\to \infty}{\mathrm{lim}}{a}_{N}=0\\ {\sum}_{N=1}^{\infty}{a}_{N}=\infty \\ {\sum}_{N=1}^{\infty}{a}_{N}^{2}<\infty \end{array}\right.
+$$
+
+$$
+for\ f\left(\mathit{\theta}\right)\equiv E\left[z|\mathit{\theta}\right]=\int zp\left(z|\mathit{\theta}\right)dz
+$$
+
+and with goal to find$\ {\mathit{\theta}}^{\ast}\ that\ f\left({\mathit{\theta}}^{\ast}\right)=0$
+In specific application is finding $\frac{\mathit{\partial}}{\mathit{\partial}\bm{\mu}}\mathrm{ln}p\left(\bm{X}\right)=0\ or\ {\nabla}_{\bm{w}}E=0$
+*provide a support for convergence with probability one*  
 ***Bayesian Linear Regression***  
-![image51](resources/53664b9a43964a1588ef6636bc9429bf.png)
-![image52](resources/7d9c2ca0262c486b852f08250de95c6c.png)
+*To do what?: learning MAP on *$\bm{w}$
 
-Support idea: If two sets of variables are jointly Gaussian——[conjugate prior](https://towardsdatascience.com/conjugate-prior-explained-75957dc80bfb)  
-1.  then the conditional distribution of one set conditioned on the other is again Gaussian, and **it's mean is a linear function of prior's mean**  
-2.  the marginal distribution of either set is also Gaussian
+$$
+p\left(\bm{w}|\bm{t}\right)\propto p\left(\bm{t}|\bm{w}\right)p\left(\bm{w}\right)
+$$
 
-Key-representation of proof:  
-![image53](resources/9e6ce63323074cd08c7c6a3756da4698.png)
-![image54](resources/51f6d82000c34e3cad9a2a1129d6518b.png)
-![image55](resources/e75ec3603e734ac69628a6920a3330af.png)
+Support idea: If two sets of variables are jointly Gaussian——[conjugate prior](https://towardsdatascience.com/conjugate-prior-explained-75957dc80bfb)
+1. then the conditional distribution of one set conditioned on the other is again Gaussian, and **it's mean is a linear function of prior's mean**
+2. the marginal distribution of either set is also Gaussian
+Key-representation of proof:
 
-*Result:*  
-*Given a marginal Gaussian distribution and a conditional one*  
-![image56](resources/4fbaa3dcf7034717892eed6abac869dc.png)
-![image57](resources/77ededec5c2649c38bbd114a0ac2ff5b.png)  
-*Yield the one switching on random variables*  
-![image58](resources/67cb1650c2df46008499a02e9ffd7d14.png)
-![image59](resources/bf5ae513a4f348f9ab69ef441592d8af.png)
-![image60](resources/246b1b18cc6049a886ce354d74d062dc.png)
+$$
+\bm{x}=\left(\begin{array}{c}{\bm{x}}_{\bm{a}}\\ {\bm{x}}_{\bm{b}}\end{array}\right),\bm{\mu}=\left(\begin{array}{c}{\bm{\mu}}_{\bm{a}}\\ {\bm{\mu}}_{\bm{b}}\end{array}\right),\mathbf{\Sigma}=\left(\begin{array}{c}{\mathbf{\Sigma}}_{\bm{a}\bm{a}}\ \ {\mathbf{\Sigma}}_{\bm{a}\bm{b}}\\ {\mathbf{\Sigma}}_{\bm{b}\bm{a}}\ \ {\mathbf{\Sigma}}_{\bm{b}\bm{b}}\end{array}\right),\mathbf{\Lambda}={\mathbf{\Sigma}}^{-1}=\left(\begin{array}{c}{\mathbf{\Lambda}}_{\bm{a}\bm{a}}\ \ {\mathbf{\Lambda}}_{\bm{a}\bm{b}}\\ {\mathbf{\Lambda}}_{\bm{b}\bm{a}}\ \ {\mathbf{\Lambda}}_{\bm{b}\bm{b}}\end{array}\right)
+$$
 
-![image61](resources/f5b7a7a2fa51484c8be62234fb64ba01.png)  
-*Given*  
-![image62](resources/28253f9a66f14102877183598d20d6d9.png)  
-*Yield*  
-![image63](resources/0f249da36f23484a87614e274e2edb07.png)
-![image64](resources/d179b239a43549aebd340ba4b82a66c1.png)
+*Property of determining the corresponding mean and covariance that any Gaussian distribution *$\mathcal{N}\left(\bm{x}|\bm{\mu},\mathbf{\Sigma}\right)$* can be written*
 
-![image65](resources/126282a7504844dfaa085cc38c9eabce.png)  
-*Relation to Maximum Likelihood estimation*  
-![image66](resources/146e87adb730499e8ccd43d058fae075.png)
-![image67](resources/49618a06c115422480302582095571e9.png)
+$$
+-\frac{1}{2}{\left(\bm{x}-\bm{\mu}\right)}^{T}{\mathbf{\Sigma}}^{-1}\left(\bm{x}-\bm{\mu}\right)=-\frac{1}{2}{\bm{x}}^{\bm{T}}{\mathbf{\Sigma}}^{-1}\bm{x}+{\bm{x}}^{\bm{T}}{\mathbf{\Sigma}}^{-1}\bm{\mu}+const
+$$
 
-![image68](resources/37874b3ede5d4f4d8100cd90ac3cd0df.png)
-![image69](resources/ac73e4c40fe44464a526ce07051d5d0b.png)  
-*proof: analogyous of*
+*Result:*
+*Given a marginal Gaussian distribution and a conditional one*
 
-![image70](resources/038609d20613415e8b8e6c567c2ca9bb.png)
+$$
+p\left(\bm{x}\right)=\mathcal{N}\left(\bm{x}|\bm{\mu},{\mathbf{\Lambda}}^{-1}\right)
+$$
 
-![image71](resources/18b6a008646f49269e005ef5ef6daf31.png)
+$$
+p\left(\bm{y}|\bm{x}\right)=\mathcal{N}\left(\bm{y}|\bm{A}\bm{x}+\bm{b},{\bm{L}}^{-1}\right)
+$$
 
-*variance = noise + uncertainty of **w***
+*Yield the one switching on random variables*
 
-*which means, provided enough data, the prediction's variance will be*
+$$
+p\left(\bm{y}\right)=\mathcal{N}\left(\bm{y}|\bm{A}\bm{\mu}+\bm{b},{\bm{L}}^{-1}+\bm{A}{\mathbf{\Lambda}}^{-1}{\bm{A}}^{\bm{T}}\right)
+$$
 
-*converged as the variance of noise imposed on generation of data*
+$$
+p\left(\bm{x}|\bm{y}\right)=\mathcal{N}\left(\bm{x}|\mathbf{\Sigma}\left\{{\bm{A}}^{\bm{T}}\bm{L}\left(\bm{y}-\bm{b}\right)+\mathbf{\Lambda}\bm{\mu}\right\},\mathbf{\Sigma}\right)
+$$
 
-*proof:*
+$$
+\mathbf{\Sigma}={\left(\mathbf{\Lambda}+{\bm{A}}^{\bm{T}}\bm{L}\bm{A}\right)}^{-1}
+$$
 
-![image72](resources/385b101ad8cd493ca102e656a9afc56b.png)
 
-![image73](resources/3ec9d9bbf7cb4d108ed332e6f5e799d0.png)
+MAP estimation on $\bm{w}$  
+Given
 
-![image74](resources/26008afd91f84503baac52aa145c5c2b.png)
+$$
+prior:\ p\left(\bm{w}\right)=\mathcal{N}\left(\bm{w}|{\bm{m}}_0,{\bm{S}}_0\right)
+$$
 
-*Training procedure*  
-1.  ![image75](resources/ecffbb23f6104ffa92ad404abf04cdab.png)
-![image76](resources/49e3708bf5e54829b43c6c833145abc6.png)
-2.  ![image77](resources/9afdb21852954ff68dac0f2b9959125d.png)
-![image78](resources/71e2857de6c640a584f9c94de972ed49.png)
+$$
+likelihood:\ p\left(\bm{t}|\bm{w}\right)={\prod}_{n=1}^{N}\mathcal{N}\left({t}_{n}|{\bm{w}}^{\bm{T}}\bm{\phi}\left({\bm{x}}_{\bm{n}}\right),{\mathit{\beta}}^{-1}\right)
+$$
+
+*Yield*
+
+$$
+MAP:p\left(\bm{w}|\bm{t}\right)=\mathcal{N}\left(\bm{w}|{\bm{m}}_{\bm{N}},{\bm{S}}_{\bm{N}}\right)
+$$
+
+$$
+{\bm{m}}_{\bm{N}}={\bm{S}}_{\bm{N}}\left({\bm{S}}_0^{-1}{\bm{m}}_0+\mathit{\beta}{\mathbf{\Phi}}^{\mathbf{T}}\bm{t}\right)
+$$
+
+$$
+{\bm{S}}_{\bm{N}}^{-1}={\bm{S}}_0^{-1}+\mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}
+$$
+
+Relation to Maximum Likelihood estimation
+
+$$
+p\left(\bm{w}\right)=p\left(\bm{w}|\mathit{\alpha}\right)=\mathcal{N}\left(\bm{w}|0,{\mathit{\alpha}}^{-1}\bm{I}\right)
+$$
+
+$$
+\mathit{\alpha}\to 0\Rightarrow {\bm{w}}_{\bm{M}\bm{A}\bm{P}}={\bm{m}}_{\bm{N}}\to {\bm{w}}_{\bm{M}\bm{L}}
+$$
+
+Predictive distribution: prediction of t for new values of $\bm{x}$
+
+$$
+p\left(t|\bm{x},\bm{t},\bm{X}\right)=\int p\left(t|\bm{w},\bm{x},\bm{X}\right)p\left(\bm{w}|\bm{t},\bm{x},\bm{X}\right)d\bm{w}=\mathcal{N}\left(t|{m}_{N}^{T}\bm{\phi}\left(\bm{x}\right),{\mathit{\sigma}}_{N}^{2}\left(\bm{x}\right)\right)
+$$
+
+  *proof: analogyous of*
+
+$$
+\left\{\begin{array}{c}p\left(t|\bm{w},\bm{x},\bm{X}\right)\to p\left(y|\bm{x}\right)\\ p\left(\bm{w}|\bm{t},\bm{x},\bm{X}\right)\to p\left(\bm{x}\right)\end{array}\right.
+$$
+
+$$
+\Rightarrow p\left(t,\bm{w}|\bm{x},\bm{t},\bm{X}\right)\to p\left(\left(\bm{x},y\right)\right)
+$$
+
+$$
+\Rightarrow p\left(t|\bm{x},\bm{t},\bm{X}\right)\to p\left(y\right)
+$$
+
+$$
+{\mathit{\sigma}}_{N}^{2}\left(\bm{x}\right)=\frac{1}{\mathit{\beta}}+\bm{\phi}{\left(\bm{x}\right)}^{\bm{T}}{\bm{S}}_{\bm{N}}\bm{\phi}\left(\bm{x}\right),{\mathit{\sigma}}_{N}^{2}\left(\bm{x}\right)\to \frac{1}{\mathit{\beta}},N\to \infty 
+$$
+
+  *variance = noise + uncertainty of ****w***
+  *which means, provided enough data, the prediction's variance will be*
+  *converged as the variance of noise imposed on generation of data*
+  *proof:*
+
+$$
+{\bm{S}}_{\bm{N}}^{-1}={\bm{S}}_{\bm{N}-1}^{-1}+\mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}={\bm{S}}_0^{-1}+\bm{N}\times \mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi},\mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}>\left[0\right]
+$$
+
+$$
+\Rightarrow \underset{N\to \infty}{\mathrm{lim}}{\bm{S}}_{\bm{N}}=\underset{N\to \infty}{\mathrm{lim}}{\left({\bm{S}}_0^{-1}+\bm{N}\times \mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}\right)}^{-1}=\left[0\right]
+$$
+
+  Note: when using Gaussian basis function, $\bm{\phi}{\left(\bm{x}\right)}^{\bm{T}}\bm{\phi}\left(\bm{x}\right)\to 0\ $ in region away from center, curve becomes randomly extrapolated, may cause overfitting problem.
+
+*Training procedure*
+1. Sample $\bm{w}$ from prior
+
+$$
+\bm{w}~\bm{p}\left(\bm{w}\right)=\mathcal{N}\left(\bm{w}|{\bm{m}}_0,{\bm{S}}_0\right)
+$$
+
+2. *Calculataion of likelihood, after observing a data point *$\left(\bm{x},t\right)$
+
+$$
+p\left(t|\bm{x},\bm{w}\right)=\mathcal{N}\left(t|{\bm{w}}^{\bm{T}}\bm{\phi}\left(\bm{x}\right),{\mathit{\beta}}^{-1}\right)
+$$
 
 *Note: it works in the same way with dozen data points*
 
-![image79](resources/2bea169648af43099862dc8e2cb1c0db.png)
-3.  ![image80](resources/a79294d3ebb2404ba9c7f7b1d9b7f4d0.png)
-![image81](resources/2d5a74a4a1754ce1b2083a866baf32ee.png)
+$$
+p\left(\bm{t}|\bm{x},\bm{w}\right)={\prod}_{n=1}^{M}\mathcal{N}\left({t}_{n}|{\bm{w}}^{\bm{T}}\bm{\phi}\left({\bm{x}}_{\bm{n}}\right),{\mathit{\beta}}^{-1}\right)
+$$
+
+3. *Calculation of MAP on *$\bm{w}$
+
+$$
+p\left(\bm{w}|t\right)=\frac{p\left(t|\bm{w}\right)p\left(\bm{w}\right)}{{\sum}_{{t}^{\prime}}p\left({t}^{\prime}|\bm{w}\right)p\left(\bm{w}\right)}
+$$
 
 *Note : Complex calculation can be eased by using conjugate prior*
 
-![image82](resources/09d0dd5861ec48fcbd446c88034a4a67.png)
+$$
+p\left(\bm{w}|t\right)=\mathcal{N}\left(\bm{w}|{\bm{m}}_{\bm{N}},{\bm{S}}_{\bm{N}}\right)
+$$
 
-![image83](resources/66d07de9402a4cf9b038724c2bf77841.png)
+$$
+{\bm{m}}_{\bm{N}}={\bm{S}}_{\bm{N}}\left({\bm{S}}_{\bm{N}-1}^{-1}{\bm{m}}_{\bm{N}-1}+\mathit{\beta}{\mathbf{\Phi}}^{\mathbf{T}}\bm{t}\right)
+$$
 
-*And use it as prior on **w** on next iteration*
+$$
+{\bm{S}}_{\bm{N}}^{-1}={\bm{S}}_{\bm{N}-1}^{-1}+\mathit{\beta}{\mathbf{\Phi}}^{\bm{T}}\mathbf{\Phi}
+$$
 
-![image84](resources/27265429e0974e59a36a6bb9714e3a12.png)
+*And use it as prior on ****w ****on next iteration*
+
+$$
+\bm{p}\left(\bm{w}\right)\leftarrow p\left(\bm{w}|t\right)
+$$
 
 *go to step 1*

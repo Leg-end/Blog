@@ -13,575 +13,1055 @@ i.e. we don’t create their physical image or any essence they should connect t
 We extract them from the natural world and generalize them to an abstract form by only describing properties and operations related.
 As the old quote goes: one is the child of the divine law, after one come two, after two come three, after three come all things. So we can define any complex derivative from its simple origin
 The process of redefinition of number system is to slowly fill every spot on the number axis
+ $\mathbf{N}\mathbf{a}\mathbf{t}\mathbf{u}\mathbf{r}\mathbf{a}\mathbf{l}\ \mathbf{N}\mathbf{u}\mathbf{m}\mathbf{b}\mathbf{e}\mathbf{r}$** Set**
 
-![image1](resources/4e05b9e3dfa64cf787874d4bfd56d0c6.png)
-![image2](resources/81876968cfed419782a96e4b35d38305.png)
-![image3](resources/a6e5fc32ca6e4875b35f96806602ea57.png)
-![image4](resources/edf3f40c54b7429c836120999d6c20d7.png)
-![image5](resources/a254571799bd4884bef88fee27b8d034.png)
+$$
+\mathbb{N}=\left\{0,1,2,3,4,\dots \right\}
+$$
 
-![image6](resources/323f617d99164bf195f1ead01368f22c.png)  
-n is result after recursively applying increment on 0
+**Properties** of $\forall \ n\in \mathbb{N}$  
+Peano axiom 1
 
-![image7](resources/d86da7f1e1b74d9e9e5d4e9c03518dd4.png)
+$$
+0\in \mathbb{N}
+$$
 
-![image8](resources/e438d478161e440bb38d2ef909c5abec.png)
-![image9](resources/fead556b7b1f4d2ba191d9cad855c82a.png)
+Peano axiom 2: increment closure  
+  n is result after recursively applying increment on 0
 
-![image10](resources/46822310fad24fd7b0cf54b2c97fe9fc.png)
-![image11](resources/c8558ecd358e4c349b51fa607b0807e4.png)
+$$
+\mathrm{n}=\left(\left(0++\right)++\right)++\dots 
+$$
 
-![image12](resources/de696ea460824fc99a368479f6f17231.png)
-![image13](resources/f850b43ad9d74ae394f65df208dd431a.png)
-![image14](resources/d37b0cddd1bf4889817654c3b8593532.png)  
+$$
+n\in \mathbb{N}\Rightarrow n++\in \mathbb{N},\ \ 
+$$
+
+Question: $n++ \in N \Rightarrow n \in N $ ? or $∃?n∈N,n++=0 n++\in \mathbb{N}\Rightarrow n\in \mathbb{N} ?$ or $ \exists ?n\in \mathbb{N},n++=0$  
+Peano axiom 3: non-wrap-around
+
+$$
+n++\ne 0
+$$
+
+Peano axiom 4: identity, multual exclusive of elements in set
+
+$$
+n,m\in \mathbb{N},n\ne m\Rightarrow n++\ne m++
+$$
+
+Bug: $\mathrm{n}=0.5,\mathrm{m}=1.5$ still satisfy, but they are not natural numbers
 So we need to exclude numbers violating properties of natural numbers
 
-![image15](resources/2a7f3a326e5a43ccb98a025ca739a9f7.png)  
-All natural numbers have their properties **consistently followed** with 0(its predecessor)
+Peano axiom (schema) 5: Induction  
+  All natural numbers have their properties **consistently followed** with 0(its predecessor)
 
-![image16](resources/a21f4be285dc465380fe3dbc0456d5d3.png)
+$$
+p\left(0\right)\ true\Rightarrow p\left(0++\right)\ true\Rightarrow p\left(\left(0++\right)++\right)\ true\Rightarrow \dots \Rightarrow p\left(n++\right)\ true
+$$
 
-![image17](resources/7144fd8d0dc84d9e900f509f1c304efc.png)
+$$
+if\ p\left(0\right)\ true,\ p\left(n\right)\ true\Rightarrow p\left(n++\right)\ true
+$$
 
-![image18](resources/d3714aa42c30477a8a256960bbec7d95.png)
+$$
+\mathrm{then}\ \forall \ n\ ,p\left(n\right)\ true
+$$
 
-![image19](resources/c3bc726075a04e9b8deb2c7c2bb7917f.png)
+  e.g. $p\left(n\right):n\ is\ not\ half\ natural\ number$
 
 **Addition of Natural Number**  
 Base on axioms 1 to 5, we now can recursively define sequence
-![image20](resources/ded9f7b6fee140e4a7e487457d2a5a93.png)
 
-![image21](resources/69f7384eddca471696b705c73396be8e.png)
+$$
+\forall \ n\in \mathbb{N},\exists {f}_{n}:\mathbb{N}\to \mathbb{N},\ uniquely\ \exists {a}_{n}\left\{\begin{array}{c}{a}_{0}=c,c\in \mathbb{N}\\ {a}_{n++}={f}_{n}\left({a}_{n}\right)\end{array}\right.
+$$
 
-![image22](resources/092c56cfa80d436184f93a9538559fcc.png)  
+$$
+{f}_{n}\left({a}_{n}\right)={a}_{n}++
+$$
+
+$$
+\left\{\begin{array}{c}{a}_{0}=0+m=m\\ {a}_{1}=f\left({a}_{0}\right)=\left(0++\right)+m=m++\\ \vdots \\ {a}_{n}=n+m\\ {a}_{n++}=f\left({a}_{n}\right)=\left(n++\right)+m=\left(n+m\right)++\end{array}\right.
+$$
+
 Definition of addition has same form as induction (Peano axiom 5)
-![image23](resources/9f5f636da05b4c439b217e1d62dff7a5.png)  
+
+$$
+\forall \ n,m\in \mathbb{N},n+m\left\{\begin{array}{c}0+m=m\\ assume\ n+m\ is\ already\ known\\ \left(n++\right)+m=\left(n+m\right)++\end{array}\right.
+$$
+
 Properties : All can be proved by following the same pattern as Induction
-\(1\) commutative law
-![image24](resources/ca1e3f5f976244cb812e4c4cf70622a0.png)
+(1) commutative law
 
-Informal Proof
+$$
+\mathrm{n}+\mathrm{m}=\mathrm{m}+\mathrm{n}
+$$
 
-![image25](resources/5d8c4b81935140eb8310e795f26bdb54.png)
+  Informal Proof
+  (i) $\mathrm{prove}\ 0+\mathrm{m}=\mathrm{m}+0,\ \mathrm{by}$
 
-![image26](resources/79f08d0d4e6e40c38869c080b6dff239.png)
+$$
+\left\{\begin{array}{c}0+m=m\\ n+0=n\end{array}\right.
+$$
 
-![image27](resources/cd1877f8115740fb86c913ad8da32dff.png)
+  (ii) assume $\mathrm{n}+\mathrm{m}=\mathrm{m}+\mathrm{n}$
+  (iii) prove $\left(\mathrm{n}++\right)+\mathrm{m}=\mathrm{m}+\left(n++\right),\ by$
 
-![image28](resources/3f8505dab8e94be8bb592c46c851b962.png)
+$$
+\left\{\begin{array}{c}\left(n++\right)+m=\left(n+m\right)++\\ n+\left(m++\right)=\left(n+m\right)++\end{array}\right.
+$$
 
-![image29](resources/75997a68895740d69704dcf8b01b09e7.png)  
-\(2\) associative law
-![image30](resources/b2300c999ea14c5fb9136d2e6b44104b.png)  
-\(3\) elimination law
-![image31](resources/2bc37de1d5d5447ebe2250989ab02ec8.png)  
+(2) associative law
+
+$$
+a+\left(b+c\right)=\left(a+b\right)+c,\ \forall a,b,c\in \mathbb{N}
+$$
+
+(3) elimination law
+
+$$
+a+b=a+c\Rightarrow b=c
+$$
+
 Order built on addition
-![image32](resources/0e1032979e5b4c93b8612c64de8c2e61.png)
 
-![image33](resources/9d26a3b5de8743a2ad513a6a0be49028.png)  
+$$
+\left\{\begin{array}{c}n\ge m\Rightarrow n=m+a,a\in \mathbb{N}\\ n>m\Rightarrow n=m+a,a\in \mathbb{N},a\ne 0\end{array}\right.
+$$
+
+$$
+\forall n,m\in \mathbb{N}\Rightarrow \left\{\begin{array}{c}n<m\\ n=m\\ n>m\end{array}\right.,\ only\ one\ predicate\ is\ true
+$$
+
 Note that order is a shared property among entities
 i.e. an entity can be ordered only when it can be bounded by other entities
 For Natural Number, we can find that:
-![image34](resources/59bfe8952d5c48a18cc7c6eb61ebd327.png)
-![image35](resources/022471fa096b4d67a69915741b90825c.png)  
-So it is for the order definition in Integer, proportional number and real number, their order all build on in such way.
 
+$$
+\forall \ i\in N,\exists n,m\in N,\ n\le i<m
+$$
+
+While for infinite, i.e. $\pm \infty $, there is no such entity can bound it, so it doesn't have property of order.
+So it is for the order definition in Integer, proportional number and real number, their order all build on in such way.
 Order + Peano axiom 5 = Strong Induction
-![image36](resources/51fb0dcde3c047bd896619c9d996e9f6.png)  
+
+$$
+{m}_{0},m,{m}^{\prime}\in \mathbb{N},\forall m\ge {m}_{0},{m}_{0}\le {m}^{\prime}<m,\ p\left({m}^{\prime}\right)\ true\Rightarrow p\left(m\right)\ true
+$$
+
 e.g. converge of series
-![image37](resources/d41e7ec7ac4b4cff904eb6066efac4d8.png)
-![image38](resources/7e1c1a7c018a4b8da231c84112391631.png)
+
+$$
+p\left(n\right):\left|{a}_{n}-A\right|<\mathit{\epsilon}
+$$
+
+$$
+{n}_{0},n,{n}^{\prime}\in \mathbb{N},\forall n\ge {n}_{0},{n}_{0}\le {n}^{\prime}<n,\ \left|{a}_{{n}^{\prime}}-A\right|<\mathit{\epsilon}\Rightarrow {a}_{n}\to A
+$$
 
 **Multiplication of Natural Number**  
 Follow the same thoughts as did in defining addition, we can define multiplication
-![image39](resources/35243eb8860e4e59b95c7e4c9084ee48.png)
+
+$$
+\forall \ n,m\in \mathbb{N},n\times m\left\{\begin{array}{c}0\times m=0\\ assume\ n\times m\ is\ already\ known\\ \left(n++\right)\times m=\left(n\times m\right)+m\end{array}\right.
+$$
+
 Properties :
-\(1\) commutative law
-![image40](resources/1aacbae926cc49f6adc239b2ab270836.png)
+(1) commutative law
 
-Informal Proof
+$$
+\mathrm{n}\times \mathrm{m}=\mathrm{m}\times \mathrm{n}
+$$
 
-![image41](resources/6f2dda278ffc42f8afb9099c6f426d6f.png)
+  Informal Proof
+  (i) $\mathrm{prove}\ 0\times \mathrm{m}=\mathrm{m}\times 0,\ \mathrm{by}$
 
-![image42](resources/833687aac6944fa9a0923abc7e8caeb8.png)
+$$
+\left\{\begin{array}{c}0\times m=m\\ n\times 0=n\end{array}\right.
+$$
 
-![image43](resources/cf86fa1e844241b08d6572d7ab0eb435.png)
+  (ii) assume $\mathrm{n}\times \mathrm{m}=\mathrm{m}\times \mathrm{n}$
+  (iii) prove $\left(\mathrm{n}++\right)\times \mathrm{m}=\mathrm{m}\times \left(n++\right),\ by$
 
-![image44](resources/653ef1e740584b9d822a56b9cb5fae5f.png)
+$$
+\left\{\begin{array}{c}\left(n++\right)\times m=\left(n\times m\right)+m\\ n\times \left(m++\right)=\left(n\times m\right)+n\end{array}\right.
+$$
 
-![image45](resources/846941c474c0431aa451f39e19ed2630.png)  
-\(2\) distributive law
-![image46](resources/bee47e509bb543e4925183752710a168.png)  
-\(3\) associative law
-![image47](resources/30706e01050843bf805f5bd73d7baf4c.png)  
-\(4\) order preservation
-![image48](resources/aa71d92a3fd34508b8834504581dcfc7.png)  
-\(5\) elimination law
-![image49](resources/6e57b0845f234a79aaa0c00e7c47c9c4.png)  
-**Euclidean Algorithm**: represent number with combination of addition and multiplication  
-![image50](resources/8ff8b0f729cb47509c8dcc57852d25b0.png)
+(2) distributive law
 
-![image51](resources/3050cec55ab2459ebb4fb3aaf151b4c4.png)  
-**Exponential Operation** of Natural Number  
-![image52](resources/e6fdf76ed57e498388e813961ca2dff5.png)
+$$
+a\times \left(b+c\right)=a\times b+a\times c,\ \forall a,b,c\in \mathbb{N}
+$$
+
+(3) associative law
+
+$$
+a\times \left(b\times c\right)=\left(a\times b\right)\times c
+$$
+
+(4) order preservation
+
+$$
+a<b,c\ne 0\Rightarrow a\times c<b\times c
+$$
+
+(5) elimination law
+
+$$
+a\times b=a\times c,a\ne 0\Rightarrow b=c
+$$
+
+**Euclidean Algorithm**: represent number with combination of addition and multiplication
+
+$$
+n,q\in \mathbb{N},q\ne 0,\exists m,r\in \mathbb{N},0\le r<q\Rightarrow n=mq+r
+$$
+
+  Or in a familiar form $\mathrm{n}/\mathrm{q}=\mathrm{m}\dots \mathrm{r}$
+**Exponential Operation** of Natural Number
+
+$$
+\forall \ n,m\in \mathbb{N},{m}^{n}\left\{\begin{array}{c}{m}^{0}=1\\ assume\ {m}^{n}\ is\ already\ known\\ {m}^{n++}={m}^{n}\times m\end{array}\right.
+$$
+
 
 **Set**  
-We now can generalize the **natural number set** into more abstract one  
-![image53](resources/f86678fbd00f4bfc806a01912aebd3d8.png)  
+We now can generalize the **natural number set** into more abstract one
+
+$$
+\mathrm{A}:\left\{{x}_{1},{x}_{2},\dots ,{x}_{k}\right\},i,k\in \mathbb{N}\ \left\{\begin{array}{c}{x}_{i}\in A,1\le i\le k\\ {x}_{i}\notin A,i>k\end{array}\right.
+$$
+
 Axioms of equality on class T
-\(1\) reflexive
-![image54](resources/bdd1eab94c664132a37712528c8aed5a.png)  
-\(2\) symmetric
-![image55](resources/c2ef847a632b4489a8afd4e56577f44f.png)  
-\(3\) transitive
-![image56](resources/2d14a6500b0e4332aa44a748843988dd.png)  
-\(4\) substitutive
-![image57](resources/552da467bd3c41ed9a23f6eee867f673.png)
+(1) reflexive
 
-![image58](resources/7e5a0fec9e8a44a0a44f3351e393862f.png)  
-**Zermelo-Fraenkel axiom 1**: identity of set  
-![image59](resources/53be641e0d4c4b699d71279a2238bcea.png)
+$$
+\forall \ x\in T,\ x=x
+$$
 
-![image60](resources/ae07e4ba64fd402f9c89692c1e5c1e6f.png)
+(2) symmetric
 
-Note: That means set itself can be an element of another set
+$$
+\forall x,y\in T,x=y\iff y=x
+$$
 
-![image61](resources/c9a1a27232344aa2bbfc9b54dcd21b6f.png)
+(3) transitive
 
-![image62](resources/b5d1540a18234c41ad5102dd62e360d6.png)
+$$
+\forall x,y,z\in T,x=y,y=z\Rightarrow x=z
+$$
 
-![image63](resources/3bb5b6ffbc32477bad2ce867c7074091.png)  
+(4) substitutive
+
+$$
+\forall x,y\in T,\forall f:T\to T,x=y\iff f\left(x\right)=f\left(y\right)
+$$
+
+$$
+\forall x,y\in T,\forall P:T\to \left\{0,1\right\},x=y\iff P\left(x\right)\equiv P\left(y\right)
+$$
+
+**Zermelo-Fraenkel axiom 1**: identity of set
+
+$$
+\mathrm{A}\ \mathrm{is}\ \mathrm{an}\ \mathrm{object},\ \mathrm{A}=\mathrm{B}\iff \forall x\in A,x\in B\ and\ \forall y\in B,y\in A
+$$
+
+$$
+\mathrm{distinct}:\ \mathrm{A}\ne \mathrm{B}\Rightarrow \exists x\in A,x\notin B
+$$
+
+  Note: That means set itself can be an element of another set
+   $\in $** follow the substitutive axiom**
+
+$$
+\mathrm{P}\left(A\right):x\in A,A=B\Rightarrow P\left(B\right):x\in B
+$$
+
+$$
+\Rightarrow A=B\Rightarrow P\left(A\right)=P\left(B\right)
+$$
+
+**So the following axioms will base on **$\in $** to maintain substitutive**  
 **Why? Operation following substitutive is a successfully defined one**  
+**Zermelo-Fraenkel axiom 2**: origin of a set, empty set
+  Any set exist at the contrast to empty set
 
-**Zermelo-Fraenkel axiom 2**: origin of a set, empty set  
-Any set exist at the contrast to empty set
+$$
+\exists \varnothing =\left\{\right\},\forall x,x\notin \varnothing \Rightarrow A\ne \varnothing ,\exists x,x\in A
+$$
 
-![image64](resources/52e2195f3ba743c7830b472db71cb4af.png)
-
-**Zermelo-Fraenkel axiom 3**: basic unique sets, for constructing bigger set  
-![image65](resources/f38528d54f3849618508b23ec83d0aba.png)
-
-![image66](resources/2581f624074f42bbbcc7c1932d55695d.png)
-
+**Zermelo-Fraenkel axiom 3**: basic unique sets, for constructing bigger set
+  singleton set: $\mathrm{A}=\left\{a\right\},\forall x\in A,x=a$
+  pair set: $\mathrm{B}=\left\{a,b\right\},\forall y\in B,y=a\ or\ y=b$  
 **Zermelo-Fraenkel axiom 4**: Dual Union operation, method for constructing bigger set
-![image67](resources/298a549129cc4b60b2b9eada9745bf98.png)
 
-![image68](resources/2f32acd05d704b0ca1d2c58a542af986.png)
+$$
+x\in A\cup B\iff x\in A\ or\ x\in B
+$$
 
-**And it follows substitutive**  
+  **Again! Dual Union was defined on **$\in $
+  **And it follows substitutive**
 
-![image69](resources/8523a727733c4d49b7f7ece0ce9b0d84.png)
+$$
+{B}^{\prime}=B,P\left(B\right):x\in A\cup B\Rightarrow P\left({B}^{\prime}\right):x\in A\cup {B}^{\prime}
+$$
 
-![image70](resources/d838878d477d44cbb5e8aac9816ebb2b.png)
+  Properties of Dual Union: All these can be proved by substitutive of $\in $
+  (1) commutative ; (2) associative ;
+  **Subset** can be derived from Dual Union operation
 
-\(1\) commutative ; (2) associative ;
+$$
+\mathrm{\Omega}=A\cup B\Rightarrow \left\{\begin{array}{c}A\subseteq \mathrm{\Omega}:\ \forall x\in A\Rightarrow x\in \mathrm{\Omega}\\ A\subset \mathrm{\Omega}:\ ,A\ne \mathrm{\Omega},\forall x\in A\Rightarrow x\in \mathrm{\Omega}\end{array}\right.
+$$
 
-**Subset** can be derived from Dual Union operation  
+  $\mathrm{A}$ is sub set of $\mathrm{\Omega}$
+  Subset implicates relationship of **order**
 
-![image71](resources/188f6f9da1f64fcd82ccdd4a7de4aac5.png)
+$$
+\left\{\begin{array}{c}A\subseteq B,B\subseteq C\Rightarrow A\subseteq C\\ A\subseteq B,B\subseteq A\Rightarrow A=B\\ A\subset B,B\subset C\Rightarrow A\subset C\end{array}\right.
+$$
 
-![image72](resources/b291098e24fc45c38f7411d85bd19f0a.png)
+**Zermelo-Fraenkel axiom 5: Separation axiom, **constructing subset from a big set
 
-Subset implicates relationship of **order**  
+$$
+B=\left\{x\in A:P\left(x\right)=1\right\}\Rightarrow B\subseteq A
+$$
 
-![image73](resources/531f3dd7d8ad48cc94e7723b6686eb12.png)
+$$
+\Rightarrow x\in A,P\left(x\right)=0\Rightarrow \varnothing \subseteq A
+$$
 
-**Zermelo-Fraenkel axiom 5: Separation axiom,** constructing subset from a big set  
-![image74](resources/15b1907b6b7f48a6b6939a129f61fb15.png)
+$$
+y\in \left\{x\in A:P\left(x\right)=1\right\}\iff y\in A\ and\ P\left(y\right)=1
+$$
 
-![image75](resources/c5dcd138a1594c5ba4363074cf61264a.png)
+  We can use it to define **Intersection** and **Difference**
 
-![image76](resources/7f2662c935534afd97a41ce7ddd7268e.png)
+$$
+{S}_{1}\cap {S}_{2}=\left\{x\in {S}_{1}|P\left(x\right):x\in {S}_{2}\right\}=\left\{x\in {S}_{2}|P\left(x\right):x\in {S}_{1}\right\}=\left\{x\in {S}_{1}:x\in {S}_{2}\right\}
+$$
 
-We can use it to define **Intersection** and **Difference**  
+$$
+x\in {S}_{1}\cap {S}_{2}\iff x\in {S}_{1}\ and\ x\in {S}_{2}
+$$
 
-![image77](resources/6e7fd235f22b43caacf406553f154c2c.png)
+$$
+{S}_{1}-{S}_{2}=\left\{x\in {S}_{1}|P\left(x\right):x\notin {S}_{2}\right\}=\left\{x\in {S}_{1}:x\notin {S}_{2}\right\}
+$$
 
-![image78](resources/7bfaa95842364ef593e8d6755b10d3d9.png)
+$$
+x\in {S}_{1}-{S}_{2}\iff x\in {S}_{1}\ and\ x\notin {S}_{2}
+$$
 
-![image79](resources/e7c1a37241c54cb5aa8cc891c895e599.png)
-
-![image80](resources/9de3c4c389e340cf9487194158a1bb36.png)
-
-![image81](resources/7d25f83fa1c0486181b5d55f300f8be7.png)
-
-![image82](resources/8b0a04cab4454d88ae69682fa65d193e.png)
-
-![image83](resources/d9c8a8784b99426bb773ebca62731e62.png)
-
-But for now, we are only circle around inside a set, to jump out of a set into another form of set, we need more powerful axiom
+  Duality: $A\to X\backslash A\ or\ A\to ~A,X\to \varnothing $
+  The dual statement of $\left(A\cup B\right)$ is obtained by $\sim \left(~A\cup ~B\right)=\left(A\cap B\right)$, or
+   $\left\{\begin{array}{c}X\backslash \left(A\cup B\right),X\backslash \left(A\cap B\right)\\ A\cup \left(X\backslash \mathrm{A}\right)=X,A\cap \left(X\backslash \mathrm{A}\right)=\varnothing \end{array}\right.$ are dual statements of each other  
+But for now, we are only circle around inside a set, to jump out of a set into another form of set, we need more powerful axiom  
 
 **Zermelo-Fraenkel axiom 6: Replacement axiom**  
-![image84](resources/45bbc073cf3b46ab9b64057b63e4b505.png)
 
-![image85](resources/f83e7dd3971e42feaad85cb10adb7690.png)
+$$
+\mathrm{z}\in \left\{y:\exists x\in A,P\left(x,y\right)=1\right\}\iff \exists x\in A,P\left(x,z\right)=1,\ \ P\left(x,y\right):T\times T\to \left\{0,1\right\}
+$$
 
-We use **Separation axiom** to tease out subset and transform its elements into new form by **Replacement axiom**  
+  Or $\mathrm{P}\left(x,y\right)\equiv y=f\left(x\right)\Rightarrow \left\{y:\exists x\in A,y=f\left(x\right)\right\}$
+  We use **Separation axiom** to tease out subset and transform its elements into new form by **Replacement axiom**
+  Connection between Replacement and Separation
+    **Replacement axiom **can be seen as **Separation axiom** of Set y belong to
 
-Connection between Replacement and Separation
+$$
+\left\{y:\exists x\in A,P\left(x,y\right)=1\right\}\equiv \left\{y\in Y|P\left(y,x\right):x\in A,y=f\left(x\right)\right\}
+$$
 
-**Replacement axiom** can be seen as **Separation axiom** of Set y belong to
-
-![image86](resources/be8024035b32429fb2186bcfa79d09d0.png)
 
 **Zermelo-Fraenkel axiom 7: Infinite Set, Specialize to Natural Number Set**  
-![image87](resources/9ec88a5e2e5142d89b88279551097210.png)
 
-Actually, axiom 1 to 7 can generalize to a generalization of Separation Axiom
+$$
+\mathbb{N}=\left\{n|P\left(n\right):n\ satisfies\ \bm{P}\bm{e}\bm{a}\bm{n}\bm{o}\ \bm{A}\bm{x}\bm{i}\bm{o}\bm{m}\bm{s}\right\}
+$$
 
+Actually, axiom 1 to 7 can generalize to a generalization of Separation Axiom  
 **Zermelo-Fraenkel axiom 8: axiom comprehension, Universal Separation axiom**  
-![image88](resources/7bc7718181f64aa3a833df2f0ea86e3d.png)
+
+$$
+\mathrm{y}\in \left\{x:P\left(x\right)=1\right\}\iff P\left(y\right)=1,\ \ \forall x,P\left(x\right)
+$$
+
 Russell Paradox: Axiom 8 failed under such property
-![image89](resources/16b17c6f1dd74b7c995ac4823927b183.png)
 
-Proof:
+$$
+{P}_{R}\left(x\right):x\ is\ a\ set,\ x\notin x
+$$
 
-![image90](resources/a7b99ff4bdfd42d5a3536fad95232450.png)
+  Proof:
+    Axiom 8 allows us to define a universal set $\mathrm{S}$ as set of any sets(including itself)
 
-![image91](resources/077bc9152acd4b18987e8796f853662c.png)
+$$
+\mathrm{i}.\mathrm{e}.\ S\in S,S=\left\{S,\mathrm{\Omega}\dots \right\},\mathrm{\Omega}=\left\{x:x\in S,{P}_{R}\left(x\right)=1\right\}
+$$
 
-![image92](resources/78a9db2015134524bf580ce9c20267a0.png)
-
-![image93](resources/55fc56a4c93e4265bba5f2288d4f3d45.png)
+  If $\mathrm{\Omega}\notin \mathrm{\Omega}\Rightarrow {\mathrm{P}}_{R}\left(\mathrm{\Omega}\right)=1\Rightarrow \mathrm{\Omega}\in \mathrm{\Omega}$
+    Else $\mathrm{\Omega}\in \mathrm{\Omega}\Rightarrow {\mathrm{P}}_{R}\left(\mathrm{\Omega}\right)=0\Rightarrow \mathrm{\Omega}\notin \mathrm{\Omega}$  
 
 **Zermelo-Fraenkel axiom 9: foundation axiom, regularity, patch for axiom 8**  
-![image94](resources/3c02efdae66240b4a4736ad01756c98e.png)
+
+$$
+A\ne \varnothing \Rightarrow \exists x\in A,\ x\left\{\begin{array}{c}\ne A,\ if\ x\ is\ set\\ x\ is\ not\ set\end{array}\right.\Rightarrow A\notin A
+$$
+
 
 Now function can be defined as mapping between sets
-![image95](resources/559ed1e3cc1e4380a7e59102bcfc8294.png)
-And Again!, it has to follow the **law of substitutive**  
-![image96](resources/4cec54b0d16e41d780e35aa8618f3b46.png)
 
-![image97](resources/44e81b58fee44c9bb94aa8374d2e8da6.png)
+$$
+P\left(x,y\right)=1\Rightarrow y=f\left(x\right),\ \ P:X\times Y\to \left\{0,1\right\}\Rightarrow f:X\to Y
+$$
 
-![image98](resources/7f3b5d46da67443998a05054958f3d73.png)
+And Again!, it has to follow the **law of substitutive**
+
+$$
+\forall x,{x}^{\prime}\in X,\exists y\in Y,x={x}^{\prime},P\left(x,y\right):y=f\left(x\right)\Rightarrow P\left({x}^{\prime},y\right):y=f\left({x}^{\prime}\right)
+$$
+
+$$
+x={x}^{\prime}\Rightarrow f\left(x\right)=f\left({x}^{\prime}\right)
+$$
+
+  That means, any $x$ in $X$ for a function can only map to one $y$ in $Y$
 Properties of function can be derived from axioms of set
-\(1\) equality
-![image99](resources/745482b3d1334c7882904a60cf894057.png)
-\(2\) compound
-![image100](resources/3a2397ee950b4ebe827e06af26f52be8.png)
+(1) equality
 
-![image101](resources/ea22fbbc8a5943db9f0ef15d416c87f1.png)
-\(3\) injective
-![image102](resources/a89d313863e646dcb9a54d7c639ed105.png)
-\(4\) surjective
-![image103](resources/3fa651fbb49e4820ac93bdbc7ad031c6.png)
-\(5\) bijective = injective & surjective
-![image104](resources/d9e6d3b3ac084f94ad4bc81d0b437dcd.png)
+$$
+f:X\to Y,g:X\to Y
+$$
 
-**How big is a Set**:  
+$$
+\forall x\in X,f\left(x\right)=g\left(x\right)\iff f=g
+$$
+
+(2) compound
+
+$$
+f:X\to Y,g:Y\to Z
+$$
+
+$$
+\left(g\circ f\right)\left(x\right)=g\left(f\left(x\right)\right):X\to Z
+$$
+
+(3) injective
+
+$$
+x={x}^{\prime}\iff f\left(x\right)=f\left({x}^{\prime}\right)
+$$
+
+(4) surjective
+
+$$
+\forall y\in Y,\exists x\in X\Rightarrow y=f\left(x\right)
+$$
+
+(5) bijective = injective & surjective
+
+$$
+\forall y\in Y,\exists x\in X\Rightarrow x={f}^{-1}\left(y\right),\ \ \exists {f}^{-1}:Y\to X
+$$
+
+**How big is a Set**:
 Cardinal of set is defined by a bijective function(it's similar to count number from 1 to n)
-![image105](resources/5a1120160e8145e69cd9752b08af0ae7.png)
 
-![image106](resources/5dcaab7fce054deb80dd8281adcca29a.png)
+$$
+f:X\to \left\{i\in \mathbb{N}:1\le i\le n\right\}\iff \#\left(X\right)=n
+$$
 
-![image107](resources/ed228f9b6f7643d6b595fc81ced34030.png)
+  Also, the bijective function to $\mathbb{N}$ indicates **measurable** of $X$, since $\mathbb{N}$ is a measurable set, so is $X$
+  Now we can prove axiom 7, why $\mathbb{N}$ is a infinite set
+    Assume $\#\left(\mathbb{N}\right)=n$
 
-![image108](resources/5e74d6c0190d4a55918a97b0c3f9914d.png)
+$$
+\Rightarrow \exists bijective\ f:\left\{i\in \mathbb{N}:1\le i\le n\right\}\to \mathbb{N}
+$$
 
-![image109](resources/64ff45091f40424889b5c08bf1b9f684.png)
+$$
+\Rightarrow \exists M\in \mathbb{N},\forall i\in \left\{i\in \mathbb{N}:1\le i\le n\right\},f\left(i\right)\le M
+$$
+
+$$
+\Rightarrow M++\notin \mathbb{N},\text{ contradict to Peano axiom 2}
+$$
+
 Equality of Cardinal
-![image110](resources/8283ee1efadd4ad69260717e82944aa2.png)
+  Existence of bijective function between $X$ and $Y$
 
-![image111](resources/07191f25c1ef47d7986ed1a99ebfda59.png)
+$$
+f:X\to \left\{i\in \mathbb{N}:1\le i\le n\right\},\ \ g:Y\to \left\{i\in \mathbb{N}:1\le i\le n\right\}\Rightarrow {g}^{-1}:\left\{i\in \mathbb{N}:1\le i\le n\right\}\to Y
+$$
 
-![image112](resources/26566ffd34494662b30177d14cbc1568.png)
+$$
+\Rightarrow \mathrm{h}=\left({g}^{-1}\circ f\right):X\to Y\Rightarrow \#\left(X\right)=\#\left(Y\right)
+$$
 
 **Zermelo-Fraenkel axiom 10: power set, set of functions**  
-![image113](resources/6923702b2ac04ff091d413e68fcb72f8.png)
+  If we treat function as an object, then we can have set of functions
 
-![image114](resources/0fe54cd94f57477ebde6a74cd7e2b27f.png)
+$$
+f\in {Y}^{X},{Y}^{X}=\left\{\forall f:X\to Y\right\}
+$$
 
+  e.g. ${2}^{\mathrm{X}}=\left\{Z:Z\subseteq X\right\}:P\left(X\right):X\to \left\{0,1\right\}$  
+  
 **Zermelo-Fraenkel axiom 11: Union, for constructing way larger set**  
-![image115](resources/049f9558e4234a2884047c6a6d17b033.png)
 
-![image116](resources/c1c7f4eb174942b287b9d12ecbe2ece6.png)
+$$
+x\in \bigcup A\iff \exists S\in A,x\in S,\ or
+$$
+
+$$
+x\in {\cup}_{I\in \mathit{\alpha}}{A}_{\mathit{\alpha}}\iff \exists \mathit{\alpha}\in I,x\in {A}_{\mathit{\alpha}},\ \ A=\left\{{A}_{\mathit{\alpha}}:\mathit{\alpha}\in I\right\}
+$$
 
 **Integer Set**  
-Integer is a generalization of Natural Number, as subtraction result between two natural numbers  
-![image117](resources/3f4b5af3dcd144e8b2e465def5368db4.png)
+Integer is a generalization of Natural Number, as subtraction result between two natural numbers
 
-— is a placeholder for subtraction, since subtraction result directly on natural number is problematic--they can not represent as natural number, so it can only be defined on integer.
+$$
+\mathbb{Z}=\left\{a\text{—}b:\forall a,b\in \mathbb{N}\right\}
+$$
 
-And we can not define subtraction between integers without firstly declaring it, which is subtraction result between natural numbers. In case of recurrent definition, a placeholder is needed.
-
+  — is a placeholder for subtraction, since subtraction result directly on natural number is problematic--they can not represent as natural number, so it can only be defined on integer.
+  And we can not define subtraction between integers without firstly declaring it, which is subtraction result between natural numbers. In case of recurrent definition, a placeholder is needed.  
 Now our simple idea is to define Integer as an analogy to natural number with all the axioms and operations we already testified
-\(1\) identity (equality), follow substitutive  
-![image118](resources/11d4768a716e40ffb19e17eda3c76d90.png)  
-\(2\) addition, follow substitutive  
-![image119](resources/df65ed426eab465f853e5461fc6fc3f4.png)  
-\(3\) multiplication, follow substitutive  
-![image120](resources/e004a6ab066d4dafaf5f291796f81091.png)  
-\(4\) negative, follow substitutive  
-![image121](resources/102650c1a1674217a13b561024d6b5c2.png)  
-\(5\) trichofomy, if and only one holds  
-![image122](resources/33a6daddae60401eba038c896ab01a36.png)
+(1) identity (equality), follow substitutive
 
-![image123](resources/6b57082e406d4655a6c61dd43d456ba5.png)  
-\(6\) base on definition of **negative**, now we can define subtraction between integers  
-![image124](resources/2b40d5f2a743401891d472129da83dfd.png)  
+$$
+\forall n,m\in \mathbb{Z},n=a\text{—}b,m=c\text{—}d
+$$
 
-![image125](resources/71c626c590d0498bbb4c4bb4c406dabb.png)
+$$
+n=m\iff a+d=c+b
+$$
 
-Generalization of Natural Number  
-Order, we can redefine order with subtraction
+(2) addition, follow substitutive
 
-![image126](resources/73d9740e3c504b4abf40e86b90e9af28.png)
+$$
+n+m=\left(a+c\right)\text{—}\left(b+d\right)\in \mathbb{Z}
+$$
 
-order preservation with negative operation
+(3) multiplication, follow substitutive
 
-![image127](resources/009e52e42d5541fd9c18a2246a4f5c25.png)
+$$
+nm=\left(ac+bd\right)-\left(ad+bc\right)\in \mathbb{Z}
+$$
 
-Integer fill symmetric part for Natural Number on the left side of 0 by subtraction
-Now any property of natural number is compatible with integer, so any natural number is a integer, we complete the construction of integer(added with subtraction)
+(4) negative, follow substitutive
 
+$$
+-n=0\text{—}\left(a\text{—}b\right)=0+\left(b\text{—}a\right)=b\text{—}a
+$$
+
+(5) trichofomy, if and only one holds
+
+$$
+\forall x\in \mathbb{Z}
+$$
+
+$$
+x\left\{\begin{array}{c}=0\\ =n\\ =\text{—}n\end{array}\right.,\ \ n\in {\mathbb{N}}^{+}
+$$
+
+(6) base on definition of **negative**, now we can define subtraction between integers
+
+$$
+n-m=n+\left(-m\right)=n\text{—}0+\left(0\text{—}m\right)=n\text{—}m
+$$
+
+  Since it follows substitutive, now we can replace — with $-$  
+Generalization of Natural Number
+  Order, we can redefine order with subtraction
+
+$$
+\left\{\begin{array}{c}n\ge m\Rightarrow n-m\ge 0\\ n>m\Rightarrow n-m>0\end{array}\right.
+$$
+
+  order preservation with negative operation
+
+$$
+\mathrm{n}>\mathrm{m}\Rightarrow -\mathrm{n}<-\mathrm{m}
+$$
+
+  Integer fill symmetric part for Natural Number on the left side of 0 by subtraction
+Now any property of natural number is compatible with integer, so any natural number is a integer, we complete the construction of integer(added with subtraction)  
 **Proportional Number Set**  
-Proportional Number is a generalization of Integer, as division result between two Integers  
-![image128](resources/691371a85e124e0d80108734ffb1d5a6.png)
+Proportional Number is a generalization of Integer, as division result between two Integers
 
-// is a placeholder for division, since definition of division base on definition of Proportional number.
+$$
+\mathbb{Q}=\left\{a//b,\forall a,b\in \mathbb{Z},b\ne 0\right\}
+$$
 
-And we can not define division between proportional numbers without firstly declaring it, which is division result between integers. In case of recurrent definition, a placeholder is needed.
+  // is a placeholder for division, since definition of division base on definition of Proportional number.
+  And we can not define division between proportional numbers without firstly declaring it, which is division result between integers. In case of recurrent definition, a placeholder is needed.
 Now our simple idea is to define Proportional number as an analogy to Integer with all the axioms and operations we already testified
-\(1\) identity (equality), follow substitutive  
-![image129](resources/96f3598b4d4c4a13b0454a537e2fafde.png)  
-\(2\) addition, follow substitutive  
-![image130](resources/e0a84b43c2e44996a793a82963848e9d.png)  
-\(3\) multiplication, follow substitutive  
-![image131](resources/6b1ee9e3cb134a56b977458645fe37a0.png)  
-\(4\) negative, follow substitutive  
-![image132](resources/794c8cc80f8e4ba7bf35f5b8b9cd4e17.png)  
-\(5\) inverse, follow substitutive  
-![image133](resources/be6b2509ec0e4c34821b8f88b251bfed.png)
+(1) identity (equality), follow substitutive
 
-![image134](resources/6a430e8e60494ed68620a6b7a1e3245e.png)  
-\(6\) base on definition of **inverse**, now we can define division between proportional numbers  
-![image135](resources/fa67d72e49884e57ac7ed31b7c54632e.png)
+$$
+\forall x,y\in \mathbb{Q},x=a//b,y=c//d
+$$
 
-![image136](resources/8d19a3029bf34537b82c0060b97e3e5b.png)
+$$
+x=y\iff ad=cb
+$$
 
-![image137](resources/55d1f65627244cddb55e42eb2d334d1b.png)  
-\(7\) trichofomy, if and only one holds  
-![image138](resources/b496adb498584ad9b9ebecb8b80a6db4.png)
+(2) addition, follow substitutive
 
-![image139](resources/76b8ddda936248fab2951775a9481b54.png)  
-\(8\) absolute value can be built upon negative operation  
-![image140](resources/285fc271e8144a138b86354699150a85.png)
+$$
+x+y=\left(ad+bc\right)//\left(bd\right)\in \mathbb{Q}
+$$
 
-![image141](resources/407dc18c569149bfb275005bfe86cb53.png)  
+(3) multiplication, follow substitutive
+
+$$
+xy=ac//bd\in \mathbb{Q}
+$$
+
+(4) negative, follow substitutive
+
+$$
+-x=0-\left(a//b\right)=(-a)//b\in \mathbb{Q}
+$$
+
+(5) inverse, follow substitutive
+
+$$
+\forall x\in \mathbb{Q},x\ne 0,{x}^{-1}=b//a
+$$
+
+$$
+x{x}^{-1}={x}^{-1}x=1
+$$
+
+(6) base on definition of **inverse**, now we can define division between proportional numbers
+
+$$
+x/y=x{y}^{-1}=\left(a//b\right)(d//c)=\left(a{b}^{-1}\right)/\left(d{c}^{-1}\right)\ =x//y,y\ne 0
+$$
+
+$$
+a/b=a{b}^{-1}=a//b,b\ne 0
+$$
+
+  Since it follows substitutive, now we can replace // with $/$
+(7) trichofomy, if and only one holds
+
+$$
+\forall x\in \mathbb{Q}
+$$
+
+$$
+x\left\{\begin{array}{c}=0\\ =\frac{a}{b}\\ =-\frac{a}{b}\end{array}\right.,\ \ a,b\in \mathbb{Z},a>0,b\ne 0
+$$
+
+(8) absolute value can be built upon negative operation
+
+$$
+\forall x,y\in \mathbb{Q}
+$$
+
+$$
+\left|x\right|=\left\{\begin{array}{c}x,x>0\\ 0,x=0\\ -x,x<0\end{array}\right.
+$$
+
 Distance can be built upon absolute operation and subtraction  
-![image142](resources/6e878ec5666344fea2c413a249c0ec0a.png)  
-It can be used to measure how close are two proportional numbers  
-![image143](resources/ac06a8aee2e041e5a1380747be77f6d0.png)
-![image144](resources/585610895a334cfc94483690f477177d.png)
+It can be used to measure how close are two proportional numbers
+$\bm{\epsilon}$**\-approximate**: placehoder for defining **limit and Cauchy sequence**
 
-Generalization of Integer  
-![image145](resources/2fb3c087792949f88d2e1fa5f8086a88.png)
+$$
+\mathrm{d}\left(x,y\right)\le \mathit{\epsilon}
+$$
 
-exponential operation
 
-![image146](resources/7b1751241534437a8b14b909c2a124e5.png)
+Generalization of Integer
 
-order preservation with exponential operation
+$$
+\forall x,y\in \mathbb{Q}
+$$
 
-![image147](resources/b9b353bb271f42b395b88875d2f4d4f1.png)  
-Now any property of integer is compatible with proportional number, so any integer is a proportional number, we complete the construction of proportional number(added with division and absolute operation)
+  exponential operation
 
-Any two Integers are separated by a proportional number
+$$
+\left|{x}^{n}\right|={\left|x\right|}^{n}
+$$
 
-![image148](resources/ed5d4a230ab44e0b83abbe4eddef5caf.png)
+$$
+{x}^{-n}=\frac{1}{{x}^{n}}
+$$
 
-There's huge empty space between two integers, proportional number fill it by division
+$$
+{x}^{n}{x}^{m}={x}^{n+m},{\left({x}^{n}\right)}^{m}={x}^{nm},{\left(xy\right)}^{n}={x}^{n}{y}^{n}
+$$
 
-Any two proportional numbers are separated by a proportional number
+  order preservation with exponential operation
 
-![image149](resources/3a8fa9cd0e83487b8c160f07acc8d23e.png)
+$$
+x>y\ge 0\Rightarrow \left\{\begin{array}{c}{x}^{n}>{y}^{n}\ge 0,n>0\\ {x}^{n}<{y}^{n}<0,n<0\end{array}\right.
+$$
 
-**Is there exist empty space between two proportional numbers** ?  
+Now any property of integer is compatible with proportional number, so any integer is a proportional number, we complete the construction of proportional number(added with division and absolute operation)  
+  Any two Integers are separated by a proportional number
 
-Void between proportional numbers  
-![image150](resources/330c6e406449456b85816295682a51d3.png)
+$$
+\forall x\in \mathbb{Q},uniquely\ \exists n\in \mathbb{Z}\Rightarrow n\le x<n+1,n=\left[x\right]
+$$
+
+  There's huge empty space between two integers, proportional number fill it by division
+  Any two proportional numbers are separated by a proportional number
+
+$$
+\forall x,y\in \mathbb{Q},x<y\Rightarrow \exists z\in \mathbb{Q},x<z<y
+$$
+
+**Is there exist empty space between two proportional numbers** ?
+
+Void between proportional numbers
+
+$$
+\nexists x\in \mathbb{Q},{x}^{2}=2
+$$
+
 Proof:
-![image151](resources/d6631b38a9c4451abadd22d87bdc11a9.png)
 
-![image152](resources/dded1144dd044c67868d33e648ddd4a9.png)
+$$
+x=\frac{p}{q},p,q,k\in \mathbb{Z},q\ne 0
+$$
 
-![image153](resources/231c7bd062d7408eb60256f4de90e055.png)
+$$
+\Rightarrow {p}^{2}=2{q}^{2},q<p
+$$
 
-But a sequence infinitely decreasing is not exist, since we can always have
+$$
+\mathrm{if}\ \mathrm{p}=2\mathrm{k}+1
+$$
 
-![image154](resources/9018fe9485b54fa8b62399fd6e30ec97.png)
+$$
+\Rightarrow 4{\mathrm{k}}^{2}+4\mathrm{k}+1=2\mathrm{q}\Rightarrow \mathrm{q}=2{\mathrm{k}}^{2}+2\mathrm{k}+\frac{1}{2}\notin \mathbb{Z}
+$$
 
-![image155](resources/26bae547d922414abf2bafc8ce7ce82d.png)
+$$
+\mathrm{if}\ \mathrm{p}=2\mathrm{k}
+$$
 
-![image156](resources/1c67f8b383f544bba98ac35d63cb2f4f.png)
+$$
+\Rightarrow {\mathrm{q}}^{2}=2{\mathrm{k}}^{2}\Rightarrow {\left({\mathrm{p}}_{1}\right)}^{2}=2{\left({\mathrm{q}}_{1}\right)}^{2},{\mathrm{q}}_{1}<{\mathrm{p}}_{1}=\mathrm{q}<\mathrm{p}
+$$
 
-![image157](resources/afed232a424a4ff8b7e00f12212d1b1c.png)
+$$
+\dots 
+$$
 
-![image158](resources/9c85445bf62a4988a819b5a79b25923a.png)
+$$
+\mathrm{p}={\mathrm{p}}_{0}>{p}_{1}>\dots >{p}_{n}>{p}_{n+1},n\in \mathbb{N}
+$$
+
+  But a sequence infinitely decreasing is not exist, since we can always have
+
+$$
+\forall n\in \mathbb{N},\exists \mathrm{M}\in \mathbb{Z},M\le {p}_{n}
+$$
+
+  We can only get a proportional number infinitely approximate to $\sqrt{2}$, that will yields a sequence of proportional numbers
+
+$$
+\forall \mathit{\epsilon}>0,d\left(x,\sqrt{2}\right)\le \mathit{\epsilon}
+$$
+
+  So we have two proportional numbers separated by $\sqrt{2}$
+
+$$
+{x}^{2}<2<{\left(x+\mathit{\epsilon}\right)}^{2}\Rightarrow x<\sqrt{2}<x+\mathit{\epsilon}
+$$
+
 
 **Real Number Set**  
 **An instance of complete measure space, the idea behind generalization from Proportional Number to Real Number will be useful when defining a Hilbert Space**  
-Real Number is a generalization of Proportional Number, as a limit of a **Cauchy sequence** on Proportional Number
-Sequence  
-![image159](resources/b98a9616ecc94d85849e31a636172f86.png)  
-Bounded Sequence  
-![image160](resources/965cdeb5c3ef474c8d10270e41186704.png)
-![image161](resources/6a3a7c0583ef40a3a58f39d98f925ee8.png)
-![image162](resources/dd5232697efc433a9ef1d4ea23e54501.png)
-![image163](resources/4483fc68cdab4073a0270cefadef0c06.png)
-![image164](resources/fd2f03836f9c4ebd86bfbd70f7841f9e.png)
+Real Number is a generalization of Proportional Number, as a limit of a **Cauchy sequence **on Proportional Number
+Sequence
 
-Obviously, Cauchy Sequence is also a Bounded Sequence
+$$
+{\left({a}_{n}\right)}_{n=m}^{\infty}:\left\{n,m\in \mathbb{Z}:n\ge m\right\}\to \mathbb{Q},{a}_{n}\in \mathbb{Q}\Rightarrow {a}_{m},{a}_{m+1},\dots 
+$$
+
+Bounded Sequence
+
+$$
+\exists M\in \mathbb{Q},M\ge 0,\forall i\in \left\{n,m\in \mathbb{Z}:n\ge m\right\},\left|{a}_{i}\right|\le M
+$$
+
+ultimate-$\bm{\epsilon}$**\-approximate**
+
+$$
+\exists N\ge 0,\forall j,k\ge N,d\left({a}_{j},{a}_{k}\right)\le \mathit{\epsilon}
+$$
+
+Cauchy Sequence = Sequence + ultimate-$\bm{\epsilon}$**\-approximate**
+
+$$
+for\ {\left({a}_{n}\right)}_{n=0}^{\infty},\forall \mathit{\epsilon}>0,\exists N\ge 0,\forall j,k\ge N,d\left({a}_{j},{a}_{k}\right)\le \mathit{\epsilon}
+$$
+
+  Obviously, Cauchy Sequence is also a Bounded Sequence
 Limit of Cauchy Sequence
-![image165](resources/933dc61f455d46b695fc4b1170bd4111.png)
 
-![image166](resources/7af11521e81a4ec7ad173ba5b816160a.png)
+$$
+for\ {\left({a}_{n}\right)}_{n=0}^{\infty},\exists L\in \mathbb{R},L=\underset{n\to \infty}{\mathrm{LIM}}{a}_{n},\forall \mathit{\epsilon}>0,\exists N\ge 0,\forall n\ge N,d\left({a}_{n},A\right)\le \mathit{\epsilon}
+$$
 
-And we can not define Limit of real number without firstly declaring it, which is limit of a real number sequence. In case of recurrent definition, a placeholder is needed.  
-Now our simple idea is to define Real Number as an analogy to Proportional one with all the axioms and operations we've been already testified  
-![image167](resources/32c159d943c348e8b23158c23c8d45f9.png)  
-\(1\) identity (equality) of Cauchy Sequence, follow substitutive  
-![image168](resources/d5e6ef7d7bb6443c931492c15db7fb7a.png)
+  LIM will be our placeholder to define **limit, **for now, $\mathit{\epsilon}\in \mathbb{Q}$
+  And we can not define Limit of real number without firstly declaring it, which is limit of a real number sequence. In case of recurrent definition, a placeholder is needed.
+Now our simple idea is to define Real Number as an analogy to Proportional one with all the axioms and operations we've been already testified
 
-![image169](resources/908810fb9cfa478ca2725b27d5734078.png)
+$$
+x=\underset{n\to \infty}{\mathrm{LIM}}{a}_{n},\ \ y=\underset{n\to \infty}{\mathrm{LIM}}{b}_{n}
+$$
 
-![image170](resources/7265570becd84808852be67b1b687d9e.png)  
-\(2\) addition, follow substitutive  
-![image171](resources/0aff8698d06f45ada82f57cc752e2f82.png)  
-\(3\) multiplication, follow substitutive  
-![image172](resources/e466db707779497988b41226badb2e4b.png)  
-\(4\) negative, follow substitutive  
-![image173](resources/496222c913d3483c9d785041d490a2c1.png)  
-\(5\) subtraction, follow substitutive  
-![image174](resources/14fa759c9473414699a93a5f6dff748a.png)  
-\(5\) inverse, follow substitutive  
-Constraint away from 0
+(1) identity (equality) of Cauchy Sequence, follow substitutive
 
-![image175](resources/71b2246bb9e5452fa58b0d224c9b341f.png)
+$$
+{\left({a}_{n}\right)}_{n=1}^{\infty}={\left({b}_{n}\right)}_{n=1}^{\infty}\iff {\left({a}_{n}-{b}_{n}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence
+$$
 
-![image176](resources/9e7069dc4bbf4a6499a2abfc1f97d1cc.png)
+$$
+for\ {\left({a}_{n}-{b}_{n}\right)}_{n=1}^{\infty},\forall \mathit{\epsilon}>0,\exists N\ge 0,\forall n\ge N,d\left({a}_{n},{b}_{n}\right)\le \mathit{\epsilon}
+$$
 
-For detailed proof please refer to **"Tao Real Analysis" 5.3.14**  
+$$
+{\left({a}_{n}\right)}_{n=1}^{\infty}={\left({b}_{n}\right)}_{n=1}^{\infty}\iff \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}=\underset{n\to \infty}{\mathrm{LIM}}{b}_{n}
+$$
 
-![image177](resources/205558307c11438e874db83554865d45.png)  
-\(6\) division, follow substitutive  
-![image178](resources/403bdaf595fb491195cb3f7d2049bed1.png)  
-\(7\) trichofomy, if and only one holds  
-But first, we need to constraint sequence positive or negative away from 0
+(2) addition, follow substitutive
 
-We can always extract sub sequence constraint away from 0
+$$
+{\left({a}_{n}+{b}_{n}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence\iff x+y=\underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}+{b}_{n}\right)\in \mathbb{R}
+$$
 
-![image179](resources/883d7c4b1d7c4d2ab94d5e7101776c10.png)
+(3) multiplication, follow substitutive
 
-![image180](resources/ab4fc0a2ba694c4bbf744d88b04834d7.png)
+$$
+{\left({a}_{n}{b}_{n}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence\iff xy=\underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}{b}_{n}\right)\in \mathbb{R}
+$$
 
-Now we can inherent the rest of operations and properties from proportional number without changes  
-(8\*) **completeness**  
-A complete closed set has its Cauchy sequence and limits inside the set
+(4) negative, follow substitutive
 
-e.g.
+$$
+-x=\underset{n\to \infty}{\mathrm{LIM}}\left(-{a}_{n}\right)\in \mathbb{R}
+$$
 
-positive real number set is an uncomplete open set
+(5) subtraction, follow substitutive
 
-![image181](resources/438a6f7aaac74d80bf3f909f97b8d636.png)
+$$
+{\left({a}_{n}-{b}_{n}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence\iff x-y=x+\left(-y\right)=\underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}-{b}_{n}\right)\in \mathbb{R}
+$$
 
-Non-Negative real number set is an complete closed set
+(5) inverse, follow substitutive
+  Constraint away from 0
 
-![image182](resources/7dea651041214bd9a092730ed08c2770.png)
+$$
+x\ne 0\iff {\left({a}_{n}\right)}_{n=1}^{\infty}\ne {\left(0\right)}_{n=1}^{\infty}:\forall \mathit{\epsilon}\in \mathbb{Q},\mathit{\epsilon}>0,\forall \mathrm{n}\ge 1,\frac{\epsilon}{2}\le \left|{a}_{n}-0\right|<\mathit{\epsilon}
+$$
 
-Inference
+  i.e. we remove any 0 element in sub sequence by setting their distances with $\epsilon /2$
+  For detailed proof please refer to** "Tao Real Analysis" 5.3.14**
 
-![image183](resources/341624bb783340a2b987e66dd5439bea.png)
+$$
+{\left({a}_{n}^{-1}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence\iff {x}^{-1}=\underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}^{-1}\right)\in \mathbb{R}
+$$
 
-![image184](resources/6b5b9fece59f470ab2de81b2d418507c.png)
+(6) division, follow substitutive
 
-![image185](resources/ad4ee5e970fd424ba5663cf65e914f98.png)
+$$
+{\left({a}_{n}{b}_{n}^{-1}\right)}_{n=1}^{\infty}\ is\ Cauchy\ Sequence\iff \frac{x}{y}=x{y}^{-1}=\underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}{b}_{n}^{-1}\right)\in \mathbb{R}
+$$
 
-![image186](resources/6b2a69989cfa4e6e959d154a6b3ad0cd.png)
+(7) trichofomy, if and only one holds
+  But first, we need to constraint sequence positive or negative away from 0
+  We can always extract sub sequence constraint away from 0
 
-![image187](resources/5b797887919f4e99a81f04a30107c0d4.png)  
-\(9\) order  
-Real number can be bounded with proportional numbers(proof???)
+$$
+\forall x\in \mathbb{R}
+$$
 
-![image188](resources/6b299ac9b4a748189fbaaeb546616379.png)
+$$
+x\left\{\begin{array}{c}=0,{\left({a}_{n}\right)}_{n=1}^{\infty}={\left(0\right)}_{n=1}^{\infty}\\ >0,\forall \mathrm{n}\ge 1,{a}_{n}\ge c\\ <0,\forall \mathrm{n}\ge 1,{a}_{n}\le -c\end{array}\right.,\exists c\in \mathbb{Q},c>0
+$$
 
-Inference : archimedean property, order between real numbers
+  Now we can inherent the rest of operations and properties from proportional number without changes
+(8\*) **completeness**
+  A complete closed set has its Cauchy sequence and limits inside the set
+  e.g.
+  positive real number set is an uncomplete open set
 
-![image189](resources/b0113cf1099b4b64931df1dd5ea80cfc.png)
+$$
+\exists {\left({a}_{n}\right)}_{n=1}^{\infty},\underset{n\to \infty}{\mathrm{LIM}}{a}_{n},\forall \mathit{\epsilon}>0,{a}_{n}>0,{a}_{n}\in {\mathbb{R}}^{+},{a}_{n}<\mathit{\epsilon}\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}=0\notin {\mathbb{R}}^{+}
+$$
 
-For now, we can confidently say that any type of number in axis can be bounded with arbitrary types of number.
+  Non-Negative real number set is an complete closed set
 
-i.e. any number in the axis can be bounded by any type of number in axis, so they all can be ordered.  
-\(10\) supremum&infmum  
-![image190](resources/10cd5c9cb7ab4c12b338d27a74501084.png)
+$$
+0\in {~\mathbb{R}}^{+}
+$$
 
-![image191](resources/d0842793d6dc4226aaf6a870e2a76f47.png)
+  Inference
+     $\forall n\ge 1,{a}_{n}\ge {b}_{n}\Rightarrow {a}_{n}-{b}_{n}\ge 0,$ which belong to non-negative real number set
 
-![image192](resources/312081b1aede431bb3dd24d37ac9adb9.png)
+$$
+\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}-{b}_{n}\right)\ge 0\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}\ge \underset{n\to \infty}{\mathrm{LIM}}{b}_{n}
+$$
 
-For proof please refer to **"Tao. Real Analysis 5.5.9"** base on archimedean property
+  While if $\forall n\ge 1,{a}_{n}>{b}_{n}\Rightarrow {a}_{n}-{b}_{n}>0,$ which belong to positive real number set
 
-Now we can prove that only real number than proportional number can be solution of
+$$
+\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}\left({a}_{n}-{b}_{n}\right)\ may\ equal\ to\ 0
+$$
 
-![image193](resources/3f362dbbc07140be80d2b9fa24a67901.png)
+$$
+\mathrm{e}.\mathrm{g}.\ \ {a}_{n}=1+\frac{1}{n},{b}_{n}=1-\frac{1}{n}
+$$
 
-![image194](resources/698232bd6597462c876f12a1075dd089.png)
+(9) order
+  Real number can be bounded with proportional numbers(proof???)
 
-![image195](resources/e610fd58377d461cb49263aa3831ca59.png)
+$$
+\forall x\in {\mathbb{R}}^{++},\exists q\in {\mathbb{Q}}^{++},\exists N\in {\mathbb{Z}}^{++}\Rightarrow q\le x\le N
+$$
 
-![image196](resources/64a7a224e6f64ef988b33d8ad82e0518.png)
+  Inference : archimedean property, order between real numbers
 
-![image197](resources/07bb0b8aeb374002b9c2231662ca25ee.png)
+$$
+\forall x,\mathit{\epsilon}\in {\mathbb{R}}^{++},\exists M\in {\mathbb{Z}}^{++}\Rightarrow M\mathit{\epsilon}>x
+$$
 
-![image198](resources/b43f9d6a01a342e398321a0208f7d813.png)
+  For now, we can confidently say that any type of number in axis can be bounded with arbitrary types of number.
+  i.e. any number in the axis can be bounded by any type of number in axis, so they all can be ordered.
+(10) supremum&infmum
 
-![image199](resources/094b4a000cdc4ec18bf4f731486c106d.png)
+$$
+uniquely\ \exists M\in \mathbb{R},M=\mathrm{sup}\left(E\right),E\subseteq \mathbb{R},if
+$$
 
-![image200](resources/7adf3736b39a45768b42246f7d951909.png)
+  (1) $\forall x\in E,x\le M$
+  (2) $\forall {M}^{\prime}:x\le {M}^{\prime},\ M\le {M}^{\prime}$
+  For proof please refer to **"Tao. Real Analysis 5.5.9" **base on archimedean property
+  Now we can prove that only real number than proportional number can be solution of
 
-Generalization
+$$
+{x}^{2}=2\Rightarrow x\in \mathbb{R}
+$$
 
-![image201](resources/4a4b1d80476e4044a1ea8e0fb5cd050f.png)
+$$
+E=\left\{y\in R:y\ge 0\ and\ {y}^{2}<2\right\}\ne \varnothing 
+$$
 
-![image202](resources/08988ecf724043e99939e4a0f501a496.png)
+$$
+\forall y\in E,y<2\Rightarrow \exists x=\mathrm{sup}\left(E\right),x\le 2
+$$
 
-Further
+  Assume ${x}^{2}<2$*, *$0<\epsilon <1$
 
-![image203](resources/52c82cd0181d48f5b3ff3a2e628f7c6e.png)
+$$
+{\left(x+\epsilon \right)}^{2}={x}^{2}+2\epsilon x+{\epsilon}^{2}\le {x}^{2}+5\epsilon <2,for\ some\ \epsilon 
+$$
 
-![image204](resources/9046e619cea441cf9adf69a4be041fcd.png)  
-\(11\) base on definition of **supremum&infmum**, now we can define **limit** of real number sequence
-Cauchy Sequence on real number
+$$
+\Rightarrow {\left(x+\epsilon \right)}^{2}<2\Rightarrow x+\mathit{\epsilon}\in E,\ while\ x+\mathit{\epsilon}>x=\mathrm{sup}\left(E\right),\ contradict
+$$
 
-![image205](resources/a7085aa72f874af1a87b2458a8e5443d.png)
+  Assume ${x}^{2}>2$*, *$0<\epsilon <1$
 
-![image206](resources/fbe15e34e57548a9aadacc193c803e02.png)
+$$
+{\left(x-\epsilon \right)}^{2}={x}^{2}-2\epsilon x+{\epsilon}^{2}\ge {x}^{2}-4\epsilon >2,for\ some\ \epsilon 
+$$
 
-Since any real number is bounded by proportional numbers, so it is compatible with Cauchy Sequence on proportional number
+$$
+\Rightarrow {\left(x-\epsilon \right)}^{2}>2\Rightarrow x-\mathit{\epsilon}\notin E\Rightarrow x-\mathit{\epsilon}>x,\ contradict
+$$
 
-![image207](resources/7a53de80d6004955915e6b5b0b00e0db.png)
+  Finally, according to the trichofomy, ${x}^{2}=2,x\in \mathbb{R}$
+  Generalization
 
-![image208](resources/cab5b5181c3f4b65bea4633df0fdbc0a.png)
+$$
+n\in {\mathbb{Z}}^{++}
+$$
 
-![image209](resources/c33dcfd500c840cba036d9c4a85c98e1.png)
+$$
+{y}^{n}=x\Rightarrow {x}^{\frac{1}{n}}=\mathrm{sup}\left(E\right),E=\left\{y\in R:y\ge 0\ and\ {y}^{n}<x\right\}
+$$
 
-Proof: assume that
+  Further
 
-![image210](resources/d4fb9c37e6b54501801eca35e4d6c5dd.png)
+$$
+q\in \mathbb{Q},m\in \mathbb{Z}
+$$
 
-![image211](resources/812951983f8146c39dc13233b9558cb0.png)
+$$
+{y}^{n}={x}^{m}\Rightarrow {x}^{q}={x}^{\frac{m}{n}}=\mathrm{sup}\left(E\right),E=\left\{y\in R:y\ge 0\ and\ {y}^{n}<{x}^{m}\right\}
+$$
 
-![image212](resources/844608da39e94f869189cdd671b8bb16.png)
+(11) base on definition of **supremum&infmum**, now we can define **limit **of real number sequence
+  Cauchy Sequence on real number
 
-![image213](resources/84f09c7334b14668b3a117c91c6be5db.png)
+$$
+{a}_{n},\mathit{\epsilon}\in \mathbb{R}
+$$
 
-![image214](resources/158fc6760bba44dd81911caa7ee570a0.png)
+$$
+for\ {\left({a}_{n}\right)}_{n=m}^{\infty},\forall \mathit{\epsilon}>0,\exists N\ge m,\forall j,k\ge N,d\left({a}_{j},{a}_{k}\right)\le \mathit{\epsilon}
+$$
 
-![image215](resources/53072d875e75418a8aecfa6e05646fb9.png)
+  Since any real number is bounded by proportional numbers, so it is compatible with Cauchy Sequence on proportional number
+  The equality between real limit and symbolic limit, if ${a}_{n=m}^{\infty}$ is a Cauchy Sequence
 
-![image216](resources/9812491756514d488deadd924c73afe3.png)
+$$
+\exists L\in \mathbb{R},L=\underset{n\to \infty}{\mathrm{lim}}{a}_{n}=\underset{n\to \infty}{\mathrm{LIM}}{a}_{n}
+$$
 
-![image217](resources/fee9925fbe1b418592ddeefbe1c1a2b3.png)
+$$
+L=\underset{n\to \infty}{\mathrm{lim}}{a}_{n}:\forall \mathit{\epsilon}>0,\exists N\in \mathbb{N},\forall n>N,\left|{a}_{n}-L\right|<\mathit{\epsilon}
+$$
+
+  Proof: assume that
+
+$$
+\underset{n\to \infty}{\mathrm{lim}}{a}_{n}\ne L\ when\ \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}=L
+$$
+
+$$
+{a}_{n=m}^{\infty}\ \mathrm{is}\ \mathrm{a}\ \mathrm{Cauchy}\ \mathrm{Sequence}:\ \exists {N}^{\prime}\in \mathbb{N},\forall n,m>{N}^{\prime}\Rightarrow \left|{a}_{n}-{a}_{m}\right|<\frac{\mathit{\epsilon}}{2}
+$$
+
+$$
+\underset{n\to \infty}{\mathrm{lim}}{a}_{n}\ne L:\ \exists {N}^{\prime}\in \mathbb{N},\exists N>{N}^{\prime}\Rightarrow \left|{a}_{N}-L\right|\ge \mathit{\epsilon}
+$$
+
+  Use both inequalities, we can induce relationship between ${a}_{n}$ and $L$
+
+$$
+\left|{a}_{N}-L\right|=\left|{a}_{N}-{a}_{n}+{a}_{n}-L\right|\le \left|{a}_{N}-{a}_{n}\right|+\left|{a}_{n}-L\right|,n\ge N
+$$
+
+$$
+\Rightarrow \left|{a}_{n}-L\right|\ge \left|{a}_{N}-L\right|-\left|{a}_{N}-{a}_{n}\right|\ge \frac{\mathit{\epsilon}}{2}
+$$
+
+According to
+
+$$
+x\in \mathbb{R},{a}_{n}\ge x\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}\ge x
+$$
+
+$$
+\Rightarrow {a}_{n}\ge L+\frac{\mathit{\epsilon}}{2}\Rightarrow \underset{n\to \infty}{\mathrm{LIM}}{a}_{n}\ge L+\frac{\mathit{\epsilon}}{2}\Rightarrow L\ge L+\frac{\mathit{\epsilon}}{2},\ contradict
+$$
+
+$$
+\Rightarrow \underset{n\to \infty}{\mathrm{lim}}{a}_{n}=\underset{n\to \infty}{\mathrm{LIM}}{a}_{n}=L
+$$
 
 Now any property of proportional number is compatible with real number, so any proportional number is a real number, we complete the construction of real number(added with limit operation)

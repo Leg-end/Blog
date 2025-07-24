@@ -8,105 +8,154 @@ draft: false
 ---
 
 **Fundamental question to texture**  
-*"What features and statistics are characteristic of a texture pattern, so that texture pairs that share the same features and statistics cannot be told apart by pre-attentive human visual perception" by Julesz*
+  *"What features and statistics are characteristic of a texture pattern, so that texture pairs that share the same features and statistics cannot be told apart by pre-attentive human visual perception" by Julesz*
 
 **Major challenges of texture modeling**  
-1.  Psychology and neurobiology
+1. Psychology and neurobiology
 What features and statistics are the basic elements in human texture perception?
-
-\(i\) the basic texture statistics
-2.  Mathematics and statistics
+(i) the basic texture statistics
+2. Mathematics and statistics
 Given a set of consistent statistics, how do we generate random texture images with the identical statistics?
-
-\(ii\) a method for mixing the exactly amount of statistics in a given recipe
+(ii) a method for mixing the exactly amount of statistics in a given recipe
 
 **Juesz ensemble**  
-*"The visual system discriminates between different textures based on the average responses of certain image filters" by Julesz*  
-Definition of texture  
-A family of visual pattern that share certain local statistical regularities.  
-![image1](resources/57ec24e9bb2547a49cf68b5b1e46925a.png)
-![image2](resources/eeb410a863d343b488fc64cfff84d969.png)
-![image3](resources/d17648e3614a4c5f9a1fb550de0c1dbf.png)
-![image4](resources/49a86498e02144db8e621b9b61786d73.png)
-![image5](resources/e8e4eb617b924b68ae483715b4ef0eff.png)
-![image6](resources/fd3d34334cdc44caadce9adb4c81c7f1.png)
-![image7](resources/bb0a740ef1f74178810f5ab662cf4ddb.png)
-![image8](resources/a47520fcb97a4a42a12313b04d2ba332.png)
-![image9](resources/6ef6ab4fd42b419b9bb9b6ac78fc3569.png)
+  *"The visual system discriminates between different textures based on the average responses of certain image filters" by Julesz*
+Definition of texture
+  A family of visual pattern that share certain local statistical regularities.
 
-![image10](resources/05b9655b1142488ab765c1ec788134e8.png)
+$$
+\mathrm{image}\ x:\mathrm{\Omega}\to {R}^{3},\ \ \mathrm{\Omega}=\left\{1,\dots ,H\right\}\times \left\{1,\dots ,W\right\},x\in X
+$$
 
-![image11](resources/4ea1cf393fcf4e90bb56e9a4e9fffef0.png)
+local statistical , response of filter ${F}_{l}:\mathcal{X}\times \mathrm{\Omega}\to R,\ \ l=1,\dots ,L$
+  $\mathrm{e}.\mathrm{g}.\ {F}_{l}\left(x,u\right)$, response at location u on image x
 
-![image12](resources/e6df344c816b4962beafc42a2625b4e2.png)
+$$
+\mathrm{characteristic}\ {\mathit{\mu}}_{l}\left(x\right)=\frac{1}{\left|\mathrm{\Omega}\right|}{\sum}_{u\in \mathrm{\Omega}}{F}_{l}\left(x,u\right)
+$$
 
-![image13](resources/b1ac6ac044e649089e06614e19364c2c.png)
+$$
+\mathrm{Julesz}\ \mathrm{ensemble}\ {\mathcal{T}}_{\mathit{\epsilon}}=\left\{x\in \mathcal{X}:\mathcal{L}\left(x\right)\le \mathit{\epsilon}\right\},\ \ \mathcal{L}\left(x\right)={\sum}_{l=1}^{L}{\left({\mathit{\mu}}_{l}\left(x\right)-{\stackrel{-}{\mathit{\mu}}}_{l}\right)}^{2}
+$$
 
-![image14](resources/4ae4f81212774975be8d8ec186e19e15.png)
+  i.e. texture images that share same statistics(characteristic) ${\stackrel{-}{\mathit{\mu}}}_{l}$
 
-![image15](resources/b994ff5650b1445a8be4f860d51976f2.png)
+$$
+\mathrm{texture}\ p\left(x\right)=\left\{\begin{array}{c}\frac{{e}^{-\frac{\mathcal{L}\left(x\right)}{T}}}{\underset{y\in {\mathcal{T}}_{\mathit{\epsilon}}}{\int}{e}^{-\frac{\mathcal{L}\left(y\right)}{T}}dy},\ \ x\in {\mathcal{T}}_{\mathit{\epsilon}}\\ 0,\ \ otherwise\end{array}\right.,\ \ T>0
+$$
 
-![image16](resources/275e1727c790497d9df5cb4533e91c32.png)
+Induction of matrix form of $\mathcal{L}\left(x\right)$  
+
+$$
+\bm{F}=\left({F}_{1},\dots ,{F}_{L}\right)
+$$
+
+$$
+\stackrel{-}{\bm{\mu}}=\left({\stackrel{-}{\mathit{\mu}}}_{1},\dots ,{\stackrel{-}{\mathit{\mu}}}_{L}\right)
+$$
+
+$$
+\bm{\mu}\left(x\right)=\left({\mathit{\mu}}_{1}\left(x\right),\dots ,{\mathit{\mu}}_{L}\left(x\right)\right)
+$$
+
+$$
+=\frac{1}{\left|\mathrm{\Omega}\right|}\left[1,\dots ,1\right]\left[\begin{array}{ccc}{F}_{1}\left(x,{u}_{1}\right)& \dots & {F}_{L}\left(x,{u}_{1}\right)\\ \vdots & \ddots & \vdots \\ {F}_{1}\left(x,{u}_{\left|\mathrm{\Omega}\right|}\right)& \dots & {F}_{L}\left(x,{u}_{\left|\mathrm{\Omega}\right|}\right)\end{array}\right]
+$$
+
+$$
+=\frac{1}{\left|\mathrm{\Omega}\right|}{\sum}_{u\in \mathrm{\Omega}}\bm{F}\left(u\right)
+$$
+
+$$
+\mathcal{L}\left(x\right)={\left(\bm{\mu}\left(x\right)-\stackrel{-}{\bm{\mu}}\right)\left(\bm{\mu}\left(x\right)-\stackrel{-}{\bm{\mu}}\right)}^{T}
+$$
+
+$$
+=\frac{1}{{\left|\mathrm{\Omega}\right|}^{2}}{\sum}_{u\in \mathrm{\Omega}}\left(\bm{F}\left(u\right)-\stackrel{-}{\bm{\mu}}\right){\sum}_{u\in \mathrm{\Omega}}{\left(\bm{F}\left(u\right)-\stackrel{-}{\bm{\mu}}\right)}^{T}
+$$
+
+$$
+=\frac{1}{{\left|\mathrm{\Omega}\right|}^{2}}{\sum}_{i,j=1}^{\left|\mathrm{\Omega}\right|}\left(\bm{F}\left({u}_{i}\right)-\stackrel{-}{\bm{\mu}}\right){\left(\bm{F}\left({u}_{j}\right)-\stackrel{-}{\bm{\mu}}\right)}^{T}
+$$
+
+$$
+=\frac{1}{{\left|\mathrm{\Omega}\right|}^{2}}{\sum}_{i,j=1}^{\left|\mathrm{\Omega}\right|}{\sum}_{l=1}^{L}\left({F}_{l}\left({u}_{i}\right)-{\stackrel{-}{\mathit{\mu}}}_{l}\right)\left({F}_{l}\left({u}_{j}\right)-{\stackrel{-}{\mathit{\mu}}}_{l}\right)
+$$
 
 **Texture Generation**  
 Learn network that draw samples from the Julesz ensemble modeling a texture
-1.  Generation-by-minimization  
-![image17](resources/8cd741d7d561495bb1247acea6696b1c.png)  
-2.  Generation-by-sampling  
-![image18](resources/90323ebce91444e5b66018c315dddc0f.png)  
-3.  Maximum Mean Discrepancy  
-![image19](resources/0db34546eedc4627b5dfb40cfae64c20.png)
+1. Generation-by-minimization
 
-![image20](resources/362432dc55a34d169cd081a8e6eb90b4.png)  
-4.  GAN
+$$
+{x}^{\ast}=\underset{x\in \mathcal{X}}{\mathrm{argmin}}\mathcal{L}\left(x\right)
+$$
+
+2. Generation-by-sampling
+
+$$
+{g}^{\ast}=\underset{g}{\mathrm{argmin}}{E}_{z~p\left(z\right)}\left[\mathcal{L}\left(g\left(z\right)\right)\right]
+$$
+
+3. Maximum Mean Discrepancy
+
+$$
+{g}^{\ast}=\underset{g}{\mathrm{argmin}}\left|{E}_{z~p\left(z\right)}\left[{\mathit{\phi}}_{\mathit{\alpha}}\left(g\left(z\right)\right)\right]-{E}_{x~p\left(x\right)}\left[{\mathit{\phi}}_{\mathit{\alpha}}\left(x\right)\right]\right|
+$$
+
+ ${\mathit{\phi}}_{\mathit{\alpha}}\left(x\right)$ is statistic, $p\left(x\right)$ can be described by ${E}_{x~p\left(x\right)}\left[{\mathit{\phi}}_{\mathit{\alpha}}\left(x\right)\right]$
+4. GAN  
 
 **Style Transfer**  
 Indicators: visual fidelity and diversity
 Generate image has style close to style image and content close to content image
-1.  Stylization-by-optimization  
-![image21](resources/36063e875c1743ecb8198d1e2add1a7e.png)
+1. Stylization-by-optimization
 
-![image22](resources/5157c333af974ba38497e0156e31794e.png)
+$$
+x\u2254x-\mathit{\lambda}\left(\frac{\mathit{\partial}\left(\mathit{\alpha}{\mathcal{L}}_{content}\left(x,{x}_{c}\right)+\mathit{\beta}{\mathcal{L}}_{style}\left(x,{x}_{s}\right)\right)}{\mathit{\partial}x}\right)
+$$
 
+ $x$ can be random noise or copy of content image
 e.g. paper "Image Style Transfer Using Convolution Neural Networks"
-2.  Stylization by feed-forward generator network  
+2. Stylization by feed-forward generator network
 For specific style
 
-![image23](resources/99702a8e0b27438a9641acc927300a5d.png)  
-3.  Stylization by sampling
+$$
+{g}^{\ast}=\underset{g}{\mathrm{argmin}}{E}_{{x}_{c}~p\left({x}_{c}\right),z~p\left(z\right)}\left[{\mathcal{L}}_{style}\left(g\left({x}_{c},z\right)\right)+\mathit{\alpha}{\mathcal{L}}_{content}\left(g\left({x}_{c},z\right),{x}_{c}\right)\right]
+$$
+
+3. Stylization by sampling
 Paper "Improved Texture Networks: Maximizing Quality and Diversity in feed-forward Stylization and Texture Synthesis"
 
-![image24](resources/e3934a7d65cf40cf890f05c43e9c9d09.png)
+$$
+\underset{q}{\mathrm{argmin}}KL\left(q\left|\right|p\right)
+$$
 
-![image25](resources/fb312f46272c4392b2ab5c5ed11da90a.png)
+$$
+KL\left(q\left|\right|p\right)\propto \frac{1}{T}{E}_{{x}_{c}~p\left({x}_{c}\right),x~q\left(x\right)}\left[\mathcal{L}\left(x\right)+\mathit{\alpha}{\mathcal{L}}_{content}\left(x,{x}_{c}\right)\right]-H\left(q\right)
+$$
 
-![image26](resources/77f4f8fcae974706820e276b1a3709e6.png)
+$$
+{E}_{{x}_{c}~p\left({x}_{c}\right),x~q\left(x\right)}\left[\mathcal{L}\left(x\right)+\mathit{\alpha}{\mathcal{L}}_{content}\left(x,{x}_{c}\right)\right]
+$$
+
+$$
+={E}_{{x}_{c}~p\left({x}_{c}\right),z~\mathcal{N}\left(0,I\right)}\left[\mathcal{L}\left(g\left({x}_{c},z\right)\right)+\mathit{\alpha}{\mathcal{L}}_{content}\left(g\left({x}_{c},z\right),{x}_{c}\right)\right]
+$$
 
 The first term measures visual fidelity, the second term measures diversity(large T)
 
 From TetureNetV1 "*In fact, our qualitative results degraded using too many example images.*"
-
-![image27](resources/41763e9dcf02414995d3458fb332ff94.png)
-
+Author speculate that "*stylization by a convolutional architecture uses local operations; since the same local structures exist in different combinations and proportions in different natural images y, it is difficult for local operators to match in all cases the overall statistics of the reference texture *${x}_{0}$*, where structures exist in a fixed arbitrary proportion*"  
 The explain is quite obscure, but we can focus on filter applied in convolution and batch normalization following.
-
-Since only these operations are applied on multiple example images.
-
-\(1\) Filters: Note that a specific filter only active to a specific pattern, or local structure,
-
-With larger batch size, the more variate proportion of same local structure in a content image will be, but such variation is randomness, since our batch samples are randomly chosen, and style objective is measured by filter responses from multiple image examples and one style image, it would be so hard for filter to match all response from different content images with variate proportions of same local structure to a response from style image "where structures exist in a fixed arbitrary proportion"
-
-\(2\) Batch Normalization: The key difference between batch normalization and
-
-Instance(contrast) normalization is the average along batch dimension.
-
-As discussed in TextureV2
-
-![image28](resources/d8800b7b67584307b3f39bc556cd707c.png)
-
-The variate proportions of same local structure in different content images may result from different contrast in different images, since contrast is the difference in luminance or color that makes an object distinguishable from other objects within the same field of view, resulting the diversity of content images.
-
-Since images in a batch have their content quite far away from each other, the BN may only discard contrast information they share, which maybe variate from batch to batch, the remain diversity part still affect the process of stylization, i.e. the filter is struggling in between contrast of content images and style image.
+Since only these operations are applied on multiple example images.  
+(1) Filters: Note that a specific filter only active to a specific pattern, or local structure,  
+  With larger batch size, the more variate proportion of same local structure in a content image will be, but such variation is randomness, since our batch samples are randomly chosen, and style objective is measured by filter responses from multiple image examples and one style image, it would be so hard for filter to match all response from different content images with variate proportions of same local structure to a response from style image "where structures exist in a fixed arbitrary proportion"  
+(2) Batch Normalization: The key difference between batch normalization and  
+  Instance(contrast) normalization is the average along batch dimension.
+  As discussed in TextureV2
+  "*A simple observation that may make learning simpler is that the result of stylization should not, in general, depend on the contrast of the content image but rather should match the contrast of the texture that is being applied to it. Thus, the generator network should discard contrast information in the content image *${x}_{0}$"  
+  The variate proportions of same local structure in different content images may result from different contrast in different images, since contrast is the difference in luminance or color that makes an object distinguishable from other objects within the same field of view, resulting the diversity of content images.
+  Since images in a batch have their content quite far away from each other, the BN may only discard contrast information they share, which maybe variate from batch to batch, the remain diversity part still affect the process of stylization, i.e. the filter is struggling in between contrast of content images and style image.
 
 Extra gain from Instance normalization (by discarding contrast information of content image)  
-4.  GAN
+4. GAN
