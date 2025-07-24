@@ -172,7 +172,7 @@ Issues:
     iii. Memory Fragmentation: too much small discrete memory fragmentation caused by deleting activations, which makes memory allocation failed even the rest is enough.
 2. Data Parallelisms will copy model to all devices, cause redundance memory consumption
 3. Model partition splits model over different devices, but cost lots of communication
-4. DP and MP stores all model state during the whole training process, but not any of them are required during the whole time.
+4. DP and MP stores all model state during the whole training process, but not any of them are required during the whole time.  
 That cause baseline Model States Memory(bytes) = $\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Adam:moments,\ backup\\ \stackrel{\text{has}}{3\times 4\times \mathrm{\Psi}}\end{array},$ $\mathrm{\Psi}$ is paramters storage
 Solutions of ZeRO: Partition + ReduceScatter&AllGather
 ![](image_7.c8f36a92.jpg)
@@ -180,7 +180,7 @@ Combine edges of DP and MP, while avoiding their disadvantages. For ${\mathrm{N}
 Optimizer State Partitioning, distribute optimizer state into different devices
 
 $$
-{P}_{os}=\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Adam:moments,\ backup\\ \stackrel{\text{has}}{\frac{12\times \mathrm{\Psi}}{{N}_{d}}}\end{array}\approx 4\mathrm{\Psi},\ \ {N}_{d}\to \infty 
+{P}_{os}=\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Adam:moments,\ backup\\ \stackrel{\text{has}}{\frac{12\times \mathrm{\Psi}}{N_d}}\end{array}\approx 4\mathrm{\Psi},\ \ N_d\to \infty 
 $$
 
 Communication process (After calculating gradient of each devices)
@@ -190,7 +190,7 @@ The total communication cost is $2\mathrm{\Psi}$, note that to update optimizer 
 +Gradient Partitioning, distribute gradient into different devices
 
 $$
-{P}_{os+g}=\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient+Optimizer\\ \stackrel{\text{has}}{\frac{14\times \mathrm{\Psi}}{{N}_{d}}}\end{array}\approx 2\mathrm{\Psi},\ \ {N}_{d}\to \infty 
+{P}_{os+g}=\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient+Optimizer\\ \stackrel{\text{has}}{\frac{14\times \mathrm{\Psi}}{N_d}}\end{array}\approx 2\mathrm{\Psi},\ \ {N}_{d}\to \infty 
 $$
 
 Communication process (After calculating gradient of each devices in a stream manner)
@@ -262,7 +262,7 @@ $$
 $$
 
   [In fact](https://kexue.fm/archives/9675#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81) ${\mathrm{PE}}_{\left(pos,\bullet \right)}$ encodes a base-${10000}^{2/d}$ code for pos, thus ${\mathrm{PE}}_{\left(pos,2i\right)}$ is ith base-${10000}^{2/d}$ number of pos
-  e.g. 17:${\left(10001\right)}_{2}$ 's 2nd binary number is $\lfloor 17/{2}^{1}\rfloor\ mod\ 2=0$
+  e.g. 17:${\left(10001\right)}_{2}$ 's 2nd binary number is $\lfloor 17/{2}^{1}\rfloor\ mod\ 2=0$  
    $\lfloor\frac{n}{{\mathit{\beta}}^{i}}\rfloor mod\ \mathit{\beta}\Rightarrow \mathrm{cos}\left(\frac{n}{{\mathit{\beta}}^{i}}\right)$ ,mod operation corresponding to periodic function  
 NTK-Aware RoPE: [High frequency interpolation, Low extrapolation](https://zhuanlan.zhihu.com/p/8306958113)  
   Imagine that each sinusoidal function represent a spinning circle with frequency ${10000}^{2i/d}$,
