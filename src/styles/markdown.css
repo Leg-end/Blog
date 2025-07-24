@@ -115,7 +115,7 @@
         max-width: 100%;
         overflow-x: auto;
         margin: 1em 0;
-        text-align: center;
+        text-align: center !important;
     }
     
 }
