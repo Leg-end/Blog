@@ -21,32 +21,54 @@ e.g. vector space is set of vectors with closed addition and multiplication. Mor
 What support us to measure an event, a group of samples, with a quantity is the main story of measure theoretic definition of probability which can be extent to infinite sample space.
 First, let's consider sample space $\mathrm{\Omega}$ with finite cardinality.
   So, all the possible events(event space) can be described as power set of sample space: ${2}^{\mathrm{\Omega}}$ which contains any possible trail that can be measured by frequency.
-  Specifically, probability of any event $A$ can be measured by the following way  
-    $$P\left(A\right)=\frac{\#\left(\mathrm{A}\right)}{\#\left(\mathit{\Omega}\right)},A\in {2}^{\mathrm{\Omega}},\ \ \#\left(\mathit{\Omega}\right)\ne +\infty ,P\left(\varnothing \right)=0$$  
-  And event space defines a closed set that:  
-    $$\varnothing \in {2}^{\mathit{\Omega}}$$  
-    $$A\in {2}^{\mathit{\Omega}},A^{C}\in {2}^{\mathit{\Omega}}$$  
-    $${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},same\ as\ intersection$$  
-But such measurement is undefined in sample space with infinite cardinality. For this, we need to define our own event space $\mathcal{F}\subseteq {2}^{\mathrm{\Omega}}$ more precisely while still follow the measurable rules by using a construction called $\sigma $\-algebra(still a closed set):  
-  $$\varnothing \in \mathcal{F}$$  
-  $$A\in \mathcal{F},A^{C}\in \mathcal{F}$$  
-  $${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},n\to +\infty ,same\ as\ intersection$$  
+  Specifically, probability of any event $A$ can be measured by the following way
+
+$$P\left(A\right)=\frac{\#\left(\mathrm{A}\right)}{\#\left(\mathit{\Omega}\right)},A\in {2}^{\mathrm{\Omega}},\ \ \#\left(\mathit{\Omega}\right)\ne +\infty ,P\left(\varnothing \right)=0$$
+
+  And event space defines a closed set that:
+ 
+$$\varnothing \in {2}^{\mathit{\Omega}}$$
+
+$$A\in {2}^{\mathit{\Omega}},A^{C}\in {2}^{\mathit{\Omega}}$$
+
+$${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},same\ as\ intersection$$
+
+But such measurement is undefined in sample space with infinite cardinality. For this, we need to define our own event space $\mathcal{F}\subseteq {2}^{\mathrm{\Omega}}$ more precisely while still follow the measurable rules by using a construction called $\sigma $\-algebra(still a closed set):
+
+$$\varnothing \in \mathcal{F}$$
+
+$$A\in \mathcal{F},A^{C}\in \mathcal{F}$$
+
+$${A}_{1},{A}_{2},\dots \in {2}^{\mathit{\Omega}},A_{1}\cup {A}_{2}\cup \dots \cup {A}_{n}\in {2}^{\mathit{\Omega}},n\to +\infty ,same\ as\ intersection$$
+
 Now all the measurable elements are confined in $\mathcal{F}$ and we can call them measurable sets, combined with sample space, a meaure space $\left(\mathit{\Omega},\mathcal{F}\right)$ can be defined.
 It lists out the measurable events we can take as we do in finite sample space where measurable events are implicitly the power set of sample space.
 Measurable space + measure rules
-Inside the specific measurable space, the probability **measure** rules(function) $P$ can work as usual:  
-  $$P:\mathcal{F}\to \left[0,1\right]$$  
-  $$P\left(\varnothing \right)=0,P\left(\mathit{\Omega}\right)=1$$  
-  $$\forall disjoint\ {A}_{1},\dots {A}_{n}\in \mathcal{F},P\left({U}_{i}{A}_{i}\right)={\sum}_{i}P\left({A}_{i}\right)$$  
-Combination of three yields probability space $\left(\mathit{\Omega},\mathcal{F},P\right)$ upon which a random variable(**measurable** function) can build  
-  $$X:\mathit{\Omega}\to E\subseteq \mathbb{R}$$  
+Inside the specific measurable space, the probability **measure** rules(function) $P$ can work as usual:
+
+$$P:\mathcal{F}\to \left[0,1\right]$$
+
+$$P\left(\varnothing \right)=0,P\left(\mathit{\Omega}\right)=1$$
+
+$$\forall disjoint\ {A}_{1},\dots {A}_{n}\in \mathcal{F},P\left({U}_{i}{A}_{i}\right)={\sum}_{i}P\left({A}_{i}\right)$$
+
+Combination of three yields probability space $\left(\mathit{\Omega},\mathcal{F},P\right)$ upon which a random variable(**measurable** function) can build
+
+$$X:\mathit{\Omega}\to E\subseteq \mathbb{R}$$
+
 1. It maps measurable space on sample space into that on real space  
-For finite sample space  
-  $$\left(\mathit{\Omega},{2}^{\mathrm{\Omega}}\right)\to \left(E,{2}^{E}\right)$$  
-For infinite sample space  
-  $$\left(\mathit{\Omega},\mathcal{F}\right)\to \left(E,S\right),S\ is\ Borel\ set$$  
-2. It's a bijective mapping on $\mathcal{F}$  
-$$\forall s\in S,\left\{X\in s\right\}\in \mathcal{F},\left\{\mathit{\omega}\in \mathit{\Omega}|X\left(\mathit{\omega}\right)\in s\right\}\in \mathcal{F}$$  
+For finite sample space
+
+$$\left(\mathit{\Omega},{2}^{\mathrm{\Omega}}\right)\to \left(E,{2}^{E}\right)$$
+
+For infinite sample space
+
+$$\left(\mathit{\Omega},\mathcal{F}\right)\to \left(E,S\right),S\ is\ Borel\ set$$
+
+2. It's a bijective mapping on $\mathcal{F}$
+
+$$\forall s\in S,\left\{X\in s\right\}\in \mathcal{F},\left\{\mathit{\omega}\in \mathit{\Omega}|X\left(\mathit{\omega}\right)\in s\right\}\in \mathcal{F}$$
+
 $$\sigma \left(X\right)=\left\{\left\{X\in s\right\}|s\in S\right\}$$
 
 **Gradient&Derivative on Specific Direction**  
