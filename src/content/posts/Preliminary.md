@@ -8,16 +8,20 @@ draft: false
 ---
 
 ## Reflection-Ask more, Simbolic description, be more patient, be more fun
+
 1. What is exactly we trying to solve and the ideal result ? or What is it look like, before solution and after solution ?
 2. How does the solution do to solve it ? (the general process, not the parsed detail)
 3. How does the solution come out ? (peel it out the simple core idea)
 4. How does the idea behind adapt on this problem ? Are there any generalized way ?
 It's indeed hard to remember all the complex detail of the solution, also it's boring to do so, so why not just to figure out the simple idea or theorim behind it and its adaption on real problem, and further, how to generalize it to more universal conditions.
 
-## [**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)  
+## [**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)
+
 In general, set is a concept with wider generalization than space, or we can say that space is equivalent to a set equipped with some operations.
-e.g. vector space is set of vectors with closed addition and multiplication. More specifically, ${R}^{n}$ is a vector space, also a set made of n-dimension vectors, but any randomly picked subset of it may not satisfy a vector space, for the required closed operations are not met.  
-## [**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)  
+e.g. vector space is set of vectors with closed addition and multiplication. More specifically, ${R}^{n}$ is a vector space, also a set made of n-dimension vectors, but any randomly picked subset of it may not satisfy a vector space, for the required closed operations are not met.
+
+## [**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)
+
 What support us to measure an event, a group of samples, with a quantity is the main story of measure theoretic definition of probability which can be extent to infinite sample space.
 First, let's consider sample space $\mathrm{\Omega}$ with finite cardinality.
   So, all the possible events(event space) can be described as power set of sample space: ${2}^{\mathrm{\Omega}}$ which contains any possible trail that can be measured by frequency.
@@ -102,6 +106,7 @@ $$
 $$
 
 ## Gradient&Derivative on Specific Direction
+
 ### Basic thoughts:
 Multivariant
 
@@ -124,6 +129,7 @@ $$
 
   
 ## Confusion between Gradient and Normal of plane  
+
 We can make an analogy from derivative along $\mathbf{u}$ to tangent line in univariant function,
 What's different is in multivariant case tangent line turns into tangent plane, and its normal is marked as
 
@@ -145,7 +151,8 @@ $$
 So the gradient has same dimensionality as its define field, it's the vector with components from partial derivative of each dimension at point ${x}_{0}$(each partial derivative indicates the changing rate along corresponding dimension, so gradient indicates the global steepest direction of changing)*, *and the directed derivative is exactly projection(inner product) on specific direction
 [Why gradient indicates the direction of increasing](https://math.stackexchange.com/questions/223252/why-is-gradient-the-direction-of-steepest-ascent) ?
 Similar to slope $\mathrm{k}={f}^{\prime}\left(x\right)$ in univariant case, when k > 0, we are heading the increase direction, vice versa. This is equivalent to make ${\mathrm{D}}_{\bm{u}}f>0$ where we increase function
-${\mathrm{D}}_{\bm{u}}f={\mathbf{\nabla}}_{\bm{x}}{\bm{f}}^{\bm{T}}\bm{u}>0$, so when our choosen direction close to gradient, we are increasing function, that indicates gradient as the direction of ascent  
+${\mathrm{D}}_{\bm{u}}f={\mathbf{\nabla}}_{\bm{x}}{\bm{f}}^{\bm{T}}\bm{u}>0$, so when our choosen direction close to gradient, we are increasing function, that indicates gradient as the direction of ascent
+
 ## [**Calculus of Variations**](https://bjlkeng.io/posts/the-calculus-of-variations/)  
 
 $$
@@ -225,6 +232,7 @@ $$
   *The posterior has same form as its conjugate prior*  
     
 ## Notes of Analysis [Tenrece Tao]
+
 Lemma 5.3.14
 Prove keypoint: for a non-zero real number, its corresponding Cauchy sequence must exists an element having arbitray distance away from 0
 Proposition 5.4.14
