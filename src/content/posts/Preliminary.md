@@ -15,12 +15,14 @@ draft: false
 4. How does the idea behind adapt on this problem ? Are there any generalized way ?
 It's indeed hard to remember all the complex detail of the solution, also it's boring to do so, so why not just to figure out the simple idea or theorim behind it and its adaption on real problem, and further, how to generalize it to more universal conditions.
 
-## [**Set VS Space**](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)
+## Set VS Space
+[Math Stack Exchange](https://math.stackexchange.com/questions/4362803/set-vs-space-in-definitions)
 
 In general, set is a concept with wider generalization than space, or we can say that space is equivalent to a set equipped with some operations.
 e.g. vector space is set of vectors with closed addition and multiplication. More specifically, ${R}^{n}$ is a vector space, also a set made of n-dimension vectors, but any randomly picked subset of it may not satisfy a vector space, for the required closed operations are not met.
 
-## [**Probability Space**](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)
+## Probability Space
+[An Introduction to Stochastic Calculus](https://bjlkeng.io/posts/an-introduction-to-stochastic-calculus/)
 
 What support us to measure an event, a group of samples, with a quantity is the main story of measure theoretic definition of probability which can be extent to infinite sample space.
 First, let's consider sample space $\mathrm{\Omega}$ with finite cardinality.
@@ -107,7 +109,7 @@ $$
 
 ## Gradient&Derivative on Specific Direction
 
-### Basic thoughts:
+### Basic thoughts
 Multivariant
 
 $$
@@ -153,7 +155,8 @@ So the gradient has same dimensionality as its define field, it's the vector wit
 Similar to slope $\mathrm{k}={f}^{\prime}\left(x\right)$ in univariant case, when k > 0, we are heading the increase direction, vice versa. This is equivalent to make ${\mathrm{D}}_{\bm{u}}f>0$ where we increase function
 ${\mathrm{D}}_{\bm{u}}f={\mathbf{\nabla}}_{\bm{x}}{\bm{f}}^{\bm{T}}\bm{u}>0$, so when our choosen direction close to gradient, we are increasing function, that indicates gradient as the direction of ascent
 
-## [**Calculus of Variations**](https://bjlkeng.io/posts/the-calculus-of-variations/)  
+## Calculus of Variations
+[Calculus of Variations](https://en.wikipedia.org/wiki/Calculus_of_variations)(https://bjlkeng.io/posts/the-calculus-of-variations/)  
 
 $$
 J\left[u\left(x\right)\right]=\underset{a}{\overset{b}{\int}}L\left(x,u\left(x\right),\ {u}^{\prime}\left(x\right)\right)dx:F\to R,\ u\left(a\right)=\mathit{\alpha},\ u\left(b\right)=\mathit{\beta}
@@ -231,7 +234,7 @@ $$
 
   *The posterior has same form as its conjugate prior*  
     
-## Notes of Analysis [Tenrece Tao]
+## Notes of Analysis - Tenrece Tao
 
 Lemma 5.3.14
 Prove keypoint: for a non-zero real number, its corresponding Cauchy sequence must exists an element having arbitray distance away from 0
