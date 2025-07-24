@@ -10,7 +10,7 @@ draft: false
 **Faster self-attention**  
 [Reformer](https://www.pragmatic.ml/reformer-deep-dive/)  
 1. Reduce computation cost from O(${\mathrm{L}}^{2}$) to O($\mathrm{L}\mathrm{log}L$)
-Block QQV self-attention using LSH(Locality Sensitivity Hashing) to distribute key into different blocks(buckets)
+Block QQV self-attention using LSH(Locality Sensitivity Hashing) to distribute key into different blocks(buckets)  
 ![](image_1.e3cb7eb4.png)
 ![](image_2.dbe38b44.png)
 2. Activation Checkpoints: Avoid storing key and values which cost quantity of memory consumption (when backpropagate)  
@@ -132,7 +132,7 @@ During each generation step, we maintain k best generation path with highest pro
     For Interpolation, expand original positional encoding with longer length (more dense)
   2) Relative Positional Encoding
   Using relative positional bias, with no constraint of max length
-  $\mathrm{P}\in {R}^{L\times L},P[i,j]$indicates token i 's relative postion after token j
+  $\mathrm{P} \in {R}^{L\times L},P[i,j]$ indicates token i 's relative postion after token j
   It was added directly to attention: ${\mathrm{QK}}^{\mathrm{T}}+\mathrm{P}$ (prior of nearby closer)
   3) RoPE (Rotary Positional Embedding)
   Encoding relative position as rotation
@@ -160,7 +160,7 @@ $$
 And get last output $o=q{K}^{T}V+q{k}^{T}v=q{K}_{new}^{T}{V}_{new}$ of First transformer block, follow the same way, take o as 'q' for next transformer block, we can get its last output … til the top of model, we get final last output to predict next token. Thus the computation complex is reduce to $\mathrm{O}\left(t\right)$ for each block.
 Also, the left-to-right connection (attention mask) makes output of t can only rely on that smaller or equal than t. Thus, there's no way O can have access to k and v, changing the decision already being made.
 
-[**Bottleneck: Memory and Communication**](https://zhuanlan.zhihu.com/p/663517415)** (ZeRO-DP&R)**
+[**Bottleneck: Memory and Communication**](https://zhuanlan.zhihu.com/p/663517415)(ZeRO-DP&R)  
 Issues:
 1. Huge memory consumption of LLM, including:
   1) Model States Memory
@@ -320,7 +320,7 @@ Most efficient transformer focus on reduction of FLOPS, while the bottleneck res
 ![](image_12.5da1ec60.jpg)
 
 IO of self-attention conduct in HBM, which has high IO delay than SRAM
-![](image_13.15da4b9d.jpg)
+![](image_13.15da4b9d.jpg)  
 Dynamic Incrementally Update Softmax
 Since the softmax operation involves summation of all elements, the main issue is to also chunking computation of softmax into blocks.
 The traditional way of softmax
@@ -350,11 +350,11 @@ $$
 For chunking version, considering chunk $x$ into 2 blocks $x=\left[{x}^{\left(1\right)},{x}^{\left(2\right)}\right]$, and apply softmax on block 1
 
 $$
-{\mathrm{m}}_{1}=\mathrm{max}\left\{{x}_{1}^{\left(1\right)},\dots ,{x}_{B}^{\left(1\right)}\right\}
+{\mathrm{m}}_{1}=\mathrm{max}\left\{x_{1}^{\left(1\right)},\dots ,{x}_{B}^{\left(1\right)}\right\}
 $$
 
 $$
-f\left({x}^{\left(1\right)}\right)=\left[{e}^{{x}_{i}^{\left(1\right)}-{m}_{1}},\dots ,{e}^{{x}_{B}^{\left(1\right)}-{m}_{1}}\right]=\left[{e}^{{x}_{i}^{\left(1\right)}},\dots ,{e}^{{x}_{B}^{\left(1\right)}}\right]\bullet {e}^{-{m}_{1}}
+f\left( x^{(1)} \right) = \left[ e^{x_i^{(1)} - m_1}, \dots, e^{x_B^{(1)} - m_1} \right] = \left[ e^{x_i^{(1)}}, \dots, e^{x_B^{(1)}} \right] \bullet e^{-m_1}
 $$
 
 $$
@@ -365,11 +365,11 @@ $$
 \mathrm{softmax}\left({x}^{\left(1\right)}\right)=\frac{f\left({x}^{\left(1\right)}\right)}{l\left({x}^{\left(1\right)}\right)}
 $$
 
-And mark global maximum and summation as ${{m}_{max}={m}_{1},\ \ \ l}_{all}=l\left({x}^{\left(1\right)}\right)$
+And mark global maximum and summation as ${m_{max}=m_{1},\ \ \ l}_{all}=l\left({x}^{\left(1\right)}\right)$
 Without knowing of full elements, the results may different from the real one. But we can use another block to update it. In the same way, we have ${\mathrm{m}}_{2},f\left({x}^{\left(2\right)}\right),l\left({x}^{\left(2\right)}\right),\mathrm{softmax}\left({x}^{\left(2\right)}\right)$
 
 $$
-{\mathrm{m}}_{max}^{new}=\mathrm{max}\left\{{m}_{max},{m}_{2}\right\}
+{\mathrm{m}}_{max}^{new}=\mathrm{max}\left\{m_{max},m_2\right\}
 $$
 
 $$
@@ -387,7 +387,7 @@ $$
 The same update rule for block 2
 
 $$
-{\mathrm{softmax}}^{\mathrm{new}}\left({x}^{\left(2\right)}\right)=\mathrm{softmax}\left({x}^{\left(1\right)}\right)\bullet {e}^{{m}_{2}-{m}_{max}^{new}}\bullet \frac{l\left({x}^{\left(1\right)}\right)}{{l}_{all}^{new}}
+{\mathrm{softmax}}^{\mathrm{new}}\left({x}^{\left(2\right)}\right)=\mathrm{softmax}\left({x}^{\left(1\right)}\right)\bullet {e}^{m_{2}-{m}_{max}^{new}}\bullet \frac{l\left({x}^{\left(1\right)}\right)}{{l}_{all}^{new}}
 $$
 
 And then update global maximum and summation, and store them into SRAM
@@ -457,16 +457,16 @@ $$
 {g}_{i,t}=\left\{\begin{array}{c}{s}_{i,t},\ \ {s}_{i,t}\in Topk\left(\left\{{s}_{j,t}|1\le j\le N\right\},K\right)\\ 0,\ \ otherwise\end{array}\right.,\ \ {s}_{i,t}=Softma{x}_{i}\left({{u}_{t}^{l}}^{T}{e}_{i}^{l}\right)
 $$
 
-  Note that the Topk operation makes the factor summation less than 1, which shrinks the input, but such scale variant will be scaled back in later layers (Layer Norm)
-  b. Hashing: map token to expert(FFN)
-  c. RL-guided gating polices learning
-  d. Solve a matching problem (Linear Assignment)
-b,c,d have too much computation cost
-2. Expert sizes
-Smaller( with smaller hidden dim), larger number of experts + a few shared experts(always activated), but too many fine-grained experts may cause more communication
-3. Training objectives: How to efficiently train a sparsity gating policy ? Considering that sparse decisions are not differentiable.
-  a. Reinforcement learning to optimize gating policies
-  b. Stochastic perturbations: competition mechanism
+  Note that the Topk operation makes the factor summation less than 1, which shrinks the input, but such scale variant will be scaled back in later layers (Layer Norm)  
+  b. Hashing: map token to expert(FFN)  
+  c. RL-guided gating polices learning  
+  d. Solve a matching problem (Linear Assignment)  
+b,c,d have too much computation cost  
+2. Expert sizes  
+Smaller( with smaller hidden dim), larger number of experts + a few shared experts(always activated), but too many fine-grained experts may cause more communication  
+3. Training objectives: How to efficiently train a sparsity gating policy ? Considering that sparse decisions are not differentiable.  
+  a. Reinforcement learning to optimize gating policies  
+  b. Stochastic perturbations: competition mechanism  
   Shazeer et al 2017 – routing decisions are stochastic with gaussian perturbations.
 
 $$
@@ -531,7 +531,10 @@ $$
   Using float32 for router and add aux z-loss (constraint denominator of softmax close to 1)
 
 $$
-{L}_{z}\left(x\right)=\frac{1}{B}{\sum}_{i=1}^{B}{\left(\mathrm{log}{\sum}_{j=1}^{N}{e}^{{x}_{j}^{\left(i\right)}}\right)}^{2}
+L_z(x) = \frac{1}{B} \sum_{i=1}^{B} 
+\left( 
+    \log \left( \sum_{j=1}^{N} \exp\left( x_j^{(i)} \right) \right) 
+\right)^2
 $$
 
   e. Communication cost loss (DeepSeek v2)
