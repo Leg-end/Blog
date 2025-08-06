@@ -7,6 +7,7 @@ category: Generative-Models
 draft: false
 ---
 
+## Preliminary
 PS: estimation of PDF is always the first problem before sampling from it.  
 The basic density estimation thoughts can date back to histogram, which has a logical and clear chain of thoughts in [here](https://milania.de/blog/Introduction_to_kernel_density_estimation_(Parzen_window_method)).
 
@@ -56,8 +57,10 @@ $$
 We can infer that kernel function can be function of exponential form, e.g. Gaussian kernel function, which equals to add Gaussian noise to sample points, so the overall pdf is the combination of Gaussian distributions centering at different data points. This also sounds bits of outter interpolation.
 As for $p\left(X\right)$, we can simply set it equal to 1
 -----
+
+
 This topic also has its connection to** Statistical Inference** in **Chapter 5.6**  
-**Problem & Analysis**  
+## Problem & Analysis  
 We are usually interested at how to use properties of PDF ${p}_{X}\left(x|\mathit{\theta}\right)$ to describe behavoir of random variables after observation from ${X}_{1},{X}_{2},\dots ,{X}_{n}$
 But in scenario of "Sampling Method", we focus on the reverse problem, that is how to generate random samples from given PDF ${p}_{X}\left(x|\mathit{\theta}\right)$
 In more specific case, we are doing a series of trial
@@ -97,7 +100,7 @@ $$
 Where ${T}_{\mathit{\theta}}\left(\bullet \right)$ can be a deterministic parameterized transformation like a neural net.
 e.g. generator in GAN
 Obviously, IPM doesn’t have a tractable likelihood function, so it can only learn in likelihood-free way, like adversarial or contrastive way of learning.  
-**Directly From uniform to arbitrary distribution**  
+## Directly From uniform to arbitrary distribution
 Target distribution of Y can be transformed uniform one by a specific function
 
 $$
@@ -190,7 +193,7 @@ k={\left[\underset{y}{\mathrm{sup}}\frac{{f}_{Y}\left(y\right)}{{f}_{V}\left(y\r
 $$
 
 Which will be an extreme large number even there is only tiny gap between ${f}_{Y}\left(y\right)$ and ${f}_{V}\left(v\right)$  
-**Importance Sampling**  
+## Importance Sampling  
 It focus on approximating moment estimation in (iii) of section Problem & Analysis but not itself provide a mechanism for drawing samples from target distribution
 It has its simple idea that sampling on proposal distribution where points are easily drew, comparing to its target counterpart which is hard to sample but evaluable.
 
@@ -198,7 +201,7 @@ $$
 E\left[f\left(x\right)\right]=\int f\left(x\right)p\left(x\right)dx=\int f\left(x\right)\frac{p\left(x\right)}{q\left(x\right)}q\left(x\right)\ dx
 $$
 
-By law of weak large number
+By law of weak large number $x_i \sim q(x)$
 
 $$
 =\frac{1}{N}{\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{p\left({x}_{i}\right)}{q\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right)\frac{\stackrel{\sim }{p}\left({x}_{i}\right)}{\stackrel{\sim }{q}\left({x}_{i}\right)}=\frac{1}{N}\frac{{Z}_{q}}{{Z}_{p}}\ {\sum}_{i=1}^{N}f\left({x}_{i}\right){r}_{i}
@@ -214,7 +217,7 @@ $$
 
 The major drawback is that it may produce results that are arbitrarily error and with no diagnostic indication.
 e.g. when $\mathrm{p}\left(x\right)$ has its mass concentrated over realtively small region, then most of ${r}_{i}$ will be 0, $\mathrm{Var}\left(r\right)$ and $\mathrm{Var}\left(rf\left(x\right)\right)$ may be small, but the estimation may severly wrong.  
-**Sampling-importance-resampling**  
+### Sampling-importance-resampling  
 Turning Importance Sampling method available for drawing samples
 (i) ${x}_{1},\dots ,{x}_{N}\sim q\left(x\right)$
 (ii) calculate ${w}_{1},\dots ,{w}_{N}$
@@ -230,8 +233,31 @@ $$
 \Rightarrow \frac{\underset{x\le a}{\int}\frac{\stackrel{\sim }{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}{\int \frac{\stackrel{\sim }{p}\left(x\right)}{q\left(x\right)}q\left(x\right)dx}=\underset{x\le a}{\int}p\left(x\right)dx
 $$
 
+```
+def importance_sampling():
+    Setup:
+    Target distribution p (want samples from here)
+    
+    Proposal distribution q (have samples from here)
+    vocabulary = [0, 1, 2, 3]
+    p = [0.1, 0.2, 0.3, 0.4]
+    q = [0.4, 0.3, 0.2, 0.1]
+    # 1. Sample from q
+    n = 100
+    samples = np.random.choice(vocabulary, p=q, size = n)  # @inspect samples
+    Samples (q): [0 2 0 2 1 1 0 1 0 1 0 0 0 0 1 1 0 3 1 1 1 1 1 1 3 1 0 2 0 1 3 0 2 1 1 2 0 0 0 3 2 1 1 0 1 1 0 3 2 0 2 0 1 0 1 2 2 2 0 0 0 0 2 1 0 2 0 1 3 0 0 0 0 0 0 0 1 1 2 2 2 1 0 1 1 0 1 0 1 0 1 1 3 3 0 1 0 0 2 0]
+    # 2. Compute weights over samples (w \propto p/q)
+    w = [p[x] / q[x] for x in samples]  # @inspect w
+    z = sum(w)  # @inspect z
+    w = [w_i / z for w_i in w]  # @inspect w
+    # 3. Resample
+    samples = np.random.choice(samples, p=w, size=n)  # @inspect samples
+    Resampled (p): [2 2 1 3 3 2 0 3 3 2 1 0 3 2 0 3 3 1 3 1 3 2 3 2 3 2 3 1 0 3 2 2 2 0 2 1 2 0 3 1 1 1 3 1 3 3 3 1 0 2 3 1 2 1 2 2 2 2 1 1 0 2 1 1 0 2 3 2 1 3 2 3 1 2 3 2 3 2 1 1 3 3 3 1 1 3 2 1 3 1 3 1 0 3 1 1 2 3 2 1]
+```
+
 Sampling Method + EM = IP, inspiration of Data Augmentation Algorithm (todo)  
-[**MCMC**](https://towardsdatascience.com/langevin-dynamics-29bbb9407b47)  
+Application: Data Selection for Language Models via Importance Resampling ([DSIR](https://arxiv.org/abs/2302.03169))
+## [**MCMC**](https://towardsdatascience.com/langevin-dynamics-29bbb9407b47)  
 Resource: [https://bjlkeng.io/posts/markov-chain-monte-carlo-mcmc-and-the-metropolis-hastings-algorithm/](https://bjlkeng.io/posts/markov-chain-monte-carlo-mcmc-and-the-metropolis-hastings-algorithm/)
 Base on the idea of accept/reject, we can simplify sampling method into two component,
 First we sample from a proposal distribution, Second we accept it or reject it according to same rule which will prefer sampling points staying in high density region of target distribution.
@@ -251,7 +277,7 @@ $$
 
 This is equivalent to **guided** walk in region of target distribution
 Allow sampling from large classes of distribution and scale well in high dimensionality  
-[**Metropolis-Hastings Algorithm**](https://natan-katz.medium.com/metropolis-hastings-review-2dfeb0c3d0eb)  
+### [**Metropolis-Hastings Algorithm**](https://natan-katz.medium.com/metropolis-hastings-review-2dfeb0c3d0eb)  
 (i) initialize
   Pick an initial state ${x}_{0}$ with t = 0
 (ii) Iterate
@@ -304,7 +330,7 @@ $$
 
   This is exactly detailed balance, so convergence is assured
 
-**Gibbs Sampling**  
+### Gibbs Sampling  
 Special case of Metropolis-Hastings with fold line trajectory sampling path for multivariate variable  
 (i) initialize  
   Pick an initial state ${\bm{x}}^{\left(0\right)}=\left({x}_{1}^{\left(0\right)},\dots ,{x}_{M}^{\left(0\right)}\right)$ with t = 0  
@@ -314,7 +340,7 @@ Special case of Metropolis-Hastings with fold line trajectory sampling path for 
   …
   Sample ${x}_{M}^{\left(t+1\right)}\sim p\left({x}_{M}|{x}_{1}^{\left(t+1\right)},{x}_{2}^{\left(t+1\right)},\dots ,{x}_{M-1}^{\left(t+1\right)}\right)$  
 
-[**Hamiltonian Monte Carlo**](https://bjlkeng.io/posts/hamiltonian-monte-carlo/)  
+### [**Hamiltonian Monte Carlo**](https://bjlkeng.io/posts/hamiltonian-monte-carlo/)  
 "The main idea behind HMC is that we're going to use Hamiltonian dynamics to simulate moving around our target distribution's density. The analogy used in \[1\] is imagine a puck moving along a frictionless 2D surface [^2^](https://bjlkeng.io/posts/hamiltonian-monte-carlo/#id4). It slides up and down hills, losing or gaining velocity (i.e. kinetic energy) based on the gradient of the hill (i.e. potential energy)"
 That is, we are simulating a trajectory of particle on surface vertically flipped from our target distribution where high density region correspond to the valley absorbing particle to stay in for most of the time.
 Note that the introduce of momentum is for randomness, which simulates interaction with heat bath, without it, any particle will only follow the only optimal trajectory leading to valley. This is as expected because the particle will get "pulled" into the dips while the momentum could vary by the interaction with the heat bath. So we may also get little chances of particle showing in low density region.
@@ -495,7 +521,7 @@ These can be tuned according to index of autocorrection between sampling points
 Too low momentum may ignore tails of target distribution
 Too high momentum may lead to low acceptance rates
 
-[**LMC**](https://bjlkeng.io/posts/bayesian-learning-via-stochastic-gradient-langevin-dynamics-and-bayes-by-backprop/)  
+### [**LMC**](https://bjlkeng.io/posts/bayesian-learning-via-stochastic-gradient-langevin-dynamics-and-bayes-by-backprop/)  
 Langevin Monte Carlo (LMC) [\[Radford2012\]](https://bjlkeng.io/posts/bayesian-learning-via-stochastic-gradient-langevin-dynamics-and-bayes-by-backprop/#radford2012) is a special case of HMC where we only take a single step in the simulation to propose a new state (versus multiple steps in a typical HMC algorithm)
 And in each new state, only position $\bm{q}$ was kept, since $\bm{p}$ will be resampled from a gaussian distribution in each step. So we only need to execute half of the leap method at the point new $\bm{q}$ was yielded
 

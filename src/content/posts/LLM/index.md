@@ -7,8 +7,34 @@ category: Generative-Models
 draft: false
 ---
 
-**Faster self-attention**  
-[Reformer](https://www.pragmatic.ml/reformer-deep-dive/)  
+## Data preprocess
+  1. Crawl raw data from web
+  2. Extract plain text
+  3. Language identification; Filter bad content; mask personal information (email, ip, phone number); deduplication
+  Fuzzy deduplication
+  ```
+  Step 1. normalize the text by lowercasing, removing punctuation, normalizing whitespaces, removing accents applying NFD unicode normalization
+  Step 2. compute minhash signatures for each document
+  Step 3. use LSH to identify candidate duplicates
+  Step 4. compute the true ngram Jaccard similarity between candidate duplicates
+  Step 5. remove those that exceed a given threshold
+  ```
+  4. Filter low quality content,  given target T and raw R, find subset of R similar to T  
+  (1) Estimate some model based on R and T and derive a scoring function  
+  (2) Keep examples in R based on their score
+  e.g. Fixed pattern rule filter (gopher quality filter)  
+  Generative model of T (KenLM):
+  score(x) = p_T(x)
+  Keep examples x with score(x) >= threshold (stochastically)  
+  Discriminative classifier (fastText):
+  score(x) = p(T | x)
+  Keep examples x with score(x) >= threshold (stochastically)  
+  Importance resampling (DSIR)[Xie+ 2023]:
+  score(x) = p_T(x) / p_R(x)
+  Resample examples x with probability proportional to score(x)
+
+## Faster self-attention
+### [Reformer](https://www.pragmatic.ml/reformer-deep-dive/)  
 1. Reduce computation cost from O(${\mathrm{L}}^{2}$) to O($\mathrm{L}\mathrm{log}L$)
 Block QQV self-attention using LSH(Locality Sensitivity Hashing) to distribute key into different blocks(buckets)  
 ![](image_1.e3cb7eb4.png)
@@ -43,7 +69,7 @@ Axial positional encoding: split L x D positional encoding matrix into ${\mathrm
   Where ${\mathrm{L}}_{1}\times {L}_{2}=L,{D}_{1}+{D}_{2}=D$
 Position encoding at time t = $\left[{\mathrm{E}}_{1}\left[t\%L1\right],{E}_{2}\left[\lfloor t/{L}_{2}\rfloor \right]\right]$
 
-Longformer  
+### Longformer  
 Reduce computation cost from O(${\mathrm{L}}^{2}$) to O(wL), w is window size
 1. Local attention (Dilated Conv-style attention)
 For each token in sequence, only compute attentions with tokens within fixed window center around it.
@@ -66,14 +92,14 @@ GQA(Group query attention)
 It can be seem as multi-group MQA, heads in same group share same Key/Value matrixes
 ![](image_5.6ca5eb73.png)
 
-Attention with prior structure to cut computation
+### Attention with prior structure to cut computation
 1. Sparse attention, sparse correlate relationship between Q and K
 2. Sliding window attention, fixed attention in small scope by defining sliding mask (note it is similar to convolutional network, the receptive field will be expanded as depth increasing)
 ![](image_6.603635ec.png)
 3. Interleave 'full' and 'LR' attention, e.g. every 4th layer is a full attention, others are sliding window attention  
 
-**Details when do LLM Inference**  
-1. [Tokenization](https://huggingface.co/docs/transformers/tokenizer_summary#wordpiece) (BPE, Byte-BPE, WordPiece)
+## Details when do LLM Inference
+### [Tokenization](https://huggingface.co/docs/transformers/tokenizer_summary#wordpiece) (BPE, Byte-BPE, WordPiece)
 Mostly used is subword tokenization which rely on the principle that frequently used words should not be split into smaller subwords, but rare words should be decomposed into meaningful subwords. In this way, a reasonable vocabulary won't cause huge token embedding and quantity computation of softmax.
 Thus in general, tokenization contains two phase
 1) First, train a vocabulary containing the smallest subwords, which are also most common one according to some statistical metrics  
@@ -93,7 +119,7 @@ Encode: Split sentence into subwords according vocabulary, and then convert them
   Note: for a long word splitting into couple subwords, there will be special token for their connection
   e.g. transformer -> trans form, er</w> which means er</w> should join its all predecessors to form a complete word. And then </w> will be replaced with space
 Decode: token ids were reversed to subwords, and them merge subwords should form a complete word.  
-2. Autoregressive Inference process(Ignore residual and FFN, LN)  
+### Autoregressive Inference process(Ignore residual and FFN, LN)  
 Given Input token Sequence $\mathrm{X}=\left[{x}_{1},\dots ,{x}_{t}\right]\in {R}^{t}$, we turn it into embedding and add positional encoding
 
 $$
@@ -123,7 +149,7 @@ To sample next token, we may apply a sampling pipeline including
 2) Top-p Sampling or Top-K Filtering (Only look most likely choice add up to certain probability threshold, e.g. 90%)
 3) Beam search, this is for full output sequence generation
 During each generation step, we maintain k best generation path with highest probability summation. And we choose the highest one when meet end.
-3. How to handle increased positional encoding for new generated token
+### How to handle increased positional encoding for new generated token
   1) Static Positional Encoding  
   Else
     For Sliding Window Attention, with window size w
@@ -136,7 +162,7 @@ During each generation step, we maintain k best generation path with highest pro
   It was added directly to attention: ${\mathrm{QK}}^{\mathrm{T}}+\mathrm{P}$ (prior of nearby closer)
   3) RoPE (Rotary Positional Embedding)
   Encoding relative position as rotation
-4. [K-V cache (Why not cache Q ?)](https://medium.com/@joaolages/kv-caching-explained-276520203249)
+### [K-V cache (Why not cache Q ?)](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 Follow the Autoregressive Inference process, we yield new token ${\mathrm{x}}_{t+1}$, which will append to $\mathrm{X}$
 The traditional way will recompute self-attention on new input with length t+1, which further require $\mathrm{O}\left({\left(\mathrm{t}+1\right)}^{2}\right)$, costing over redundance computation of K and V.
 
@@ -160,8 +186,8 @@ $$
 And get last output $o=q{K}^{T}V+q{k}^{T}v=q{K}_{new}^{T}{V}_{new}$ of First transformer block, follow the same way, take o as 'q' for next transformer block, we can get its last output … til the top of model, we get final last output to predict next token. Thus the computation complex is reduce to $\mathrm{O}\left(t\right)$ for each block.
 Also, the left-to-right connection (attention mask) makes output of t can only rely on that smaller or equal than t. Thus, there's no way O can have access to k and v, changing the decision already being made.
 
-[**Bottleneck: Memory and Communication**](https://zhuanlan.zhihu.com/p/663517415)(ZeRO-DP&R)  
-Issues:
+## [**Bottleneck: Memory and Communication**](https://zhuanlan.zhihu.com/p/663517415)(ZeRO-DP&R)  
+### Issues:
 1. Huge memory consumption of LLM, including:
   1) Model States Memory
     i. Optimizer States (e.g. first and second FP32 moments of Adam, takes most of memory ! FP32 parameter backup (avoid error accumulation of FP16))
@@ -174,7 +200,7 @@ Issues:
 3. Model partition splits model over different devices, but cost lots of communication
 4. DP and MP stores all model state during the whole training process, but not any of them are required during the whole time.  
 That cause baseline Model States Memory(bytes) = $\begin{array}{c}Param\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Gradient\\ \stackrel{\text{has}}{2\times \mathrm{\Psi}}\end{array}+\begin{array}{c}Adam:moments,\ backup\\ \stackrel{\text{has}}{3\times 4\times \mathrm{\Psi}}\end{array},$ $\mathrm{\Psi}$ is paramters storage
-Solutions of ZeRO: Partition + ReduceScatter&AllGather
+### Solutions of ZeRO: Partition + ReduceScatter&AllGather
 ![](image_7.c8f36a92.jpg)
 Combine edges of DP and MP, while avoiding their disadvantages. For ${\mathrm{N}}_{d}$ devices, follow DP training process, we input different data into different devices and gather their averaged gradient to update parameters. Since update for paramters only execute onces, we can slice and dispatch it into different devices in charge of update of different parameters slice. Also, we still need to compute gradient w.r.t all parameters in each device, but in a stream way we don't need to store all of them, instead only the slice need to update parameters slice.
 Optimizer State Partitioning, distribute optimizer state into different devices
@@ -208,7 +234,7 @@ Communication process
 2. AllGather process for backward, similar to step 1 (use activations from step 1).
 3. Use process of ReduceScatter to get averaged gradient slice $i$ for device $i$, then use it to update optimizer states slice $i$, and then use it to update corresponding paramter slice $i$
 The total communication cost is $3\mathrm{\Psi}$, note that since parameters were sliced into different devices, it won't need to broadcast updated parameters to other devices.  
-[ZeRO-R](https://medium.com/@e0928021388/%E5%84%AA%E5%8C%96%E4%BD%A0%E7%9A%84-training-deepspeed-a-deep-learning-optimization-library-%E4%BB%8B%E7%B4%B9-b409eb4c9436)  
+### [ZeRO-R](https://medium.com/@e0928021388/%E5%84%AA%E5%8C%96%E4%BD%A0%E7%9A%84-training-deepspeed-a-deep-learning-optimization-library-%E4%BB%8B%E7%B4%B9-b409eb4c9436)  
 ![](image_8.adb1d58b.jpg)
 Partitioned Activation Checkpointing, distributed activation checkpoints into different MP process(devices). For extreme large activation or limit device memory, they will be offload to CPU memory in trade of extra communication cost.
 
@@ -224,7 +250,7 @@ Note that in MP, model was split into different devices, thus we can dispatch an
 Constant Size Buffers, avoiding buffer size grow with model size.
 Memory Defragmentation, long life circle of activation and gradient interleaving with short one cause lots memory fragmentation. Thus it is necessary to pre-allocate them in continuous memory blocks and organize memory fragment in time (e.g. activation.continuous() or gradient.continuous() )
 -----  
-[**Why do we need positional encoding**](https://huggingface.co/blog/designing-positional-encoding)  
+## [**Why do we need positional encoding**](https://huggingface.co/blog/designing-positional-encoding)  
 Self-attention is a set operation, which means it is Permutation Equivariant
 It operate on a set and calculate their relationship without considering their presented order.
 i.e. $X=\left\{{x}_{1},\dots ,{x}_{n}\right\},f\left(\mathit{\pi}\left(X\right)\right)=\mathit{\pi}\left(f\left(X\right)\right),\ \mathit{\pi}\ is\ permutation\ operation$
@@ -315,7 +341,7 @@ $$
 For N-D inputs, RoPE can be applied to each dimension independently.
 As for the posterior attention pattern (e.g. high correlation between object and its distant pronoun) will learn through training.
 
-[**Flash Attention**](https://zhuanlan.zhihu.com/p/642962397)  
+## [**Flash Attention**](https://zhuanlan.zhihu.com/p/642962397)  
 Most efficient transformer focus on reduction of FLOPS, while the bottleneck rest in memory access cost. Flash attention aims at cutting MAC by **chunking huge matrix into small blocks** which can be accessed through SRAM (which has fastest IO speed).
 ![](image_12.5da1ec60.jpg)
 
@@ -412,7 +438,7 @@ $$
 During the updating, we only need to store 2 scalars in SRAM instead of a full vector.
 In conclusion, Flash Attention splits Q, K, V into small blocks ${\mathrm{Q}}_{b},{K}_{b},{V}_{b}$ and do self attention on them. And then using the incremental updating rule to get global softmax.
 Further, in Flash Attention V2, calculation of blocks of being masked will be skipped.  
-**Collective Operations**  
+## Collective Operations
 Distributed training of LLM can be abstract as collective operations. i.e. Split training computation into different GPUs, results of which will be gathered into a main site and reducing to final result, which in turn will be broadcasted to different GPUs to continue the collective circle. Thus the bottleneck rests in communication.
 Such process is called All Reduce.
 1. Reduce(N to 1): reduce(sum) multiple computation from different sites results into one main site
@@ -444,9 +470,9 @@ $$
 Duration of ring-based communication almost independent to number of devices, but its total communication correlates with number of devices.
 ![](image_14.b8f316af.jpg)
 
-**MoE (Mixture of Expert): Router + Multi-FFN**  
+## MoE (Mixture of Expert): Router + Multi-FFN
 ![](image_15.9d09fada.png)
-1. Routing function (choose top K and fusion) How to choose ? How to fusion ?
+### Routing function (choose top K and fusion) How to choose ? How to fusion ?
   a. Top-K according to logits: calculate correlation between expert and token
 
 $$
@@ -462,9 +488,9 @@ $$
   c. RL-guided gating polices learning  
   d. Solve a matching problem (Linear Assignment)  
 b,c,d have too much computation cost  
-2. Expert sizes  
+### Expert sizes  
 Smaller( with smaller hidden dim), larger number of experts + a few shared experts(always activated), but too many fine-grained experts may cause more communication  
-3. Training objectives: How to efficiently train a sparsity gating policy ? Considering that sparse decisions are not differentiable.  
+### Training objectives: How to efficiently train a sparsity gating policy ? Considering that sparse decisions are not differentiable.  
   a. Reinforcement learning to optimize gating policies  
   b. Stochastic perturbations: competition mechanism  
   Shazeer et al 2017 – routing decisions are stochastic with gaussian perturbations.
@@ -545,6 +571,6 @@ $$
 {f}_{i}=\frac{D}{MT}{\sum}_{t=1}^{T}1\left[Token\ t\ is\ sent\ to\ Device\ i\right]
 $$
 
-4. System side: parallel MoE on more devices
+### System side: parallel MoE on more devices
 Experts on different decices choose token: load balancing across devices
-5. Up-cycling: turn dense model (with one FFN) to sparse one (add MoE)
+### Up-cycling: turn dense model (with one FFN) to sparse one (add MoE)
