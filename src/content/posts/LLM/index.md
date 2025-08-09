@@ -2,7 +2,7 @@
 title: Large Language Models
 published: 2025-07-08
 description: All about LLM
-tags: ["RoPE", "KV Cache", "Flash Attention", "ZERO-DP and -R"]
+tags: ["RoPE", "KV Cache", "Flash Attention", "ZERO"]
 category: Generative-Models
 draft: false
 ---

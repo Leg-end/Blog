@@ -1,7 +1,7 @@
 ---
 title: Tensor Product
 published: 2025-03-01
-description: How to represent structured objects in connectionist models using tensor product
+description: "How to represent structured objects in connectionist models using tensor product"
 tags: ["Data encode", "Connectionist models", "Data decode"]
 category: Top-Design
 draft: false

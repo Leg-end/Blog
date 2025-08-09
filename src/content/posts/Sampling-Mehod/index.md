@@ -1,5 +1,5 @@
 ---
-title: "Sampling Method"
+title: Sampling Method
 published: 2023-10-05
 description: "How to simulate data generation process"
 tags: ["Statistic Inference", "Sampling"]

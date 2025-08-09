@@ -1,5 +1,5 @@
 ---
-title: "Statistical Inference"
+title: Statistical Inference
 published: 2023-09-10
 description: "Probality foundation of sampling method"
 tags: ["Statistic", "Estimation"]

@@ -2,7 +2,7 @@
 title: SVM
 published: 2023-03-13
 description: "Introduction to Support Vector Machine"
-tags: ["Sperable Hyperplane", "Slacking"]
+tags: ["Separable Hyperplane", "Slacking"]
 category: Classification
 draft: false
 ---

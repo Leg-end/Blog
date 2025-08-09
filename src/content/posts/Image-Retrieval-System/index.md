@@ -1,5 +1,5 @@
 ---
-title: "Image Retrieval System"
+title: Image Retrieval System
 published: 2023-07-06
 description: "Structurize and Retrieval"
 tags: ["Approximate KNN", "Google Landmark"]

@@ -1,8 +1,8 @@
 ---
-title: CUTLASS-GEMM
+title: CUTLASS GEMM
 published: 2023-06-21
 description: "Matrix Multiplication using CUDA"
-tags: ["CUDA", "Matrix Multiplication", "Parallel Programming"]
+tags: ["Matrix Multiplication", "Parallel Programming"]
 category: CUDA
 draft: false
 ---
