@@ -1,5 +1,5 @@
 ---
-title: Large Language Models
+title: LLM
 published: 2025-07-08
 description: All about LLM
 tags: ["RoPE", "KV Cache", "Flash Attention", "ZERO"]
