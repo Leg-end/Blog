@@ -1,5 +1,5 @@
 ---
-title: Tensor Product
+title: "Tensor Product"
 published: 2025-03-01
 description: "How to represent structured objects in connectionist models using tensor product"
 tags: ["Data encode", "Connectionist models", "Data decode"]
@@ -7,23 +7,22 @@ category: Top-Design
 draft: false
 ---
 
-Tensor Product (Generalization of outer product to higher order products)  
+## Tensor Product (Generalization of outer product to higher order products)  
 
 $$
 \bm{v}\in {R}^{n},\bm{w}\in {R}^{m},\bm{v}\otimes \bm{w}\in {R}^{nm}
 $$
-
 Connectionist representations are patterns of activity over connectionist networks
-Main topics
-1. Distributed representation of Symbolic Structures in Connectionist Systems
+### Main topics
+- Distributed representation of Symbolic Structures in Connectionist Systems
 ![](image_1.711041b5.png)
 Mapping structured objects to vector space
-2. Variable Binding
+- Variable Binding
 Binding a value(filler) to a variable(role, or placeholder, slot)
 
-Representing structured objects
-  Analysis of Structure
-  1. (Structure)Role Decomposition
+### Representing structured objects
+#### Analysis of Structure
+- (Structure)Role Decomposition
   activity states of a connectionist nework $\bm{V}=\bm{s}\bm{p}\bm{a}\bm{n}\left\{{\bm{v}}_{\bm{i}}\right\}$
   connectionist representation: $\mathit{\Psi}:S\to \bm{V},\ S$ is a set of symbolic structures
 
@@ -55,8 +54,8 @@ $$
   The mapping is a function on $s$ too, which indicates that all valid fill/role bindings in $s$ is exactly the result of roles decomposition
   Role decomposition is **recursive**: $F=S$
   Role decomposition is **faithful**: $\beta $ is 1-to-1 mapping
-  Role decomposition is *finite*: $\forall s\in S,\left|\beta \left(s\right)\right|\ne \infty $
-2. Representing conjunctions, predicate of role decomposition for structure
+  Role decomposition is *finite*: $\forall s\in S,\left|\beta \left(s\right)\right|\ne \infty $  
+- Representing conjunctions, predicate of role decomposition for structure
 
 $$
 \forall {s}_{0}\in S,{\mathit{\pi}}_{{s}_{0}}\left(s\right)={\bigwedge}_{\left(f,r\right)\in \mathit{\beta}\left({s}_{0}\right)}f/r\left(s\right)
@@ -70,7 +69,7 @@ $$
 \mathit{\Psi}\left({\bigwedge}_{i}{p}_{i}\right)={\sum}_{i}\mathit{\Psi}\left({p}_{i}\right)
 $$
 
-3. Representing variable/value bindings in Connectionist model
+- Representing variable/value bindings in Connectionist model
 
 $$
 {\mathit{\Psi}}_{b}:\left\{f/r|f\in F,r\in R\right\}\to \bm{V}
@@ -119,17 +118,17 @@ $$
 \mathit{\Psi}:S\to {\bm{V}}_{F}\otimes {\bm{V}}_{R};\ \ s\longmapsto{\sum}_{\left(f,r\right)\in \mathit{\beta}\left(s\right)}{\mathit{\Psi}}_{F}\left(f\right)\otimes {\mathit{\Psi}}_{R}\left(r\right)\Rightarrow \mathrm{\Psi}\left({\bigwedge}_{i}{f}_{i}/{r}_{i}\right)={\sum}_{i}{\bm{f}}_{\bm{i}}\otimes {\bm{r}}_{\bm{i}}
 $$
 
-  From local representation to distributed representation
-  1. Local representations
+#### From local representation to distributed representation
+- Local representations
 
 $$
 \mathit{\Psi}:S\stackrel{1-to-1}{\to}\left\{{\widehat{\bm{v}}}_{i}\right\},\ \ \bm{V}=\bm{s}\bm{p}\bm{a}\bm{n}\left\{{\widehat{\bm{v}}}_{i}\right\}
 $$
 
-  For both ${\mathit{\Psi}}_{F}$ and ${\mathit{\Psi}}_{R}$
-2. Semi-local (or role register) representations
- ${\mathit{\Psi}}_{F}$ is distributed and ${\mathit{\Psi}}_{R}$ is local
-3. Fully distributed representations
+  For both ${\mathit{\Psi}}_{F}$ and ${\mathit{\Psi}}_{R}$  
+- Semi-local (or role register) representations
+ ${\mathit{\Psi}}_{F}$ is distributed and ${\mathit{\Psi}}_{R}$ is local  
+- Fully distributed representations
 both ${\mathit{\Psi}}_{F}$ and ${\mathit{\Psi}}_{R}$ are distributed
 For composite role, which is also a symbolic object
 e.g. ${\mathrm{r}}_{a\_b}$, its pattern come from tensor product (binding) of sub roles and fillers
@@ -138,7 +137,7 @@ $$
 {\mathit{\Psi}}_{b}\left(a/{r}_{left\ neighbor}\right)+{\mathit{\Psi}}_{b}\left(b/{r}_{right\ neighbor}\right)
 $$
 
-4. Their relations  
+- Their relations  
 [Isomorphism under linearity](onenote:#PDP%20(Parallel%20distributed%20processing)&section-id={7C05A5A2-335F-4120-B309-F2C7D1ABD289}&page-id={1D6B13CF-A9E2-4773-A853-3E16E748BA28}&object-id={43DA6FD2-BC44-0926-369A-4EC96652250D}&E7&base-path=https://d.docs.live.net/276cf4f2e18c3166/文档/寿枫%20的笔记本/Blog.one) (PDP)  
 Properties of tensor product Representation
   Unbinding: extract filler for a particular role from tensor product representation  
@@ -198,7 +197,7 @@ Like collide case of hash map, when faithful was broken, $\mathrm{\Psi}$ saturat
     If $\mathrm{\Psi}$ has **unbounded sensitivity and saturates**, it possesses graceful saturation  
   Extension from continuous and infinite to discrete and finite cases  
 
-Properties of Variable Binding
+## Properties of Variable Binding
 
   Binding operation performed in a connectionist network  
 
