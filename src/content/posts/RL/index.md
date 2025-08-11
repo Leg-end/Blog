@@ -114,13 +114,13 @@ $$
 {A}_{\mathit{\pi}}\left({s}_{t},{\mathit{\alpha}}_{t}\right)={E}_{{s}_{t+1} \sim p\left(s|{s}_{t},{a}_{t}\right)}\left[{r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)\right]
 $$
 
-Here, ${r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)$ stands estimation of advantage, which is a random variable. ${r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)$ is effective return at time step t (immediate reward + discount future return, both current and future reward were considered), ${V}_{\mathit{\pi}}\left({s}_{t}\right)$ is estimated return at time step t
+Here, ${r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)$ stands estimation of advantage, which is a random variable. ${r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)$ is effective return at time step t (immediate reward + discount future return, both current and future reward were considered), ${V}_{\mathit{\pi}}\left({s}_{t}\right)$ is estimated return at time step t. [Advantage has smaller variance, good at stablizing training.](https://www.zhihu.com/question/344367451/answer/1891095552030115567)
 
 $$
 J\left({\mathit{\pi}}_{\mathit{\theta}}\right)=\underset{{\mathit{\pi}}_{\mathit{\theta}}}{argmax}{E}_{\mathit{\tau} \sim {\mathit{\pi}}_{\mathit{\theta}}}\left[\sum _{t=0}^{T}\left({r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)\right)log{\mathit{\pi}}_{\mathit{\theta}}\left({\mathit{\alpha}}_{t}|{s}_{t}\right)\right]
 $$
 
-Maximization over different time step can be simplified as maximization on each time step
+Maximization over different time step can be simplified as maximization on each time step (extra average over time, 1/T)
 
 $$
 \Rightarrow J\left({\mathit{\pi}}_{\mathit{\theta}}\right)=\underset{{\mathit{\pi}}_{\mathit{\theta}}}{argmax}{E}_{t}\left[\left({r}_{t}+\mathit{\gamma}{V}_{\mathit{\pi}}\left({s}_{t+1}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)\right)log{\mathit{\pi}}_{\mathit{\theta}}\left({\mathit{\alpha}}_{t}|{s}_{t}\right)\right]
@@ -250,7 +250,9 @@ $$
 $$
 
   Only reward at last time step was used, as it represent reward for complete conversation (prompt + response). While reward at other time step evaluated by reference constraint (deepseed-chat)
-  Note that reward at different time step can be customized
+  Note that reward at different time step can be customized  
+  BT(Bradley-Terry) model: for a given prompt, we generate 2 responses, which will be ranked manually, the reward model should have reward at rank 1 greater than rank 2  
+  PT(Plackett-Luce) model reward: the reward model should have greater reward at provided rank than any others    
 Reference model: (SFT) LLM constraint actor through KL divergent,
 Critic (Value) model: predict return of specific time step t
 ### Optimization objectives
@@ -267,3 +269,120 @@ $$
 L\left({V}_{\mathit{\phi}}\right)={E}_{t}\left[max\left[{\left({V}_{\mathit{\phi}}^{new}\left({s}_{t}\right)-{R}_{t}\right)}^{2},{\left({V}_{\mathit{\phi}}^{CLIP}\left({s}_{t}\right)-{R}_{t}\right)}^{2}\right]\right]
 $$
 
+### Issues of PPO  
+- Complicated implementation
+- Memory hungry, search of hyper-param, unstable training
+- Additional training of reward model, value model  
+## [Advance solution: DPO](https://zhuanlan.zhihu.com/p/721073733)  
+![](image_1.f3c85a2a.png)
+Get rid of reward model and on-policy stuff, directly align preferred data in SFT like way
+- Gradient ascend on good stuff
+- Gradient descend on bad stuff(appropriately weighted)
+Alignment goal (both PPO and DPO)
+
+$$
+\underset{{\mathit{\pi}}_{\mathit{\theta}}}{max}{E}_{x~D,y~{\mathit{\pi}}_{\mathit{\theta}}}\left[r\left(x,y\right)\right]-\mathit{\beta}{\mathbb{D}}_{KL}\left({\mathit{\pi}}_{\mathit{\theta}}\left(y|x\right)\left|\right|{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left(y|x\right)\right)
+$$
+
+x is prompt ${\mathrm{s}}_{0}$, y is generated response ${\mathit{\alpha}}_{0},{\mathit{\alpha}}_{1},\dots ;\ $ r(x, y) is trained reward model, which will be turned into a implied model in DPO by link ${\mathit{\pi}}_{\mathit{\theta}},{{\mathit{\pi}}_{\mathit{\theta}}}_{ref},r\left(x,y\right)$ in closed form. (By reorganize objective as a KL divergent between policy and ref policy with specific reward, since we will train policy to align preferred data of it)
+
+$$
+{\mathit{\pi}}_{\mathit{\theta}}\left(y|x\right)={\mathit{\pi}}_{\mathit{\theta}}^{\ast}\left(y|x\right)=\frac{1}{Z\left(x\right)}{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left(y|x\right)exp\left(\frac{1}{\mathit{\beta}}r\left(x,y\right)\right)
+$$
+
+Reward model become an implied model parameterized by policy
+
+$$
+r\left(x,y\right)=\mathit{\beta}log\frac{{\mathit{\pi}}_{\mathit{\theta}}\left(y|x\right)}{{\mathit{\pi}}_{{\mathit{\theta}}_{old}}\left(y|x\right)}+\mathit{\beta}logZ\left(x\right)
+$$
+
+Next, we replace it back into Alignment goal which later can directly train on preference-ranked data
+### Training on BT model
+
+$$
+D={\left\{{x}^{i},{y}_{w}^{i},{y}_{l}^{i}\right\}}_{i=1}^{N},w=chosen,\ l=reject
+$$
+
+We hope reward on chosen greater than that on reject
+
+$$
+loss\left({r}_{\mathit{\theta}}\right)=-{E}_{x,{y}_{w},{y}_{l}~D}\left[log\mathit{\sigma}\left(r\left(x,{y}_{w}\right)-r\left(x,{y}_{l}\right)\right)\right]
+$$
+
+Replace implied reward model back in
+
+$$
+loss\left({\mathit{\pi}}_{\mathit{\theta}};{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\right)=-{E}_{x,{y}_{w},{y}_{l}~D}\left[log\mathit{\sigma}\left(\mathit{\beta}log\frac{{\mathit{\pi}}_{\mathit{\theta}}\left({y}_{w}|x\right)}{{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left({y}_{w}|x\right)}-\mathit{\beta}log\frac{{\mathit{\pi}}_{\mathit{\theta}}\left({y}_{l}|x\right)}{{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left({y}_{l}|x\right)}\right)\right]
+$$
+
+### Training on PT model
+
+$$
+D={\left\{{x}^{i},{y}_{1}^{i},\dots ,{y}_{K}^{i}\right\}}_{i=1}^{N},\ rank\ combination=\mathit{\tau}
+$$
+
+We hope reward on rank combination greater than any others, $\mathit{\tau}\left(k\right)$ is greatest in $\mathit{\tau}\left(k\right)$ to $\mathit{\tau}\left(K\right)$
+
+$$
+p\left(\mathit{\tau}|{y}_{1},\dots ,{y}_{K},x\right)=\prod _{k=1}^{K}\frac{exp\left(r\left(x,{y}_{\mathit{\tau}\left(k\right)}\right)\right)}{\sum _{j=k}^{K}exp\left(r\left(x,{y}_{\mathit{\tau}\left(j\right)}\right)\right)}
+$$
+
+
+$$
+loss\left({r}_{\mathit{\theta}}\right)=-{E}_{x,{y}_{1},\dots ,{y}_{K}~D}\left[logp\left(\mathit{\tau}|{y}_{1},\dots ,{y}_{K},x\right)\right]
+$$
+
+Replace implied reward model back in
+
+$$
+loss\left({\mathit{\pi}}_{\mathit{\theta}};{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\right)=-{E}_{x,{y}_{1},\dots ,{y}_{K}~D}\left[log\prod _{k=1}^{K}\frac{exp\left(\mathit{\beta}log\frac{{\mathit{\pi}}_{\mathit{\theta}}\left({y}_{\mathit{\tau}\left(k\right)}|x\right)}{{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left({y}_{\mathit{\tau}\left(k\right)}|x\right)}\right)}{\sum _{j=k}^{K}exp\left(\mathit{\beta}log\frac{{\mathit{\pi}}_{\mathit{\theta}}\left({y}_{\mathit{\tau}\left(j\right)}|x\right)}{{\mathit{\pi}}_{{\mathit{\theta}}_{ref}}\left({y}_{\mathit{\tau}\left(j\right)}|x\right)}\right)}\right]
+$$
+
+### Issues of DPO
+- Data not inherently pairwise (has obvious partial order), ranking it cost a lot and at risk of overfitting
+- Offline
+New kid on the block: GRPO, [code](https://github.com/McGill-NLP/nano-aha-moment)
+- Start with PPO (many parts are similar)
+- Remove the value function / advantage computation
+- Calculate the advantage as “z-score within group” (normalized rewards across batch / group)
+
+$$
+{A}_{i}^{\left(t\right)}=\frac{{r}_{i}^{\left(t\right)}-mean\left(\left\{{r}_{1}^{\left(t\right)},\dots ,{r}_{G}^{\left(t\right)}\right\}\right)}{std\left(\left\{{r}_{1}^{\left(t\right)},\dots ,{r}_{G}^{\left(t\right)}\right\}\right)}
+$$
+
+Has smaller variance of advantage than PPO
+
+Recall that the PPO objective can be generalized to include a comparison of the action value to an arbitrary baseline $\mathrm{b}\left(s\right)$
+
+$$
+J\left({\mathit{\pi}}_{\mathit{\theta}}\right)={E}_{\mathit{\tau}~{\mathit{\pi}}_{\mathit{\theta}}}\left[R\left(\mathit{\tau}\right)\right]=\sum _{\mathit{\tau}}\left({Q}_{\mathit{\pi}}\left({s}_{t},{\mathit{\alpha}}_{t}\right)-{V}_{\mathit{\pi}}\left({s}_{t}\right)\right)p\left(\mathit{\tau}|{\mathit{\pi}}_{\mathit{\theta}}\right)
+$$
+
+
+$$
+\Rightarrow \sum _{\mathit{\tau}}\left({Q}_{\mathit{\pi}}\left({s}_{t},{\mathit{\alpha}}_{t}\right)-b\left(s\right)\right)p\left(\mathit{\tau}|{\mathit{\pi}}_{\mathit{\theta}}\right)
+$$
+
+As long as baseline does not vary with action, and only depend on state, while division by the stdev term in GRPO violating a unbiased baseline by
+- Upweights too easy or hard questions, as they both have rewards with small variance (either all high reward or all low)
+- Response-level length bias, note that the objective simplified as simple step version will average over length of response.
+For positive advantage, this bias results in shorter response, causing policy prefers shorter correct answer
+
+$$
+{A}_{i}^{\left(t\right)}>0,T\downarrow \to \frac{{A}_{i}^{\left(t\right)}}{T}\uparrow 
+$$
+
+For negative advantage, this bias results in longer response, causing policy chose longer response among incorrect ones
+
+$$
+{A}_{i}^{\left(t\right)}<0,T\uparrow \to \frac{{A}_{i}^{\left(t\right)}}{T}\uparrow 
+$$
+
+That leads to unbiased-gradient version of GRPO (without normalization along time steps)
+
+$$
+{A}_{i}^{\left(t\right)}={r}_{i}^{\left(t\right)}-mean\left(\left\{{r}_{1}^{\left(t\right)},\dots ,{r}_{G}^{\left(t\right)}\right\}\right)
+$$
+
+
+Verifiable reward (more interpretable, rule-based reward, less noise), e.g. math / code format reward, language consistent reward
