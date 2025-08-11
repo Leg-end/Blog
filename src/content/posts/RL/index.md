@@ -341,7 +341,7 @@ $$
 ### Issues of DPO
 - Data not inherently pairwise (has obvious partial order), ranking it cost a lot and at risk of overfitting
 - Offline
-New kid on the block: GRPO, [code](https://github.com/McGill-NLP/nano-aha-moment)
+## New kid on the block: GRPO, [code](https://github.com/McGill-NLP/nano-aha-moment)
 - Start with PPO (many parts are similar)
 - Remove the value function / advantage computation
 - Calculate the advantage as “z-score within group” (normalized rewards across batch / group)
